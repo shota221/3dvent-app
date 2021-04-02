@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navi_home"
+        android:icon="@drawable/ic_baseline_home_24_black"
+        android:title="home"/>
+    <item
+        android:id="@+id/navi_patients"
+        android:icon="@drawable/ic_baseline_airline_seat_individual_suite_24_black"
+        android:title="patients"/>
+    <item
+        android:id="@+id/navi_mode"
+        android:icon="@drawable/ic_baseline_account_tree_24_black"
+        android:title="mode"/>
+    <item
+        android:id="@+id/navi_support"
+        android:icon="@drawable/ic_baseline_support_agent_24_black"
+        android:title="support"/>
+    <item
+        android:id="@+id/navi_settings"
+        android:icon="@drawable/ic_baseline_settings_24_black"
+        android:title="settings"/>
+</menu>
