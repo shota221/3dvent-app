@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/authFragment">
+
+    <fragment
+        android:id="@+id/authFragment"
+        android:name="jp.microvent.microvent.view.ui.AuthFragment"
+        android:label="fragment_auth"
+        tools:layout="@layout/fragment_auth">
+        <action
+            android:id="@+id/action_auth_not_login_to_patient_setting"
+            app:destination="@id/patientSettingFragment" />
+        <action
+            android:id="@+id/action_auth_login_to_patient_setting"
+            app:destination="@id/patientSettingFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/patientSettingFragment"
+        android:name="jp.microvent.microvent.view.ui.PatientSettingFragment"
+        android:label="fragment_patient_setting"
+        tools:layout="@layout/fragment_patient_setting">
+        <action
+            android:id="@+id/action_patient_setting_to_ventilator_setting"
+            app:destination="@id/ventilatorSettingFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ventilatorSettingFragment"
+        android:name="jp.microvent.microvent.view.ui.VentilatorSettingFragment"
+        android:label="fragment_ventilator_setting"
+        tools:layout="@layout/fragment_ventilator_setting">
+        <action
+            android:id="@+id/action_ventilator_setting_to_manual_measurement"
+            app:destination="@id/manualMeasurementFragment"/>
+        <action
+            android:id="@+id/action_ventilator_setting_to_sound_measurement"
+            app:destination="@id/soundMeasurementFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/manualMeasurementFragment"
+        android:name="jp.microvent.microvent.view.ui.ManualMeasurementFragment"
+        android:label="fragment_manual_measurement"
+        tools:layout="@layout/fragment_manual_measurement">
+        <action
+            android:id="@+id/action_manual_measurement_to_ventilator_result"
+            app:destination="@id/ventilatorResultFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/soundMeasurementFragment"
+        android:name="jp.microvent.microvent.view.ui.SoundMeasurementFragment"
+        android:label="fragment_sound_measurement"
+        tools:layout="@layout/fragment_sound_sampling">
+        <action
+            android:id="@+id/action_sound_measurement_to_ventilator_result"
+            app:destination="@id/ventilatorResultFragment"/>
+        <action
+            android:id="@+id/action_sound_measurement_to_manual_measurement"
+            app:destination="@id/manualMeasurementFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/ventilatorResultFragment"
+        android:name="jp.microvent.microvent.view.ui.VentilatorResultFragment"
+        android:label="fragment_ventilator_result"
+        tools:layout="@layout/fragment_ventilator_result">
+        <action
+            android:id="@+id/action_ventilator_result_to_ventilator_setting"
+            app:destination="@id/ventilatorSettingFragment"/>
+    </fragment>
+</navigation>

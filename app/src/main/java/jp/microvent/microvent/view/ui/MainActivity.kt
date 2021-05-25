@@ -1,7 +1,7 @@
-package jp.microvent.microvent.activities
+package jp.microvent.microvent.view.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import jp.microvent.microvent.R
 
 class MainActivity : AppCompatActivity() {

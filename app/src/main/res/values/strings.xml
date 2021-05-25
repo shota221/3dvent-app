@@ -1,3 +1,99 @@
 <resources>
     <string name="app_name">MicroVent</string>
+
+    <!-- 全般 -->
+    <string name="prev">前へ</string>
+    <string name="next">次へ</string>
+    <string name="close">閉じる</string>
+    <string name="required">※必須</string>
+
+    <!-- 単位 -->
+    <string name="unit_of_length">cm</string>
+    <string name="unit_of_volume">ml</string>
+    <string name="unit_of_pressure">cmH<sub>2</sub>O</string>
+    <!--    <string name="unit_of_pressure">cmH&lt;sub>2&lt;/sub>O</string>-->
+    <string name="percent">%</string>
+    <string name="unit_of_flow">L/min</string>
+    <string name="unit_of_time">s</string>
+    <string name="unit_of_rr">times/min</string>
+
+    <!-- タブメニュー -->
+    <string name="home">ホーム</string>
+    <string name="patient_data">患者情報</string>
+    <string name="qr_reading">QR読込</string>
+    <string name="support">サポート</string>
+    <string name="setting">設定</string>
+
+    <!-- qr_reading -->
+    <string name="scan_waiting">人工呼吸器のQRコードをスキャンしてください。</string>
+
+    <!-- auth -->
+    <string name="registered_organization">登録組織</string>
+    <string name="unregistered">未登録</string>
+    <string name="terms_of_use">MicroVentの使用には、機器の推奨値設定のために、性別、身長、供給器量、動作音、設定圧のデータが必要になります。また、入力されたデータ、GPS情報は個別の機器の品質管理のために製造販売会社に送信されます。（GPS機能をONにして本アプリをご利用ください。）</string>
+    <string name="agree">利用規約に同意する</string>
+    <string name="not_login">ログインせずに利用する</string>
+    <string name="login">ログイン</string>
+    <string name="account_name">アカウント名</string>
+    <string name="password">パスワード</string>
+
+    <!-- patient_setting -->
+    <string name="height_key">身長：</string>
+    <string name="height_label">身長（cm）</string>
+    <string name="gender_key">性別：</string>
+    <string name="gender">性別</string>
+    <string-array name="gender_list">
+        <item>男</item>
+        <item>女</item>
+    </string-array>
+    <string name="patient_code">患者コード</string>
+
+    <!-- ventilator_setting -->
+    <string name="predicted_value">予測値</string>
+    <string name="predicted_vt_key">Predicted Vt：</string>
+    <string name="ventilator_setting">人工呼吸器設定</string>
+    <string name="airway_pressure_key">設定圧：</string>
+    <string name="airway_pressure_label">設定圧（cmH<sub>2</sub>O）</string>
+    <string name="air_flow_key">空気流量：</string>
+    <string name="air_flow_label">空気流量（L/min）</string>
+    <string name="o2_flow_key">酸素流量：</string>
+    <string name="o2_flow_label">酸素流量（L/min）</string>
+    <string name="calculated_value">計算値</string>
+    <string name="fio2_key">FiO<sub>2</sub>：</string>
+    <string name="rr_key">RR：</string>
+    <string name="estimated_value">推定値</string>
+    <string name="estimated_peep_key">Estimated Peep：</string>
+    <string name="estimated_mv_key">Estimated MV：</string>
+    <string name="estimated_vt_key">Estimated_Vt：</string>
+    <string name="condition_check">状態チェック</string>
+    <string name="valid_rr">呼吸数が正常である</string>
+    <string name="valid_spo2">SpO<sub>2</sub>が92％以上である</string>
+    <string name="sound_measurement">音声測定</string>
+    <string name="manual_measurement">手動測定</string>
+
+    <!-- manual_measurement -->
+    <string name="exhalation_first">呼気1回目（s）</string>
+    <string name="inhalation_first">吸気1回目（s）</string>
+    <string name="exhalation_second">呼気2回目（s）</string>
+    <string name="inhalation_second">吸気2回目（s）</string>
+    <string name="calculate_average">平均呼気吸気時間計算</string>
+    <string name="average_exhalation_time">平均呼気時間：</string>
+    <string name="average_inhalation_time">平均吸気時間：</string>
+    <string name="register_to_calculate">登録して計算する</string>
+
+    <!-- sound_measurement -->
+    <string name="waiting">待機中</string>
+    <string name="recording">録音中</string>
+    <string name="rec">録音</string>
+    <string name="stop">停止</string>
+    <string name="play">再生</string>
+    <string name="send">送信</string>
+    <string name="filename">ファイル名</string>
+    <string name="transmission_complete">送信成功</string>
+    <string name="change_to_manual_measurement">手動測定に切り替える</string>
+
+    <!--ventilator_result -->
+    <string name="back_to_ventilator_setting">機器の設定をやりなおす</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
