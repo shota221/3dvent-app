@@ -3,52 +3,52 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/authFragment">
+    app:startDestination="@id/auth_fragment">
 
     <fragment
-        android:id="@+id/authFragment"
+        android:id="@+id/auth_fragment"
         android:name="jp.microvent.microvent.view.ui.AuthFragment"
         android:label="fragment_auth"
         tools:layout="@layout/fragment_auth">
         <action
             android:id="@+id/action_auth_not_login_to_patient_setting"
-            app:destination="@id/patientSettingFragment" />
+            app:destination="@id/patient_setting_fragment" />
         <action
             android:id="@+id/action_auth_login_to_patient_setting"
-            app:destination="@id/patientSettingFragment" />
+            app:destination="@id/patient_setting_fragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/patientSettingFragment"
+        android:id="@+id/patient_setting_fragment"
         android:name="jp.microvent.microvent.view.ui.PatientSettingFragment"
         android:label="fragment_patient_setting"
         tools:layout="@layout/fragment_patient_setting">
         <action
             android:id="@+id/action_patient_setting_to_ventilator_setting"
-            app:destination="@id/ventilatorSettingFragment" />
+            app:destination="@id/ventilator_setting_fragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/ventilatorSettingFragment"
+        android:id="@+id/ventilator_setting_fragment"
         android:name="jp.microvent.microvent.view.ui.VentilatorSettingFragment"
         android:label="fragment_ventilator_setting"
         tools:layout="@layout/fragment_ventilator_setting">
         <action
             android:id="@+id/action_ventilator_setting_to_manual_measurement"
-            app:destination="@id/manualMeasurementFragment"/>
+            app:destination="@id/manual_measurement_fragment"/>
         <action
             android:id="@+id/action_ventilator_setting_to_sound_measurement"
             app:destination="@id/soundMeasurementFragment"/>
     </fragment>
 
     <fragment
-        android:id="@+id/manualMeasurementFragment"
+        android:id="@+id/manual_measurement_fragment"
         android:name="jp.microvent.microvent.view.ui.ManualMeasurementFragment"
         android:label="fragment_manual_measurement"
         tools:layout="@layout/fragment_manual_measurement">
         <action
             android:id="@+id/action_manual_measurement_to_ventilator_result"
-            app:destination="@id/ventilatorResultFragment"/>
+            app:destination="@id/ventilator_result_fragment"/>
     </fragment>
 
     <fragment
@@ -58,19 +58,29 @@
         tools:layout="@layout/fragment_sound_sampling">
         <action
             android:id="@+id/action_sound_measurement_to_ventilator_result"
-            app:destination="@id/ventilatorResultFragment"/>
+            app:destination="@id/ventilator_result_fragment"/>
         <action
             android:id="@+id/action_sound_measurement_to_manual_measurement"
-            app:destination="@id/manualMeasurementFragment"/>
+            app:destination="@id/manual_measurement_fragment"/>
     </fragment>
 
     <fragment
-        android:id="@+id/ventilatorResultFragment"
+        android:id="@+id/ventilator_result_fragment"
         android:name="jp.microvent.microvent.view.ui.VentilatorResultFragment"
         android:label="fragment_ventilator_result"
         tools:layout="@layout/fragment_ventilator_result">
         <action
             android:id="@+id/action_ventilator_result_to_ventilator_setting"
-            app:destination="@id/ventilatorSettingFragment"/>
+            app:destination="@id/ventilator_setting_fragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/navi_setting"
+        android:name="jp.microvent.microvent.view.ui.TestFragment"
+        android:label="fragment_test">
+        <action
+            android:id="@+id/action_test_to_home"
+            app:destination="@id/auth_fragment">
+        </action>
     </fragment>
 </navigation>

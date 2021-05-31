@@ -3,21 +3,21 @@
     <item
         android:id="@+id/navi_home"
         android:icon="@drawable/ic_baseline_home_24_black"
-        android:title="home"/>
+        android:title="@string/home"/>
     <item
-        android:id="@+id/navi_patients"
+        android:id="@+id/navi_patient_data"
         android:icon="@drawable/ic_baseline_airline_seat_individual_suite_24_black"
-        android:title="patients"/>
+        android:title="@string/patient_data"/>
     <item
-        android:id="@+id/navi_mode"
-        android:icon="@drawable/ic_baseline_account_tree_24_black"
-        android:title="mode"/>
+        android:id="@+id/navi_qr_reading"
+        android:icon="@drawable/ic_baseline_qr_code_2_24_black"
+        android:title="@string/qr_reading"/>
     <item
         android:id="@+id/navi_support"
         android:icon="@drawable/ic_baseline_support_agent_24_black"
-        android:title="support"/>
+        android:title="@string/support"/>
     <item
-        android:id="@+id/navi_settings"
+        android:id="@+id/navi_setting"
         android:icon="@drawable/ic_baseline_settings_24_black"
-        android:title="settings"/>
+        android:title="@string/setting"/>
 </menu>

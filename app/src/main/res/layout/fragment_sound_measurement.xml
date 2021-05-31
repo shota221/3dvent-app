@@ -13,7 +13,7 @@
         tools:context=".view.ui.SoundMeasurementFragment">
 
         <TextView
-            android:id="@+id/tvWaiting"
+            android:id="@+id/tv_waiting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="75dp"
@@ -24,27 +24,27 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/btRec"
+            android:id="@+id/bt_rec"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:text="@string/rec"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvWaiting" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_waiting" />
 
         <Button
-            android:id="@+id/btCalculateAverageSound"
+            android:id="@+id/bt_calculate_average_sound"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:text="@string/calculate_average"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btRec" />
+            app:layout_constraintTop_toBottomOf="@+id/bt_rec" />
 
         <Button
-            android:id="@+id/btSoundMeasurementToVentilatorResult"
+            android:id="@+id/bt_sound_measurement_to_ventilator_result"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -52,10 +52,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btSoundMeasurementToManualMeasurement" />
+            app:layout_constraintTop_toBottomOf="@+id/bt_sound_measurement_to_manual_measurement" />
 
         <Button
-            android:id="@+id/btSoundMeasurementToManualMeasurement"
+            android:id="@+id/bt_sound_measurement_to_manual_measurement"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -63,44 +63,44 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvAverageExhalationTime" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_average_exhalation_time" />
 
         <TextView
-            android:id="@+id/tvAverageInhalationTime"
+            android:id="@+id/tv_average_inhalation_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/average_inhalation_time"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btCalculateAverageSound" />
+            app:layout_constraintTop_toBottomOf="@+id/bt_calculate_average_sound" />
 
         <TextView
-            android:id="@+id/tvAverageInhalationTimeValueSound"
+            android:id="@+id/tv_average_inhalation_time_value_sound"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
             android:textSize="@dimen/tv_text_size"
-            app:layout_constraintStart_toEndOf="@+id/tvAverageInhalationTime"
-            app:layout_constraintTop_toTopOf="@+id/tvAverageInhalationTime" />
+            app:layout_constraintStart_toEndOf="@+id/tv_average_inhalation_time"
+            app:layout_constraintTop_toTopOf="@+id/tv_average_inhalation_time" />
 
         <TextView
-            android:id="@+id/tvAverageExhalationTimeValueSound"
+            android:id="@+id/tv_average_exhalation_time_value_sound"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
             android:textSize="@dimen/tv_text_size"
-            app:layout_constraintStart_toEndOf="@+id/tvAverageExhalationTime"
-            app:layout_constraintTop_toTopOf="@+id/tvAverageExhalationTime" />
+            app:layout_constraintStart_toEndOf="@+id/tv_average_exhalation_time"
+            app:layout_constraintTop_toTopOf="@+id/tv_average_exhalation_time" />
 
         <TextView
-            android:id="@+id/tvAverageExhalationTime"
+            android:id="@+id/tv_average_exhalation_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/average_exhalation_time"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvAverageInhalationTime" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_average_inhalation_time" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

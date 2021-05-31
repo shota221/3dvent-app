@@ -13,7 +13,7 @@
         tools:context=".view.ui.ManualMeasurementFragment">
 
         <TextView
-            android:id="@+id/tvInhalationFirst"
+            android:id="@+id/tv_inhalation_first"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/fragment_vertical_margin_top"
@@ -23,115 +23,115 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvRequired5"
+            android:id="@+id/tv_required5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/required"
             android:textColor="@color/required"
             android:textSize="@dimen/tv_text_size_small"
-            app:layout_constraintBottom_toBottomOf="@+id/tvInhalationFirst"
-            app:layout_constraintStart_toEndOf="@+id/tvInhalationFirst" />
+            app:layout_constraintBottom_toBottomOf="@+id/tv_inhalation_first"
+            app:layout_constraintStart_toEndOf="@+id/tv_inhalation_first" />
 
         <TextView
-            android:id="@+id/tvRequired6"
+            android:id="@+id/tv_required6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/required"
             android:textColor="@color/required"
             android:textSize="@dimen/tv_text_size_small"
-            app:layout_constraintBottom_toBottomOf="@+id/tvExhalationFirst"
-            app:layout_constraintStart_toEndOf="@+id/tvExhalationFirst" />
+            app:layout_constraintBottom_toBottomOf="@+id/tv_exhalation_first"
+            app:layout_constraintStart_toEndOf="@+id/tv_exhalation_first" />
 
         <TextView
-            android:id="@+id/tvRequired7"
+            android:id="@+id/tv_required7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/required"
             android:textColor="@color/required"
             android:textSize="@dimen/tv_text_size_small"
-            app:layout_constraintBottom_toBottomOf="@+id/tvInhalationSecond"
-            app:layout_constraintStart_toEndOf="@+id/tvInhalationSecond" />
+            app:layout_constraintBottom_toBottomOf="@+id/tv_inhalation_second"
+            app:layout_constraintStart_toEndOf="@+id/tv_inhalation_second" />
 
         <TextView
-            android:id="@+id/tvRequired8"
+            android:id="@+id/tv_required8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/required"
             android:textColor="@color/required"
             android:textSize="@dimen/tv_text_size_small"
-            app:layout_constraintBottom_toBottomOf="@+id/tvExhalationSecond"
-            app:layout_constraintStart_toEndOf="@+id/tvExhalationSecond" />
+            app:layout_constraintBottom_toBottomOf="@+id/tv_exhalation_second"
+            app:layout_constraintStart_toEndOf="@+id/tv_exhalation_second" />
 
         <TextView
-            android:id="@+id/tvExhalationFirst"
+            android:id="@+id/tv_exhalation_first"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/exhalation_first"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etInhalationFirst" />
+            app:layout_constraintTop_toBottomOf="@+id/et_inhalation_first" />
 
         <TextView
-            android:id="@+id/tvInhalationSecond"
+            android:id="@+id/tv_inhalation_second"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/inhalation_second"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etExhalationFirst" />
+            app:layout_constraintTop_toBottomOf="@+id/et_exhalation_first" />
 
         <TextView
-            android:id="@+id/tvExhalationSecond"
+            android:id="@+id/tv_exhalation_second"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/exhalation_first"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etInhalationSecond" />
+            app:layout_constraintTop_toBottomOf="@+id/et_inhalation_second" />
 
         <TextView
-            android:id="@+id/tvAverageInhalationTime"
+            android:id="@+id/tv_average_inhalation_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/average_inhalation_time"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btCalculateAverageManual" />
+            app:layout_constraintTop_toBottomOf="@+id/bt_calculate_average_manual" />
 
         <TextView
-            android:id="@+id/tvAverageInhalationTimeValueManual"
+            android:id="@+id/tv_average_inhalation_time_value_manual"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
             android:textSize="@dimen/tv_text_size"
-            app:layout_constraintStart_toEndOf="@+id/tvAverageInhalationTime"
-            app:layout_constraintTop_toTopOf="@+id/tvAverageInhalationTime" />
+            app:layout_constraintStart_toEndOf="@+id/tv_average_inhalation_time"
+            app:layout_constraintTop_toTopOf="@+id/tv_average_inhalation_time" />
 
         <TextView
-            android:id="@+id/tvAverageExhalationTimeValueManual"
+            android:id="@+id/tv_average_exhalation_time_value_manual"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
             android:textSize="@dimen/tv_text_size"
-            app:layout_constraintStart_toEndOf="@+id/tvAverageExhalationTime"
-            app:layout_constraintTop_toTopOf="@+id/tvAverageExhalationTime" />
+            app:layout_constraintStart_toEndOf="@+id/tv_average_exhalation_time"
+            app:layout_constraintTop_toTopOf="@+id/tv_average_exhalation_time" />
 
         <TextView
-            android:id="@+id/tvAverageExhalationTime"
+            android:id="@+id/tv_average_exhalation_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/average_exhalation_time"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvAverageInhalationTime" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_average_inhalation_time" />
 
         <EditText
-            android:id="@+id/etInhalationFirst"
+            android:id="@+id/et_inhalation_first"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -140,23 +140,10 @@
             android:textSize="@dimen/et_text_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvInhalationFirst" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_inhalation_first" />
 
         <EditText
-            android:id="@+id/etExhalationFirst"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:ems="10"
-            android:inputType="numberSigned|text"
-            android:textSize="@dimen/et_text_size"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvExhalationFirst" />
-
-        <EditText
-            android:id="@+id/etInhalationSecond"
+            android:id="@+id/et_exhalation_first"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -166,10 +153,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvInhalationSecond" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_exhalation_first" />
 
         <EditText
-            android:id="@+id/etExhalationSecond"
+            android:id="@+id/et_inhalation_second"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -179,10 +166,23 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvExhalationSecond" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_inhalation_second" />
+
+        <EditText
+            android:id="@+id/et_exhalation_second"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="numberSigned|text"
+            android:textSize="@dimen/et_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_exhalation_second" />
 
         <Button
-            android:id="@+id/btCalculateAverageManual"
+            android:id="@+id/bt_calculate_average_manual"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -190,17 +190,17 @@
             android:textSize="@dimen/bt_text_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etExhalationSecond" />
+            app:layout_constraintTop_toBottomOf="@+id/et_exhalation_second" />
 
         <Button
-            android:id="@+id/btManualMeasurementToVentilatorResult"
+            android:id="@+id/bt_manual_measurement_to_ventilator_result"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/register_to_calculate"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvAverageExhalationTime" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_average_exhalation_time" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

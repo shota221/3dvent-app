@@ -13,7 +13,7 @@
         tools:context=".view.ui.VentilatorSettingFragment">
 
         <EditText
-            android:id="@+id/etO2Flow"
+            android:id="@+id/et_o2_flow"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -22,40 +22,40 @@
             android:textSize="@dimen/et_text_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvAirFlow2" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_air_flow2" />
 
         <TextView
-            android:id="@+id/tvRequired3"
+            android:id="@+id/tv_required3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/required"
             android:textColor="@color/required"
             android:textSize="@dimen/tv_text_size_small"
-            app:layout_constraintBottom_toBottomOf="@+id/tvAirFlow2"
-            app:layout_constraintStart_toEndOf="@+id/tvAirFlow2" />
+            app:layout_constraintBottom_toBottomOf="@+id/tv_air_flow2"
+            app:layout_constraintStart_toEndOf="@+id/tv_air_flow2" />
 
         <TextView
-            android:id="@+id/tvRequired4"
+            android:id="@+id/tv_required4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/required"
             android:textColor="@color/required"
             android:textSize="@dimen/tv_text_size_small"
-            app:layout_constraintBottom_toBottomOf="@+id/tvConditionCheck"
-            app:layout_constraintStart_toEndOf="@+id/tvConditionCheck" />
+            app:layout_constraintBottom_toBottomOf="@+id/tv_condition_check"
+            app:layout_constraintStart_toEndOf="@+id/tv_condition_check" />
 
         <TextView
-            android:id="@+id/tvAirFlow2"
+            android:id="@+id/tv_air_flow2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/o2_flow_label"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etAirFlow" />
+            app:layout_constraintTop_toBottomOf="@+id/et_air_flow" />
 
         <TextView
-            android:id="@+id/tvPatientData"
+            android:id="@+id/tv_patient_data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/fragment_vertical_margin_top"
@@ -65,152 +65,152 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvVentilatorSetting"
+            android:id="@+id/tv_ventilator_setting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/ventilator_setting"
             android:textSize="@dimen/tv_text_size_large"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvPredictedVt" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_predicted_vt" />
 
         <TextView
-            android:id="@+id/tvCalculatedValue"
+            android:id="@+id/tv_calculated_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/calculated_value"
             android:textSize="@dimen/tv_text_size_large"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etO2Flow" />
+            app:layout_constraintTop_toBottomOf="@+id/et_o2_flow" />
 
         <TextView
-            android:id="@+id/tvConditionCheck"
+            android:id="@+id/tv_condition_check"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/condition_check"
             android:textSize="@dimen/tv_text_size_large"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvEstimatedPeep" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_estimated_peep" />
 
         <TextView
-            android:id="@+id/tvHeight"
+            android:id="@+id/tv_height"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/height_key"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvPatientData" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_patient_data" />
 
         <TextView
-            android:id="@+id/tvAirwayPressure"
+            android:id="@+id/tv_airway_pressure"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:text="@string/airway_pressure_label"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvVentilatorSetting" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_ventilator_setting" />
 
         <TextView
-            android:id="@+id/tvFio2"
+            android:id="@+id/tv_fio2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/fio2_key"
             android:textSize="@dimen/tv_text_size_large"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvCalculatedValue" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_calculated_value" />
 
         <TextView
-            android:id="@+id/tvFiO2Value"
+            android:id="@+id/tv_fi_o2_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
             android:textSize="@dimen/tv_text_size_large"
-            app:layout_constraintStart_toEndOf="@+id/tvFio2"
-            app:layout_constraintTop_toTopOf="@+id/tvFio2" />
+            app:layout_constraintStart_toEndOf="@+id/tv_fio2"
+            app:layout_constraintTop_toTopOf="@+id/tv_fio2" />
 
         <TextView
-            android:id="@+id/tvFiO2Value2"
+            android:id="@+id/tv_fi_o2_value2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
             android:textSize="@dimen/tv_text_size_large"
-            app:layout_constraintStart_toEndOf="@+id/tvEstimatedPeep"
-            app:layout_constraintTop_toTopOf="@+id/tvEstimatedPeep" />
+            app:layout_constraintStart_toEndOf="@+id/tv_estimated_peep"
+            app:layout_constraintTop_toTopOf="@+id/tv_estimated_peep" />
 
         <TextView
-            android:id="@+id/tvEstimatedPeep"
+            android:id="@+id/tv_estimated_peep"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/estimated_peep_key"
             android:textSize="@dimen/tv_text_size_large"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvFio2" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_fio2" />
 
         <TextView
-            android:id="@+id/tvAirFlow"
+            android:id="@+id/tv_air_flow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/air_flow_label"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etAirwayPressure" />
+            app:layout_constraintTop_toBottomOf="@+id/et_airway_pressure" />
 
         <TextView
-            android:id="@+id/tvGender"
+            android:id="@+id/tv_gender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/gender_key"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvHeight" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_height" />
 
         <TextView
-            android:id="@+id/tvPredictedVt"
+            android:id="@+id/tv_predicted_vt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/predicted_vt_key"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvGender" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_gender" />
 
         <TextView
-            android:id="@+id/tvHeightValue"
+            android:id="@+id/tv_height_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
             android:textSize="@dimen/tv_text_size"
-            app:layout_constraintStart_toEndOf="@+id/tvHeight"
-            app:layout_constraintTop_toTopOf="@+id/tvHeight" />
+            app:layout_constraintStart_toEndOf="@+id/tv_height"
+            app:layout_constraintTop_toTopOf="@+id/tv_height" />
 
         <TextView
-            android:id="@+id/tvGenderValue"
+            android:id="@+id/tv_gender_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
             android:textSize="@dimen/tv_text_size"
-            app:layout_constraintStart_toEndOf="@+id/tvGender"
-            app:layout_constraintTop_toTopOf="@+id/tvGender" />
+            app:layout_constraintStart_toEndOf="@+id/tv_gender"
+            app:layout_constraintTop_toTopOf="@+id/tv_gender" />
 
         <TextView
-            android:id="@+id/tvGenderValue2"
+            android:id="@+id/tv_gender_value2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
             android:textSize="@dimen/tv_text_size"
-            app:layout_constraintStart_toEndOf="@+id/tvPredictedVt"
-            app:layout_constraintTop_toTopOf="@+id/tvPredictedVt" />
+            app:layout_constraintStart_toEndOf="@+id/tv_predicted_vt"
+            app:layout_constraintTop_toTopOf="@+id/tv_predicted_vt" />
 
         <EditText
-            android:id="@+id/etAirwayPressure"
+            android:id="@+id/et_airway_pressure"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -219,10 +219,10 @@
             android:textSize="@dimen/et_text_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvAirwayPressure" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_airway_pressure" />
 
         <EditText
-            android:id="@+id/etAirFlow"
+            android:id="@+id/et_air_flow"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -231,48 +231,48 @@
             android:textSize="@dimen/et_text_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvAirFlow" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_air_flow" />
 
         <TextView
-            android:id="@+id/tvRequired"
+            android:id="@+id/tv_required"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/required"
             android:textColor="@color/required"
             android:textSize="@dimen/tv_text_size_small"
-            app:layout_constraintBottom_toBottomOf="@+id/tvAirwayPressure"
-            app:layout_constraintStart_toEndOf="@+id/tvAirwayPressure" />
+            app:layout_constraintBottom_toBottomOf="@+id/tv_airway_pressure"
+            app:layout_constraintStart_toEndOf="@+id/tv_airway_pressure" />
 
         <TextView
-            android:id="@+id/tvRequired2"
+            android:id="@+id/tv_required2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/required"
             android:textColor="@color/required"
             android:textSize="@dimen/tv_text_size_small"
-            app:layout_constraintBottom_toBottomOf="@+id/tvAirFlow"
-            app:layout_constraintStart_toEndOf="@+id/tvAirFlow" />
+            app:layout_constraintBottom_toBottomOf="@+id/tv_air_flow"
+            app:layout_constraintStart_toEndOf="@+id/tv_air_flow" />
 
         <CheckBox
-            android:id="@+id/cbValidSpo2"
+            android:id="@+id/cb_valid_spo2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/valid_spo2"
             android:textSize="@dimen/cb_text_size"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cbValidRr" />
+            app:layout_constraintTop_toBottomOf="@+id/cb_valid_rr" />
 
         <CheckBox
-            android:id="@+id/cbValidRr"
+            android:id="@+id/cb_valid_rr"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/valid_rr"
             android:textSize="@dimen/cb_text_size"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvConditionCheck" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_condition_check" />
 
         <Button
-            android:id="@+id/btVentilatorSettingToSoundMeasurement"
+            android:id="@+id/bt_ventilator_setting_to_sound_measurement"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -280,10 +280,10 @@
             android:textSize="@dimen/bt_text_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cbValidSpo2" />
+            app:layout_constraintTop_toBottomOf="@+id/cb_valid_spo2" />
 
         <Button
-            android:id="@+id/btVentilatorSettingToManualMeasurement"
+            android:id="@+id/bt_ventilator_setting_to_manual_measurement"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -292,7 +292,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btVentilatorSettingToSoundMeasurement" />
+            app:layout_constraintTop_toBottomOf="@+id/bt_ventilator_setting_to_sound_measurement" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
