@@ -5,11 +5,11 @@
 
     <data>
         <variable
-            name="test"
-            type="String" />
-        <variable
             name="authViewModel"
             type="jp.microvent.microvent.viewModel.AuthViewModel" />
+<!--        <variable-->
+<!--            name="isChecked"-->
+<!--            type="Boolean" />-->
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,11 +22,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:enabled="@{authViewModel.isLoginEnabled}"
             android:insetTop="6dp"
             android:insetBottom="6dp"
-            android:text="@{test}"
-            android:textSize="@dimen/bt_text_size"
             android:onClick="@{()->authViewModel.onClickLoginButton()}"
+            android:text="@string/login"
+            android:textSize="@dimen/bt_text_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -69,19 +70,23 @@
             android:layout_height="wrap_content"
             android:text="@string/agree"
             android:textSize="@dimen/cb_text_size"
+            android:checked="@={authViewModel.isCheckedTermsOfUse}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view5" />
+            app:layout_constraintTop_toBottomOf="@+id/text_view5"
+            />
 
         <Button
             android:id="@+id/bt_not_login"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:enabled="@{authViewModel.isNotLoginEnabled}"
             android:insetTop="6dp"
             android:insetBottom="6dp"
             android:text="@string/not_login"
             android:textSize="@dimen/bt_text_size"
+            android:onClick="@{()->authViewModel.onClickNotLoginButton()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
@@ -116,6 +121,7 @@
             android:ems="10"
             android:inputType="text"
             android:textSize="@dimen/et_text_size"
+            android:text="@={authViewModel.accountName}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -139,6 +145,7 @@
             android:ems="10"
             android:inputType="textPassword"
             android:textSize="@dimen/et_text_size"
+            android:text="@={authViewModel.password}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view8" />

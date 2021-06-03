@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -27,7 +28,6 @@ class AuthFragment : Fragment() {
 
     private lateinit var binding: FragmentAuthBinding
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,15 +39,23 @@ class AuthFragment : Fragment() {
         val viewModel = authViewModel
 
         binding.apply {
-            test = "test"
             authViewModel = viewModel
 //            TODO("呼吸器読み取り時点で呼吸器と組織が紐付いている場合はその組織名を表示する")
+            //LiveDataの変更をviewに通知するために必要
+            lifecycleOwner = viewLifecycleOwner
         }
 
-
+        //TODO("delete me")
         binding.tvOrganizationRegistered.text = arguments?.getString("organization_name") ?: "未登録"
 
-        authViewModel.onTransit.observe(
+        authViewModel.isCheckedTermsOfUse.observe(
+            viewLifecycleOwner, Observer {
+                viewModel.isNotLoginEnabled.postValue(it)
+                viewModel.isLoginEnabled.postValue(it)
+            }
+        )
+
+        authViewModel.transitionToPatientSetting.observe(
             viewLifecycleOwner,
             EventObserver {
                 findNavController().navigate(R.id.action_auth_login_to_patient_setting)
@@ -59,26 +67,6 @@ class AuthFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//
-//        binding.btNotLogin.setOnClickListener{
-//            findNavController().navigate(R.id.action_auth_not_login_to_patient_setting)
-//        }
-
-//        binding.btLogin.setOnClickListener{
-//            var accountName:String? = binding.etAccountName.text.toString()
-//            val password:String? = binding.etPassword.text.toString()
-//            if (accountName == "") {
-//                accountName = "テスト更新太郎@example"
-//            }
-//
-//            val hasToken = authViewModel.checkUserToken(accountName)
-//
-//            Log.i("hasTokenTest",hasToken.toString())
-////
-////            val userToken = authViewModel.getUserToken(accountName,password)
-//            findNavController().navigate(R.id.action_auth_login_to_patient_setting)
-//        }
-
 
     }
 }

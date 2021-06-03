@@ -1,19 +1,12 @@
 package jp.microvent.microvent.service.repository
 
-import com.google.gson.GsonBuilder
+import androidx.lifecycle.MutableLiveData
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import jp.microvent.microvent.service.model.*
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
-import java.util.concurrent.TimeUnit
-import kotlin.reflect.jvm.internal.impl.util.Check
 
 const val MICROVENT_URL = "http://api.microvent.local/"
 
@@ -39,11 +32,11 @@ class MicroventRepository {
     /**********
      * appkey *
      **********/
-    suspend fun getAppkey(
+    suspend fun createAppkey(
         appkeyFetchForm: AppkeyFetchForm?,
         apiToken: String?
     ): Response<ApiResult<Appkey>> =
-        microventApiService.getAppkey(appkeyFetchForm, apiToken)
+        microventApiService.createAppkey(appkeyFetchForm, apiToken)
 
     /********
      * auth *
@@ -54,29 +47,95 @@ class MicroventRepository {
     ): Response<ApiResult<CheckToken>> =
         microventApiService.checkUserToken(accountName, appkey)
 
-    suspend fun getUserToken(
-        userTokenFetchForm: UserTokenFetchForm?,
+    suspend fun createUserToken(
+        createUserTokenForm: CreateUserTokenForm?,
         appkey: String?
-    ): Response<ApiResult<UserToken>> =
-        microventApiService.getUserToken(userTokenFetchForm, appkey)
+    ): Response<ApiResult<CreatedUserToken>> =
+        microventApiService.createUserToken(createUserTokenForm, appkey)
 
     suspend fun deleteUserToken(
         appkey: String?,
         userToken: String?
-    ): Response<ApiResult<UserToken>> =
+    ): Response<ApiResult<DeletedUserToken>> =
         microventApiService.deleteUserToken(appkey, userToken)
 
     /*************
      * calculate *
      *************/
 
+
     /***********
      * patient *
      ***********/
+    suspend fun createPatient(
+        createPatientForm: CreatePatientForm?,
+        appkey: String?,
+        userToken: String?
+    ): Response<ApiResult<CreatedPatient>> =
+        microventApiService.createPatient(createPatientForm,appkey,userToken)
+
+    suspend fun createPatientNoAuth(
+        createPatientForm: CreatePatientForm?,
+        appkey: String?
+    ): Response<ApiResult<CreatedPatient>> =
+        microventApiService.createPatientNoAuth(createPatientForm,appkey)
+
+    suspend fun getPatient(
+        patientId: Int?,
+        appkey: String?
+    ): Response<ApiResult<Patient>> =
+        microventApiService.getPatient(patientId, appkey)
+
+    suspend fun updatePatient(
+        patientId: Int?,
+        updatePatientForm: UpdatePatientForm?,
+        appkey: String?,
+        userToken: String?
+    ): Response<ApiResult<UpdatedPatient>> =
+        microventApiService.updatePatient(patientId,updatePatientForm,appkey,userToken)
+
+    suspend fun updatePatientNoAuth(
+        patientId: Int?,
+        updatePatientForm: UpdatePatientForm?,
+        appkey: String?,
+    ): Response<ApiResult<UpdatedPatient>> =
+        microventApiService.updatePatientNoAuth(patientId,updatePatientForm,appkey)
 
     /**************
      * ventilator *
      **************/
+    suspend fun getVentilator(
+        gs1Code: String?,
+        appkey: String?,
+        userToken: String?
+    ): Response<ApiResult<Ventilator>> =
+        microventApiService.getVentilator(gs1Code, appkey, userToken)
+
+    suspend fun getVentilatorNoAuth(
+        gs1Code: String?,
+        appkey: String?,
+    ): Response<ApiResult<Ventilator>> = microventApiService.getVentilatorNoAuth(gs1Code, appkey)
+
+    suspend fun createVentilator(
+        createVentilatorForm: CreateVentilatorForm?,
+        appkey: String?,
+        userToken: String?,
+    ): Response<ApiResult<CreatedVentilator>> =
+        microventApiService.createVentilator(createVentilatorForm, appkey, userToken)
+
+    suspend fun createVentilatorNoAuth(
+        createVentilatorForm: CreateVentilatorForm?,
+        appkey: String?
+    ): Response<ApiResult<CreatedVentilator>> =
+        microventApiService.createVentilatorNoAuth(createVentilatorForm, appkey)
+
+    suspend fun updateVentilator(
+        ventilatorId: Int?,
+        updateVentilatorForm: UpdateVentilatorForm?,
+        appkey: String?,
+        userToken: String?
+    ): Response<ApiResult<UpdatedVentilator>> =
+        microventApiService.updateVentilator(ventilatorId,updateVentilatorForm,appkey,userToken)
 
     /********************
      * ventilator_value *

@@ -76,10 +76,10 @@
 
     <fragment
         android:id="@+id/navi_setting"
-        android:name="jp.microvent.microvent.view.ui.TestFragment"
-        android:label="fragment_test">
+        android:name="jp.microvent.microvent.view.ui.SettingFragment"
+        android:label="fragment_setting">
         <action
-            android:id="@+id/action_test_to_home"
+            android:id="@+id/action_setting_to_home"
             app:destination="@id/auth_fragment">
         </action>
     </fragment>

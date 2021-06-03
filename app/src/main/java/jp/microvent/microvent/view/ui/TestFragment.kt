@@ -53,7 +53,7 @@ class TestFragment : Fragment() {
         viewModel.onTransit.observe(
             viewLifecycleOwner,
             EventObserver{
-                findNavController().navigate(R.id.action_test_to_home)
+//                findNavController().navigate(R.id.action_test_to_home)
             }
         )
         return binding.root

@@ -4,14 +4,18 @@ data class CheckToken(
     val has_token: Boolean
 )
 
-data class UserTokenFetchForm(
-    var name: String,
-    var password: String
+data class CreateUserTokenForm(
+    var name: String?,
+    var password: String?
 )
 
-data class UserToken(
+data class CreatedUserToken(
     val user_id: Int,
     val api_token: String,
     val user_name: String,
     val organization_name: String
+)
+
+data class DeletedUserToken(
+    val user_id: Int
 )

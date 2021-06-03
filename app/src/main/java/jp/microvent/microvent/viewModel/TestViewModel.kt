@@ -72,9 +72,8 @@ class TestViewModel(
                 val idfv = "sample"
                 val appkeyFetchForm: AppkeyFetchForm = AppkeyFetchForm(idfv)
                 val apiToken = "secret"
-                val response = repository.getAppkey(appkeyFetchForm,apiToken)
+                val response = repository.createAppkey(appkeyFetchForm,apiToken)
                 if(response.isSuccessful){
-                    Log.i("test",appkeyFetchForm.idfv)
                     onTransit.value = Event("onTransit")
                 }
             }catch (e:Exception){

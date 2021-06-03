@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "296991210370",
+    "project_id": "microvent",
+    "storage_bucket": "microvent.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:296991210370:android:456d846985abd172ad6d9b",
+        "android_client_info": {
+          "package_name": "jp.microvent.microvent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "296991210370-4k1lgqlvgbh724uj068hmjqkbi3r2sfb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "jp.microvent.microvent",
+            "certificate_hash": "1d2f194a0e352b25e5c5dc6d86ba8d178718eea8"
+          }
+        },
+        {
+          "client_id": "296991210370-gfb05qtlki2qevgo66tst3rpbiupkd8m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpgTLPg34gnTZtguYe-uhFShtx_oRLi4k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "296991210370-gfb05qtlki2qevgo66tst3rpbiupkd8m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -5,5 +5,5 @@ data class Appkey(
 )
 
 data class AppkeyFetchForm(
-    var idfv: String
+    var idfv: String?
 )

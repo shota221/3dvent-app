@@ -7,5 +7,6 @@
         <domain includeSubdomains="true">apppppp.com</domain>
         <domain includeSubdomains="true">api.microvent.r102.jp</domain>
         <domain includeSubdomains="true">api.microvent.local</domain>
+        <domain includeSubdomains="true">fcm.googleapis.com</domain>
     </domain-config>
 </network-security-config>

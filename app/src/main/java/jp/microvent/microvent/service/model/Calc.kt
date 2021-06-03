@@ -15,22 +15,22 @@ data class EstimatedData(
 )
 
 data class IeManualFetchFormDataListElm(
-    var i: String,
-    var e: String
+    var i: String?,
+    var e: String?
 )
 
 data class IeManualFetchForm(
-    var data: MutableList<IeManualFetchFormDataListElm>
+    var data: MutableList<IeManualFetchFormDataListElm>?
 )
 
 data class IeSoundFetchFormSoundElm(
-    var content_type: String,
-    var file_name: String,
-    var file_data: String
+    var content_type: String?,
+    var file_name: String?,
+    var file_data: String?
 )
 
 data class IeSoundFetchForm(
-    var sound: IeSoundFetchFormSoundElm,
+    var sound: IeSoundFetchFormSoundElm?,
     var os: String = OS
 )
 
