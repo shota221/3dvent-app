@@ -10,6 +10,11 @@
         android:name="jp.microvent.microvent.view.ui.AuthFragment"
         android:label="fragment_auth"
         tools:layout="@layout/fragment_auth">
+
+        <argument
+            android:name="gs1Code"
+            app:argType="string"
+            android:defaultValue="QRコードが読み込まれていません"/>
         <action
             android:id="@+id/action_auth_not_login_to_patient_setting"
             app:destination="@id/patient_setting_fragment" />
@@ -82,5 +87,20 @@
             android:id="@+id/action_setting_to_home"
             app:destination="@id/auth_fragment">
         </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/navi_qr_reading"
+        android:name="jp.microvent.microvent.view.ui.QrReadingFragment"
+        android:label="fragment_qr_reading">
+        <action
+            android:id="@+id/action_qr_reading_to_auth"
+            app:destination="@id/auth_fragment" />
+        <action
+            android:id="@+id/action_qr_reading_to_patient_setting"
+            app:destination="@id/patient_setting_fragment"/>
+        <action
+            android:id="@+id/action_qr_reading_to_ventilator_setting"
+            app:destination="@id/ventilator_setting_fragment"/>
     </fragment>
 </navigation>

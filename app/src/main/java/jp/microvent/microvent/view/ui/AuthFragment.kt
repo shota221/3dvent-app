@@ -26,6 +26,8 @@ class AuthFragment : Fragment() {
 
     private val authViewModel by viewModels<AuthViewModel>()
 
+    private val args: AuthFragmentArgs by navArgs()
+
     private lateinit var binding: FragmentAuthBinding
 
     override fun onCreateView(
@@ -46,7 +48,7 @@ class AuthFragment : Fragment() {
         }
 
         //TODO("delete me")
-        binding.tvOrganizationRegistered.text = arguments?.getString("organization_name") ?: "未登録"
+        binding.tvOrganizationRegistered.text = args.gs1Code
 
         authViewModel.isCheckedTermsOfUse.observe(
             viewLifecycleOwner, Observer {
