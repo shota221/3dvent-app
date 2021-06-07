@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/auth_fragment">
+    app:startDestination="@id/navi_qr_reading ">
 
     <fragment
         android:id="@+id/auth_fragment"
@@ -44,6 +44,15 @@
         <action
             android:id="@+id/action_ventilator_setting_to_sound_measurement"
             app:destination="@id/soundMeasurementFragment"/>
+        <argument
+            android:name="height"
+            app:argType="string" />
+        <argument
+            android:name="gender"
+            app:argType="string" />
+        <argument
+            android:name="predictedVt"
+            app:argType="string" />
     </fragment>
 
     <fragment

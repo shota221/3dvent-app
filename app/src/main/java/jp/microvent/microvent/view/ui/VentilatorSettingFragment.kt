@@ -6,21 +6,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import jp.microvent.microvent.R
 import jp.microvent.microvent.databinding.FragmentVentilatorSettingBinding
+import jp.microvent.microvent.viewModel.AuthViewModel
+import jp.microvent.microvent.viewModel.VentilatorSettingViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [VentilatorSettingFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class VentilatorSettingFragment : Fragment() {
+
+    private val args: VentilatorSettingFragmentArgs by navArgs()
+
+    private val ventilatorSettingViewModel by lazy {
+        ViewModelProvider(this, VentilatorSettingViewModel.Factory(
+            requireActivity().application, args.height, args.gender, args.predictedVt
+        )).get(VentilatorSettingViewModel::class.java)
+    }
 
     private lateinit var binding: FragmentVentilatorSettingBinding
 
@@ -30,6 +32,13 @@ class VentilatorSettingFragment : Fragment() {
     ): View? {
 
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_ventilator_setting,container,false)
+
+        val viewModel = ventilatorSettingViewModel
+
+        binding.apply {
+            ventilatorSettingViewModel = viewModel
+            lifecycleOwner = viewLifecycleOwner
+        }
 
         binding.btVentilatorSettingToSoundMeasurement.setOnClickListener{
             findNavController().navigate(R.id.action_ventilator_setting_to_sound_measurement)
@@ -42,23 +51,4 @@ class VentilatorSettingFragment : Fragment() {
         return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment VentilatorSettingFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            VentilatorSettingFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 }

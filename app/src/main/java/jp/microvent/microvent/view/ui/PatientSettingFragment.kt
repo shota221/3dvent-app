@@ -5,22 +5,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
+import androidx.appcompat.widget.AppCompatSpinner
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import jp.microvent.microvent.R
 import jp.microvent.microvent.databinding.FragmentPatientSettingBinding
+import jp.microvent.microvent.viewModel.PatientSettingViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [PatientRegistrationFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class PatientSettingFragment : Fragment() {
+
+    private val patientSettingViewModel by viewModels<PatientSettingViewModel>()
 
     private lateinit var binding: FragmentPatientSettingBinding
 
@@ -32,30 +32,53 @@ class PatientSettingFragment : Fragment() {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_patient_setting, container, false)
 
-        binding.btPatientSettingToVentilatorSetting.setOnClickListener{
-            findNavController().navigate(R.id.action_patient_setting_to_ventilator_setting)
+        val viewModel = patientSettingViewModel
+
+        binding.apply {
+            patientSettingViewModel = viewModel
+            lifecycleOwner = viewLifecycleOwner
         }
 
-        return binding.root
-    }
+        //スピナーdatabinding用のadapterを準備
+        val adapter = ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.gender_list,
+            android.R.layout.simple_spinner_item
+        )
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment PatientRegistrationFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            PatientSettingFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+        binding.spGender.apply {
+            setAdapter(adapter)
+
+            onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    val spinner = parent as AppCompatSpinner
+                    val str = spinner.selectedItem.toString()
+                    viewModel.onItemSelected(position,str)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                }
+
+            }
+        }
+
+        patientSettingViewModel.transitionToVentilatorSetting.observe(
+            viewLifecycleOwner, Observer {
+                val height = patientSettingViewModel.height.value.toString()
+                val gender = patientSettingViewModel.genderStr.value.toString()
+                val predictedVt = patientSettingViewModel.createdPatient.value?.predicted_vt
+                if(predictedVt != null) {
+                    val action = PatientSettingFragmentDirections.actionPatientSettingToVentilatorSetting(height,gender,predictedVt)
+                    findNavController().navigate(action)
                 }
             }
+        )
+
+        return binding.root
     }
 }

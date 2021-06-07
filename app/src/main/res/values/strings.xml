@@ -6,6 +6,7 @@
     <string name="next">次へ</string>
     <string name="close">閉じる</string>
     <string name="required">※必須</string>
+    <string name="unselected">未選択</string>
 
     <!-- 単位 -->
     <string name="unit_of_length">cm</string>
@@ -43,9 +44,12 @@
     <string name="gender_key">性別：</string>
     <string name="gender">性別</string>
     <string-array name="gender_list">
+        <item>未選択</item>
         <item>男</item>
         <item>女</item>
     </string-array>
+    <string name="male">男</string>
+    <string name="female">女</string>
     <string name="patient_code">患者コード</string>
 
     <!-- ventilator_setting -->

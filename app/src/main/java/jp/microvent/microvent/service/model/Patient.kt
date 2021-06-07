@@ -1,10 +1,10 @@
 package jp.microvent.microvent.service.model
 
 data class CreatePatientForm(
+    var height: String?,
+    var gender: Int?,
     var patient_code:String?,
-    var height: String,
-    var gender: Int,
-    var ventilator_id: Int
+    var ventilator_id: Int?
 )
 
 data class CreatedPatient(
@@ -21,8 +21,8 @@ data class Patient(
 
 data class UpdatePatientForm(
     var patient_code: String?,
-    var height: String,
-    var gender: String
+    var height: String?,
+    var gender: String?
 )
 
 data class UpdatedPatient(

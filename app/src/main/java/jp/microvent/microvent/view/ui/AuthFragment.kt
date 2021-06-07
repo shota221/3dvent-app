@@ -24,9 +24,14 @@ class AuthFragment : Fragment() {
 //        ViewModelProvider(this, AuthViewModel.Factory(requireActivity().application)).get(AuthViewModel::class.java)
 //    }
 
-    private val authViewModel by viewModels<AuthViewModel>()
-
+//    private val authViewModel by viewModels<AuthViewModel>()
     private val args: AuthFragmentArgs by navArgs()
+
+    private val authViewModel by lazy {
+        ViewModelProvider(this, AuthViewModel.Factory(
+            requireActivity().application, args.gs1Code
+        )).get(AuthViewModel::class.java)
+    }
 
     private lateinit var binding: FragmentAuthBinding
 
@@ -46,9 +51,6 @@ class AuthFragment : Fragment() {
             //LiveDataの変更をviewに通知するために必要
             lifecycleOwner = viewLifecycleOwner
         }
-
-        //TODO("delete me")
-        binding.tvOrganizationRegistered.text = args.gs1Code
 
         authViewModel.isCheckedTermsOfUse.observe(
             viewLifecycleOwner, Observer {

@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="patientSettingViewModel"
+            type="jp.microvent.microvent.viewModel.PatientSettingViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,6 +23,7 @@
             android:insetBottom="6dp"
             android:text="@string/next"
             android:textSize="@dimen/bt_text_size"
+            android:onClick="@{()->patientSettingViewModel.onClickButton()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -44,6 +47,7 @@
             android:ems="10"
             android:inputType="text"
             android:textSize="@dimen/et_text_size"
+            android:text="@={patientSettingViewModel.height}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view" />
@@ -63,7 +67,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:entries="@array/gender_list"
             android:scrollbarSize="@dimen/scrollbar_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -88,6 +91,7 @@
             android:ems="10"
             android:inputType="text"
             android:textSize="@dimen/et_text_size"
+            android:text="@={patientSettingViewModel.patientNumber}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"

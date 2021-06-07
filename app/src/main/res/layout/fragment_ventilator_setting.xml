@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="ventilatorSettingViewModel"
+            type="jp.microvent.microvent.viewModel.VentilatorSettingViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -186,7 +188,7 @@
             android:id="@+id/tv_height_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="@{ventilatorSettingViewModel.patientHeight}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toEndOf="@+id/tv_height"
             app:layout_constraintTop_toTopOf="@+id/tv_height" />
@@ -195,16 +197,16 @@
             android:id="@+id/tv_gender_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="@{ventilatorSettingViewModel.patientGender}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toEndOf="@+id/tv_gender"
             app:layout_constraintTop_toTopOf="@+id/tv_gender" />
 
         <TextView
-            android:id="@+id/tv_gender_value2"
+            android:id="@+id/tv_predicted_vt_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="@{ventilatorSettingViewModel.patientPredictedVt}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toEndOf="@+id/tv_predicted_vt"
             app:layout_constraintTop_toTopOf="@+id/tv_predicted_vt" />

@@ -8,13 +8,21 @@ import jp.microvent.microvent.R
 import jp.microvent.microvent.service.model.CreateUserTokenForm
 import jp.microvent.microvent.service.model.CreateVentilatorForm
 import jp.microvent.microvent.service.model.UpdateVentilatorForm
+import jp.microvent.microvent.view.ui.AuthFragmentArgs
 import jp.microvent.microvent.viewModel.util.Event
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
 class AuthViewModel(
-    private val myApplication: Application
+    private val myApplication: Application,
+    private val gs1Code:String
 ) : BaseViewModel(myApplication) {
+
+    class Factory(private val application: Application, private val gs1Code: String) : ViewModelProvider.NewInstanceFactory() {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            return AuthViewModel(application, gs1Code) as T
+        }
+    }
 
     val isNotLoginEnabled: MutableLiveData<Boolean> by lazy {
         MutableLiveData()
@@ -29,6 +37,10 @@ class AuthViewModel(
         MutableLiveData()
     }
 
+    val organizationName: MutableLiveData<String> by lazy {
+        MutableLiveData(context.getString(R.string.unregistered))
+    }
+
     val accountName: MutableLiveData<String> by lazy {
         MutableLiveData()
     }
@@ -41,11 +53,32 @@ class AuthViewModel(
         MutableLiveData()
     }
 
+    init{
+        setOrganizationName()
+    }
+
+    private fun setOrganizationName() {
+        viewModelScope.launch {
+            try {
+
+                val getVentilatorNoAuth = repository.getVentilatorNoAuth(gs1Code, appkey)
+                if (getVentilatorNoAuth.isSuccessful) {
+                    val getVentilatorNoAuthResult = getVentilatorNoAuth.body()?.result
+                    if (getVentilatorNoAuthResult?.organization_name != null) {
+                        organizationName.postValue(getVentilatorNoAuthResult.organization_name)
+                    }
+                }
+
+            } catch (e: Exception) {
+                Log.e("NotLogin:Failed", e.stackTraceToString())
+            }
+        }
+    }
+
     fun onClickNotLoginButton() {
         viewModelScope.launch {
             try {
-                val gs1Code = "codecode"
-                saveVentilatorId(gs1Code)
+                saveVentilatorId()
                 transitionToPatientSetting.value = Event("transitionToPatientSetting")
             } catch (e: Exception) {
                 Log.e("NotLogin:Failed", e.stackTraceToString())
@@ -86,8 +119,7 @@ class AuthViewModel(
                     }
 
                     //次にgs1Codeが読まれるまでは直近に読んだventilator_idを参照する…sharedPrefに保存
-                    val gs1Code = "codecode"
-                    saveVentilatorId(gs1Code)
+                    saveVentilatorId()
 
                     transitionToPatientSetting.value = Event("transitionToPatientSetting")
                 } else {
@@ -105,7 +137,7 @@ class AuthViewModel(
      * gs1Codeが登録済みか、登録済みであればログイン中のユーザの組織との齟齬を判定、そうでなければ登録してventilatorIdを
      * 読み込んだventilatorIdは即座にsharedPrefに保存される
      */
-    private suspend fun saveVentilatorId(gs1Code:String) {
+    private suspend fun saveVentilatorId() {
         //TODO("バンドルからgs1Code")
 
         if (userToken.isEmpty()) {
