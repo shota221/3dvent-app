@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="ventilatorResultViewModel"
+            type="jp.microvent.microvent.viewModel.VentilatorResultViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,7 +18,7 @@
             android:id="@+id/tv_o2_flow_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="@{ventilatorResultViewModel.ventilatorValueData.o2_flow}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toEndOf="@+id/tv_air_flow2"
             app:layout_constraintTop_toTopOf="@+id/tv_air_flow2" />
@@ -25,7 +27,7 @@
             android:id="@+id/tv_fio2_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="@{ventilatorResultViewModel.ventilatorValueData.fio2}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toEndOf="@+id/tv_fio2"
             app:layout_constraintTop_toTopOf="@+id/tv_fio2" />
@@ -34,7 +36,7 @@
             android:id="@+id/tv_rr_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="@{ventilatorResultViewModel.ventilatorValueData.rr}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toEndOf="@+id/tv_rr"
             app:layout_constraintTop_toTopOf="@+id/tv_rr" />
@@ -43,7 +45,7 @@
             android:id="@+id/tv_predicted_vt_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="@{ventilatorResultViewModel.ventilatorValueData.predicted_vt}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toEndOf="@+id/tv_predicted_vt"
             app:layout_constraintTop_toTopOf="@+id/tv_predicted_vt" />
@@ -52,7 +54,7 @@
             android:id="@+id/tv_estimated_vt_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="@{ventilatorResultViewModel.ventilatorValueData.estimated_vt}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toEndOf="@+id/tv_estimated_vt"
             app:layout_constraintTop_toTopOf="@+id/tv_estimated_vt" />
@@ -61,7 +63,7 @@
             android:id="@+id/tv_estimated_mv_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="@{ventilatorResultViewModel.ventilatorValueData.estimated_mv}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toEndOf="@+id/tv_estimated_mv"
             app:layout_constraintTop_toTopOf="@+id/tv_estimated_mv" />
@@ -70,7 +72,7 @@
             android:id="@+id/tv_estimated_peep_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="@{ventilatorResultViewModel.ventilatorValueData.estimated_peep}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toEndOf="@+id/tv_estimated_peep"
             app:layout_constraintTop_toTopOf="@+id/tv_estimated_peep" />
@@ -191,6 +193,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/back_to_ventilator_setting"
+            android:onClick="@{()->ventilatorResultViewModel.onClickButton()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_estimated_peep" />
@@ -199,7 +202,7 @@
             android:id="@+id/tv_airway_pressure_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="@{ventilatorResultViewModel.ventilatorValueData.airway_pressure}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toEndOf="@+id/tv_airway_pressure"
             app:layout_constraintTop_toTopOf="@+id/tv_airway_pressure" />
@@ -208,7 +211,7 @@
             android:id="@+id/tv_air_flow_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="@{ventilatorResultViewModel.ventilatorValueData.air_flow}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toEndOf="@+id/tv_air_flow"
             app:layout_constraintTop_toTopOf="@+id/tv_air_flow" />

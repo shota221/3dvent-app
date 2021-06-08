@@ -1,5 +1,15 @@
 package jp.microvent.microvent.service.model
 
+import java.io.Serializable
+
+data class Patient(
+    var patient_code: String? = null,
+    var gender: Int? = null,
+    var gender_str : String? = null,
+    var predicted_vt: String? = null,
+    var height: String? = null
+):Serializable
+
 data class CreatePatientForm(
     var height: String?,
     var gender: Int?,
@@ -10,13 +20,6 @@ data class CreatePatientForm(
 data class CreatedPatient(
     val patient_id: String,
     val predicted_vt: String
-)
-
-data class Patient(
-    val patient_code: String?,
-    val gender: Int,
-    val predicted_vt: String,
-    val height: String
 )
 
 data class UpdatePatientForm(

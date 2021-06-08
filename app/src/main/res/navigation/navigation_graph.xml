@@ -43,16 +43,10 @@
             app:destination="@id/manual_measurement_fragment"/>
         <action
             android:id="@+id/action_ventilator_setting_to_sound_measurement"
-            app:destination="@id/soundMeasurementFragment"/>
+            app:destination="@id/sound_measurement_fragment"/>
         <argument
-            android:name="height"
-            app:argType="string" />
-        <argument
-            android:name="gender"
-            app:argType="string" />
-        <argument
-            android:name="predictedVt"
-            app:argType="string" />
+            android:name="patient"
+            app:argType="jp.microvent.microvent.service.model.Patient" />
     </fragment>
 
     <fragment
@@ -63,19 +57,25 @@
         <action
             android:id="@+id/action_manual_measurement_to_ventilator_result"
             app:destination="@id/ventilator_result_fragment"/>
+        <argument
+            android:name="ventilatorValue"
+            app:argType="jp.microvent.microvent.service.model.VentilatorValue" />
     </fragment>
 
     <fragment
-        android:id="@+id/soundMeasurementFragment"
+        android:id="@+id/sound_measurement_fragment"
         android:name="jp.microvent.microvent.view.ui.SoundMeasurementFragment"
         android:label="fragment_sound_measurement"
-        tools:layout="@layout/fragment_sound_sampling">
+        tools:layout="@layout/fragment_sound_measurement">
         <action
             android:id="@+id/action_sound_measurement_to_ventilator_result"
             app:destination="@id/ventilator_result_fragment"/>
         <action
             android:id="@+id/action_sound_measurement_to_manual_measurement"
             app:destination="@id/manual_measurement_fragment"/>
+        <argument
+            android:name="ventilatorValue"
+            app:argType="jp.microvent.microvent.service.model.VentilatorValue" />
     </fragment>
 
     <fragment
@@ -86,6 +86,9 @@
         <action
             android:id="@+id/action_ventilator_result_to_ventilator_setting"
             app:destination="@id/ventilator_setting_fragment"/>
+        <argument
+            android:name="ventilatorValue"
+            app:argType="jp.microvent.microvent.service.model.VentilatorValue" />
     </fragment>
 
     <fragment

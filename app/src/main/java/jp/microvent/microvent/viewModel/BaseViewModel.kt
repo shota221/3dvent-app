@@ -62,4 +62,16 @@ open class BaseViewModel(
             ventilatorId
         }
     }
+
+    /**
+     * 直近に読み込んだ呼吸器に紐づく患者id取得
+     */
+    val patientId: Int? by lazy {
+        val patientId = currentVentilatorPref.getInt("id",0)
+        if(patientId == 0){
+            null
+        } else {
+            patientId
+        }
+    }
 }

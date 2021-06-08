@@ -58,7 +58,7 @@ class PatientSettingFragment : Fragment() {
                 ) {
                     val spinner = parent as AppCompatSpinner
                     val str = spinner.selectedItem.toString()
-                    viewModel.onItemSelected(position,str)
+                    viewModel.onItemSelected(position, str)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -69,13 +69,9 @@ class PatientSettingFragment : Fragment() {
 
         patientSettingViewModel.transitionToVentilatorSetting.observe(
             viewLifecycleOwner, Observer {
-                val height = patientSettingViewModel.height.value.toString()
-                val gender = patientSettingViewModel.genderStr.value.toString()
-                val predictedVt = patientSettingViewModel.createdPatient.value?.predicted_vt
-                if(predictedVt != null) {
-                    val action = PatientSettingFragmentDirections.actionPatientSettingToVentilatorSetting(height,gender,predictedVt)
-                    findNavController().navigate(action)
-                }
+                val patient = patientSettingViewModel.patient
+                val action = PatientSettingFragmentDirections.actionPatientSettingToVentilatorSetting(patient)
+                findNavController().navigate(action)
             }
         )
 

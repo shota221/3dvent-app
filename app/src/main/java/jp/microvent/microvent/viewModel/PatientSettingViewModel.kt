@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.*
 import jp.microvent.microvent.service.model.CreatePatientForm
 import jp.microvent.microvent.service.model.CreatedPatient
+import jp.microvent.microvent.service.model.Patient
 import jp.microvent.microvent.viewModel.util.Event
 import kotlinx.coroutines.launch
 import java.lang.Exception
@@ -37,9 +38,11 @@ class PatientSettingViewModel(
         MutableLiveData()
     }
 
-    val createdPatient: MutableLiveData<CreatedPatient> by lazy {
+    val predictedVt: MutableLiveData<String> by lazy {
         MutableLiveData()
     }
+
+    val patient: Patient = Patient()
 
     fun onItemSelected(genderSelected: Int, genderSelectedStr: String) {
         if (genderSelected != 0) {
@@ -56,23 +59,43 @@ class PatientSettingViewModel(
                 val patientNumber = patientNumber.value.toString()
                 val createPatientForm =
                     CreatePatientForm(height, gender, patientNumber, ventilatorId)
-                if (userToken.isEmpty()) {
-                    val createPatient = repository.createPatientNoAuth(createPatientForm, appkey)
-                    if (createPatient.isSuccessful) {
-                        createdPatient.postValue(createPatient.body()?.result)
-                    }
+                val createPatient = if (userToken.isNullOrEmpty()) {
+                    repository.createPatientNoAuth(createPatientForm, appkey)
                 } else {
-                    val createPatient =
-                        repository.createPatient(createPatientForm, appkey, userToken)
-                    if (createPatient.isSuccessful) {
-                        createdPatient.postValue(createPatient.body()?.result)
-                    }
+                    repository.createPatient(createPatientForm, appkey, userToken)
                 }
-                transitionToVentilatorSetting.value = Event("transitionToVentilatorSetting")
+                if (createPatient.isSuccessful) {
+                    val createPatientResult = createPatient.body()?.result
+                    if(createPatientResult != null){
+                        //postValueだと非同期となりセットされる前に画面遷移されるためここはsetValueを使う
+                        predictedVt.value = createPatientResult.predicted_vt
+                        with(currentVentilatorPref.edit()) {
+                            putInt(
+                                "id",
+                                createPatientResult.patient_id.toInt()
+                            )
+
+                            commit()
+                        }
+                        buildPatient()
+                        transitionToVentilatorSetting.value =
+                            jp.microvent.microvent.viewModel.util.Event("transitionToVentilatorSetting")
+                    }
+
+                }
+
 
             } catch (e: Exception) {
                 Log.e("Submit:Failed", e.stackTraceToString())
             }
         }
+    }
+
+    private fun buildPatient() {
+        patient.patient_code = patientNumber.value
+        patient.gender = gender.value
+        patient.gender_str = genderStr.value
+        patient.height = height.value
+        patient.predicted_vt = predictedVt.value
     }
 }

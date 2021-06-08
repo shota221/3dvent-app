@@ -21,7 +21,7 @@ class VentilatorSettingFragment : Fragment() {
 
     private val ventilatorSettingViewModel by lazy {
         ViewModelProvider(this, VentilatorSettingViewModel.Factory(
-            requireActivity().application, args.height, args.gender, args.predictedVt
+            requireActivity().application, args.patient
         )).get(VentilatorSettingViewModel::class.java)
     }
 
@@ -43,10 +43,20 @@ class VentilatorSettingFragment : Fragment() {
 
         ventilatorSettingViewModel.transitionToManualMeasurement.observe(
             viewLifecycleOwner, Observer {
-                val action =
-                findNavController()
+                val ventilatorValue = ventilatorSettingViewModel.ventilatorValue
+                val action = VentilatorSettingFragmentDirections.actionVentilatorSettingToManualMeasurement(ventilatorValue)
+                findNavController().navigate(action)
             }
         )
+
+        ventilatorSettingViewModel.transitionToSoundMeasurement.observe(
+            viewLifecycleOwner, Observer {
+                val ventilatorValue = ventilatorSettingViewModel.ventilatorValue
+                val action = VentilatorSettingFragmentDirections.actionVentilatorSettingToSoundMeasurement(ventilatorValue)
+                findNavController().navigate(action)
+            }
+        )
+
         return binding.root
     }
 

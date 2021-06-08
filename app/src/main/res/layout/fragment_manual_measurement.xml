@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="manualMeasurementViewModel"
+            type="jp.microvent.microvent.viewModel.ManualMeasurementViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -87,7 +89,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/exhalation_first"
+            android:text="@string/exhalation_second"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_inhalation_second" />
@@ -106,7 +108,7 @@
             android:id="@+id/tv_average_inhalation_time_value_manual"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="@{manualMeasurementViewModel.averageInhalationTime}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toEndOf="@+id/tv_average_inhalation_time"
             app:layout_constraintTop_toTopOf="@+id/tv_average_inhalation_time" />
@@ -115,7 +117,7 @@
             android:id="@+id/tv_average_exhalation_time_value_manual"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="@{manualMeasurementViewModel.averageExhalationTime}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toEndOf="@+id/tv_average_exhalation_time"
             app:layout_constraintTop_toTopOf="@+id/tv_average_exhalation_time" />
@@ -138,6 +140,7 @@
             android:ems="10"
             android:inputType="numberSigned|text"
             android:textSize="@dimen/et_text_size"
+            android:text="@={manualMeasurementViewModel.inhalationFirst}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_inhalation_first" />
@@ -150,6 +153,7 @@
             android:ems="10"
             android:inputType="numberSigned|text"
             android:textSize="@dimen/et_text_size"
+            android:text="@={manualMeasurementViewModel.exhalationFirst}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -163,6 +167,7 @@
             android:ems="10"
             android:inputType="numberSigned|text"
             android:textSize="@dimen/et_text_size"
+            android:text="@={manualMeasurementViewModel.inhalationSecond}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -176,6 +181,7 @@
             android:ems="10"
             android:inputType="numberSigned|text"
             android:textSize="@dimen/et_text_size"
+            android:text="@={manualMeasurementViewModel.exhalationSecond}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -188,6 +194,7 @@
             android:layout_marginTop="8dp"
             android:text="@string/calculate_average"
             android:textSize="@dimen/bt_text_size"
+            android:onClick="@{()->manualMeasurementViewModel.onClickCalculateAverageButton()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_exhalation_second" />
@@ -198,6 +205,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/register_to_calculate"
+            android:onClick="@{()->manualMeasurementViewModel.onClickRegisterButton()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_average_exhalation_time" />

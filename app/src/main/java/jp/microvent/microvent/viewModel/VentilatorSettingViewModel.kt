@@ -5,42 +5,33 @@ import android.util.Log
 import androidx.lifecycle.*
 import jp.microvent.microvent.service.model.CreatePatientForm
 import jp.microvent.microvent.service.model.CreatedPatient
+import jp.microvent.microvent.service.model.Patient
+import jp.microvent.microvent.service.model.VentilatorValue
+import jp.microvent.microvent.view.ui.VentilatorSettingFragmentArgs
 import jp.microvent.microvent.viewModel.util.Event
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
 class VentilatorSettingViewModel(
     private val myApplication: Application,
-    private val height: String,
-    private val gender: String,
-    private val predictedVt: String,
+    private val patient: Patient
 ) : BaseViewModel(myApplication) {
 
     class Factory(
-        private val application: Application, private val height: String, private val gender: String, private val predictedVt: String,
+        private val application: Application, private val patient:Patient
     ) : ViewModelProvider.NewInstanceFactory() {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return VentilatorSettingViewModel(application, height, gender, predictedVt) as T
+            return VentilatorSettingViewModel(application, patient) as T
         }
     }
+
+    val patientData : MutableLiveData<Patient> = MutableLiveData(patient)
 
     val transitionToSoundMeasurement: MutableLiveData<Event<String>> by lazy {
         MutableLiveData()
     }
 
     val transitionToManualMeasurement: MutableLiveData<Event<String>> by lazy {
-        MutableLiveData()
-    }
-
-    val patientHeight: MutableLiveData<String> by lazy{
-        MutableLiveData()
-    }
-
-    val patientGender: MutableLiveData<String> by lazy{
-        MutableLiveData()
-    }
-
-    val patientPredictedVt: MutableLiveData<String> by lazy{
         MutableLiveData()
     }
 
@@ -75,9 +66,11 @@ class VentilatorSettingViewModel(
         MediatorLiveData()
     }
 
-    init{
-        setPatientValue()
+    val ventilatorValue: VentilatorValue by lazy{
+        VentilatorValue()
+    }
 
+    init{
         /**
          * チェックボックス2つを監視、両方チェック時のみボタンを有効に
          */
@@ -126,18 +119,24 @@ class VentilatorSettingViewModel(
     /**
      * 画面遷移時患者情報表示用
      */
-    private fun setPatientValue(){
-        patientHeight.postValue(height)
-        patientGender.postValue(gender)
-        patientPredictedVt.postValue(predictedVt)
-    }
 
-    public fun onClickSoundMeasurementButton(){
+    fun onClickSoundMeasurementButton(){
+        buildVentilatorValue()
         transitionToSoundMeasurement.value = Event("transitionToSoundMeasurement")
     }
 
-    public fun onClickManualMeasurementButton(){
+    fun onClickManualMeasurementButton(){
+        buildVentilatorValue()
         transitionToManualMeasurement.value = Event("transitionToManualMeasurement")
+    }
+
+    private fun buildVentilatorValue(){
+        ventilatorValue.airway_pressure = airwayPressure.value
+        ventilatorValue.o2_flow = o2Flow.value
+        ventilatorValue.air_flow = airFlow.value
+        ventilatorValue.fio2 = fio2.value
+        ventilatorValue.estimated_peep = estimatedPeep.value
+        ventilatorValue.predicted_vt = patient.predicted_vt
     }
 
 }
