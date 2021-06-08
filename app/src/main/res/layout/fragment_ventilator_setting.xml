@@ -22,6 +22,7 @@
             android:ems="10"
             android:inputType="numberSigned|text"
             android:textSize="@dimen/et_text_size"
+            android:text="@={ventilatorSettingViewModel.o2Flow}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_air_flow2" />
@@ -127,19 +128,19 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_calculated_value" />
 
         <TextView
-            android:id="@+id/tv_fi_o2_value"
+            android:id="@+id/tv_fio2_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="@{ventilatorSettingViewModel.fio2}"
             android:textSize="@dimen/tv_text_size_large"
             app:layout_constraintStart_toEndOf="@+id/tv_fio2"
             app:layout_constraintTop_toTopOf="@+id/tv_fio2" />
 
         <TextView
-            android:id="@+id/tv_fi_o2_value2"
+            android:id="@+id/tv_estimated_peep_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="@{ventilatorSettingViewModel.estimatedPeep}"
             android:textSize="@dimen/tv_text_size_large"
             app:layout_constraintStart_toEndOf="@+id/tv_estimated_peep"
             app:layout_constraintTop_toTopOf="@+id/tv_estimated_peep" />
@@ -219,6 +220,7 @@
             android:ems="10"
             android:inputType="numberSigned|text"
             android:textSize="@dimen/et_text_size"
+            android:text="@={ventilatorSettingViewModel.airwayPressure}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_airway_pressure" />
@@ -231,6 +233,7 @@
             android:ems="10"
             android:inputType="numberSigned|text"
             android:textSize="@dimen/et_text_size"
+            android:text="@={ventilatorSettingViewModel.airFlow}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_air_flow" />
@@ -261,6 +264,7 @@
             android:layout_height="wrap_content"
             android:text="@string/valid_spo2"
             android:textSize="@dimen/cb_text_size"
+            android:checked="@={ventilatorSettingViewModel.isValidSpo2}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cb_valid_rr" />
 
@@ -270,6 +274,7 @@
             android:layout_height="wrap_content"
             android:text="@string/valid_rr"
             android:textSize="@dimen/cb_text_size"
+            android:checked="@={ventilatorSettingViewModel.isValidRr}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_condition_check" />
 
@@ -280,6 +285,8 @@
             android:layout_marginTop="16dp"
             android:text="@string/sound_measurement"
             android:textSize="@dimen/bt_text_size"
+            android:enabled="@{ventilatorSettingViewModel.isButtonEnabled}"
+            android:onClick="@{()->ventilatorSettingViewModel.onClickSoundMeasurementButton()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cb_valid_spo2" />
@@ -291,6 +298,8 @@
             android:layout_marginTop="16dp"
             android:text="@string/manual_measurement"
             android:textSize="@dimen/bt_text_size"
+            android:enabled="@{ventilatorSettingViewModel.isButtonEnabled}"
+            android:onClick="@{()->ventilatorSettingViewModel.onClickManualMeasurementButton()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"

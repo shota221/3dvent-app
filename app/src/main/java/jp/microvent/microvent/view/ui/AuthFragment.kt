@@ -47,17 +47,9 @@ class AuthFragment : Fragment() {
 
         binding.apply {
             authViewModel = viewModel
-//            TODO("呼吸器読み取り時点で呼吸器と組織が紐付いている場合はその組織名を表示する")
             //LiveDataの変更をviewに通知するために必要
             lifecycleOwner = viewLifecycleOwner
         }
-
-        authViewModel.isCheckedTermsOfUse.observe(
-            viewLifecycleOwner, Observer {
-                viewModel.isNotLoginEnabled.postValue(it)
-                viewModel.isLoginEnabled.postValue(it)
-            }
-        )
 
         authViewModel.transitionToPatientSetting.observe(
             viewLifecycleOwner,

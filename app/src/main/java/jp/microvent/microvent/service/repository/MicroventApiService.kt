@@ -172,10 +172,61 @@ interface MicroventApiService {
     /********************
      * ventilator_value *
      ********************/
+    @GET("ventilator_value")
+    suspend fun getVentilatorValueList(
+        @Query("ventilator_id") ventilatorId: String?,
+        @Query("limit") limit: Int?,
+        @Query("offset") offset: Int?,
+        @Query("fixed_flg") fixedFlg: Boolean?,
+        @Header("X-App-Key") appkey: String?,
+    ):Response<ApiResult<List<VentilatorValueListElm>>>
+
+    @GET("ventilator_value/{id}")
+    suspend fun getVentilatorValue(
+        @Path("id") ventilatorValueId: Int?,
+        @Header("X-App-Key") appkey: String?,
+    ):Response<ApiResult<VentilatorValue>>
+
+    @Headers("Content-Type:application/json; charset=UTF-8")
+    @POST("ventilator_value")
+    suspend fun createVentilatorValue(
+        @Body createVentilatorValueForm: CreateVentilatorValueForm?,
+        @Header("X-App-Key") appkey: String?,
+        @Header("X-User-Token") userToken: String?
+    ):Response<ApiResult<CreatedVentilatorValue>>
+
+    @Headers("Content-Type:application/json; charset=UTF-8")
+    @POST("ventilator_value/no_auth")
+    suspend fun createVentilatorValueNoAuth(
+        @Body createVentilatorValueForm: CreateVentilatorValueForm?,
+        @Header("X-App-Key") appkey: String?
+    ):Response<ApiResult<CreatedVentilatorValue>>
+
+    @Headers("Content-Type:application/json; charset=UTF-8")
+    @PUT("ventilator_value/{id}")
+    suspend fun updateVentilatorValue(
+        @Path("id") ventilatorValueId: Int?,
+        @Body updateVentilatorValueForm: UpdateVentilatorValueForm?,
+        @Header("X-App-Key") appkey: String?,
+        @Header("X-User-Token") userToken: String?
+    ):Response<ApiResult<UpdatedVentilatorValue>>
 
     /********
      * user *
      ********/
+    @GET("user")
+    suspend fun getUser(
+        @Header("X-App-Key") appkey: String?,
+        @Header("X-User-Token") userToken: String?,
+    ):Response<ApiResult<User>>
+
+    @Headers("Content-Type:application/json; charset=UTF-8")
+    @PUT("user")
+    suspend fun updateUser(
+        @Body updateUserForm: updateUserForm?,
+        @Header("X-App-Key") appkey: String?,
+        @Header("X-User-Token") userToken: String?,
+    ):Response<ApiResult<updatedUser>>
 
 
 }

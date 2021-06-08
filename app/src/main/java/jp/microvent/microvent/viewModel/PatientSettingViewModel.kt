@@ -68,10 +68,11 @@ class PatientSettingViewModel(
                         createdPatient.postValue(createPatient.body()?.result)
                     }
                 }
+                transitionToVentilatorSetting.value = Event("transitionToVentilatorSetting")
+
             } catch (e: Exception) {
                 Log.e("Submit:Failed", e.stackTraceToString())
             }
         }
-        transitionToVentilatorSetting.value = Event("transitionToVentilatorSetting")
     }
 }

@@ -24,12 +24,8 @@ class AuthViewModel(
         }
     }
 
-    val isNotLoginEnabled: MutableLiveData<Boolean> by lazy {
-        MutableLiveData()
-    }
-
-    val isLoginEnabled: MutableLiveData<Boolean> by lazy {
-        MutableLiveData()
+    val isButtonEnabled: MediatorLiveData<Boolean> by lazy  {
+        MediatorLiveData()
     }
 
     //btNotLoginやbtLoginを有効にするためのトリガー
@@ -55,6 +51,12 @@ class AuthViewModel(
 
     init{
         setOrganizationName()
+
+        val checkBoxObserver = Observer<Boolean> {
+            isButtonEnabled.value = isCheckedTermsOfUse.value
+        }
+
+        isButtonEnabled.addSource(isCheckedTermsOfUse, checkBoxObserver)
     }
 
     private fun setOrganizationName() {

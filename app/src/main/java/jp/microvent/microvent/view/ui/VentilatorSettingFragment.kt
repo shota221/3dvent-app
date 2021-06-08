@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -40,14 +41,12 @@ class VentilatorSettingFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
         }
 
-        binding.btVentilatorSettingToSoundMeasurement.setOnClickListener{
-            findNavController().navigate(R.id.action_ventilator_setting_to_sound_measurement)
-        }
-
-        binding.btVentilatorSettingToManualMeasurement.setOnClickListener{
-            findNavController().navigate(R.id.action_ventilator_setting_to_manual_measurement)
-        }
-
+        ventilatorSettingViewModel.transitionToManualMeasurement.observe(
+            viewLifecycleOwner, Observer {
+                val action =
+                findNavController()
+            }
+        )
         return binding.root
     }
 
