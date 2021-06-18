@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="soundMeasurementViewModel"
+            type="jp.microvent.microvent.viewModel.SoundMeasurementViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="75dp"
-            android:text="@string/waiting"
+            android:text="@{soundMeasurementViewModel.recordStatusStr}"
             android:textSize="@dimen/tv_text_size_large"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -28,7 +30,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="@string/rec"
+            android:text="@{soundMeasurementViewModel.recordButtonStr}"
+            android:onClick="@{()->soundMeasurementViewModel.onClickRecordButton()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_waiting" />
@@ -39,6 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:text="@string/calculate_average"
+            android:onClick="@{()->soundMeasurementViewModel.onClickCalculateAverageButton()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bt_rec" />
@@ -60,6 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/change_to_manual_measurement"
+            android:onClick="@{()->soundMeasurementViewModel.onClickManualMeasurementButton()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -79,7 +84,7 @@
             android:id="@+id/tv_average_inhalation_time_value_sound"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="@{soundMeasurementViewModel.averageInhalationTime}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toEndOf="@+id/tv_average_inhalation_time"
             app:layout_constraintTop_toTopOf="@+id/tv_average_inhalation_time" />
@@ -88,7 +93,7 @@
             android:id="@+id/tv_average_exhalation_time_value_sound"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="@{soundMeasurementViewModel.averageExhalationTime}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toEndOf="@+id/tv_average_exhalation_time"
             app:layout_constraintTop_toTopOf="@+id/tv_average_exhalation_time" />

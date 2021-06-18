@@ -3,29 +3,22 @@ package jp.microvent.microvent.viewModel
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
-import jp.microvent.microvent.service.model.CreatePatientForm
-import jp.microvent.microvent.service.model.CreatedPatient
-import jp.microvent.microvent.service.model.Patient
-import jp.microvent.microvent.service.model.VentilatorValue
-import jp.microvent.microvent.view.ui.VentilatorSettingFragmentArgs
+import jp.microvent.microvent.service.model.*
 import jp.microvent.microvent.viewModel.util.Event
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
 class VentilatorSettingViewModel(
     private val myApplication: Application,
-    private val patient: Patient
 ) : BaseViewModel(myApplication) {
 
-    class Factory(
-        private val application: Application, private val patient:Patient
-    ) : ViewModelProvider.NewInstanceFactory() {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return VentilatorSettingViewModel(application, patient) as T
-        }
+    val patient:MutableLiveData<Patient> by lazy {
+        MutableLiveData()
     }
 
-    val patientData : MutableLiveData<Patient> = MutableLiveData(patient)
+    val genderStr:MutableLiveData<String> by lazy {
+        MutableLiveData()
+    }
 
     val transitionToSoundMeasurement: MutableLiveData<Event<String>> by lazy {
         MutableLiveData()
@@ -72,6 +65,26 @@ class VentilatorSettingViewModel(
 
     init{
         /**
+         * 現在観察中のpatientIdから患者情報を取得
+         */
+        viewModelScope.launch{
+            try{
+                repository.getPatient(patientId,appkey).let{
+                    if(it.isSuccessful) {
+                        it.body()?.result?.let {
+                            patient.postValue(it)
+                            genderStr.postValue(Gender.buildGender(it.gender)?.getString(context))
+                        }
+                    }else{
+                        Log.e("rendering:Failed", it.errorBody().toString())
+                    }
+                }
+            }catch (e:Exception){
+                Log.e("rendering:Failed", e.stackTraceToString())
+            }
+        }
+
+        /**
          * チェックボックス2つを監視、両方チェック時のみボタンを有効に
          */
         val checkBoxObserver = Observer<Boolean> {
@@ -98,7 +111,7 @@ class VentilatorSettingViewModel(
                         val calcEstimatedDataResult = calcEstimatedData.body()?.result
                         if(calcEstimatedDataResult != null){
                             fio2.value = calcEstimatedDataResult.fio2
-                            estimatedPeep.value = calcEstimatedDataResult.estimated_peep
+                            estimatedPeep.value = calcEstimatedDataResult.estimatedPeep
                         }
                     }
                 } catch (e:Exception){
@@ -116,10 +129,6 @@ class VentilatorSettingViewModel(
 
     }
 
-    /**
-     * 画面遷移時患者情報表示用
-     */
-
     fun onClickSoundMeasurementButton(){
         buildVentilatorValue()
         transitionToSoundMeasurement.value = Event("transitionToSoundMeasurement")
@@ -131,12 +140,12 @@ class VentilatorSettingViewModel(
     }
 
     private fun buildVentilatorValue(){
-        ventilatorValue.airway_pressure = airwayPressure.value
-        ventilatorValue.o2_flow = o2Flow.value
-        ventilatorValue.air_flow = airFlow.value
+        ventilatorValue.airwayPressure = airwayPressure.value
+        ventilatorValue.o2Flow = o2Flow.value
+        ventilatorValue.airFlow = airFlow.value
         ventilatorValue.fio2 = fio2.value
-        ventilatorValue.estimated_peep = estimatedPeep.value
-        ventilatorValue.predicted_vt = patient.predicted_vt
+        ventilatorValue.estimatedPeep = estimatedPeep.value
+        ventilatorValue.predictedVt = patient.value?.predictedVt
     }
 
 }

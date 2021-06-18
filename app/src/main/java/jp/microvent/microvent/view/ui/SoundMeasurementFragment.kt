@@ -1,64 +1,127 @@
 package jp.microvent.microvent.view.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import jp.microvent.microvent.R
 import jp.microvent.microvent.databinding.FragmentSoundMeasurementBinding
+import jp.microvent.microvent.view.permission.RecordAudioPermission
+import jp.microvent.microvent.viewModel.SoundMeasurementViewModel
+import jp.microvent.microvent.viewModel.util.EventObserver
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [SoundMeasurementFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class SoundMeasurementFragment : Fragment() {
 
+    private val args: SoundMeasurementFragmentArgs by navArgs()
+
+    private val soundMeasurementViewModel by lazy {
+        ViewModelProvider(
+            this, SoundMeasurementViewModel.Factory(
+                requireActivity().application, args.ventilatorValue
+            )
+        ).get(SoundMeasurementViewModel::class.java)
+    }
+
     private lateinit var binding: FragmentSoundMeasurementBinding
+
+    private val launcher = registerForActivityResult(
+        RecordAudioPermission.RequestContract(), ::onPermissionResult
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sound_measurement, container, false)
-
-        binding.btSoundMeasurementToVentilatorResult.setOnClickListener{
-            findNavController().navigate(R.id.action_sound_measurement_to_ventilator_result)
+        if (!RecordAudioPermission.hasPermission(requireActivity())) {
+            launcher.launch(Unit)
         }
 
-        binding.btSoundMeasurementToManualMeasurement.setOnClickListener{
-            findNavController().navigate(R.id.action_sound_measurement_to_manual_measurement)
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_sound_measurement, container, false)
+
+        val viewModel = soundMeasurementViewModel
+
+        binding.apply {
+            soundMeasurementViewModel = viewModel
+            lifecycleOwner = viewLifecycleOwner
         }
+
+        soundMeasurementViewModel.transitionToManualMeasurement.observe(
+            viewLifecycleOwner, EventObserver {
+                val ventilatorValue = soundMeasurementViewModel.ventilatorValue
+                val action =
+                    SoundMeasurementFragmentDirections.actionSoundMeasurementToManualMeasurement(
+                        ventilatorValue
+                    )
+                findNavController().navigate(action)
+            }
+        )
+
+        soundMeasurementViewModel.transitionToVentilatorResult.observe(
+            viewLifecycleOwner, EventObserver {
+                val ventilatorValue = soundMeasurementViewModel.ventilatorValue
+                val action =
+                    SoundMeasurementFragmentDirections.actionSoundMeasurementToVentilatorResult(
+                        ventilatorValue
+                    )
+                findNavController().navigate(action)
+            }
+        )
+
+        setupBackButton()
+        setHasOptionsMenu(true)
 
         return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SoundMeasurementFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SoundMeasurementFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    //他のページに戻るボタンを残さない
+    override fun onStop() {
+        super.onStop()
+        hideBackButton()
+    }
+
+    private fun onPermissionResult(granted: Boolean) {
+        if (granted) {
+        } else {
+            FragmentManager.POP_BACK_STACK_INCLUSIVE
+        }
+    }
+
+    fun setupBackButton() {
+        val activity = activity as AppCompatActivity
+        val actionBar = activity.supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    fun hideBackButton() {
+        val activity = activity as AppCompatActivity
+        val actionBar: ActionBar? = activity.supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(false)
+    }
+
+    //戻るボタンを押されたときの遷移処理
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        return when (item.itemId) {
+            android.R.id.home -> {
+                hideBackButton()
+                findNavController().navigate(R.id.action_sound_measurement_pop)
+                true
             }
+            else->{
+                super.onOptionsItemSelected(item)
+            }
+        }
     }
 }

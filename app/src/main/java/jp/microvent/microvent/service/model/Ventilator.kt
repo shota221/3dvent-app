@@ -1,32 +1,53 @@
 package jp.microvent.microvent.service.model
 
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
+
+@JsonClass(generateAdapter = true)
 data class CreatedVentilator(
-    val ventilator_id: Int,
-    val organization_name: String?,
-    val serial_number: String
+    @Json(name = "ventilator_id")
+    val ventilatorId: Int,
+    @Json(name = "organization_name")
+    val organizationName: String?,
+    @Json(name = "serial_number")
+    val serialNumber: String
 )
 
+@JsonClass(generateAdapter = true)
 data class CreateVentilatorForm(
-    var gs1_code: String?,
+    @Json(name = "gs1_code")
+    var gs1Code: String?,
     var latitude: String?,
     var longitude: String?
 )
 
+@JsonClass(generateAdapter = true)
 data class Ventilator(
-    val is_registered: Boolean,
-    val organization_checked: Boolean?,
-    val organization_code: String?,
-    val organization_name: String?,
-    val ventilator_id: Int?,
-    val patient_id: Int?,
-    val serial_number: String?,
-    val start_using_at: String?
+    @Json(name = "is_registered")
+    val isRegistered: Boolean,
+    @Json(name = "organization_code")
+    val organizationCode: String?,
+    @Json(name = "organization_name")
+    val organizationName: String?,
+    @Json(name = "ventilator_id")
+    val ventilatorId: Int?,
+    @Json(name = "patient_id")
+    val patientId: Int?,
+    @Json(name = "serial_number")
+    val serialNumber: String?,
+    @Json(name = "start_using_at")
+    val startUsingAt: String?,
+    val units: Units,
 )
 
+@JsonClass(generateAdapter = true)
 data class UpdateVentilatorForm(
-    val start_using_at: String?
+    @Json(name = "start_using_at")
+    val startUsingAt: String?
 )
 
+@JsonClass(generateAdapter = true)
 data class UpdatedVentilator(
-    val start_using_at: String
+    @Json(name = "start_using_at")
+    val startUsingAt: String
 )

@@ -9,6 +9,7 @@ import jp.microvent.microvent.service.model.Patient
 import jp.microvent.microvent.viewModel.util.Event
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import java.net.ConnectException
 
 class PatientSettingViewModel(
     private val myApplication: Application
@@ -26,10 +27,6 @@ class PatientSettingViewModel(
         MutableLiveData()
     }
 
-    val genderStr: MutableLiveData<String> by lazy {
-        MutableLiveData()
-    }
-
     val patientNumber: MutableLiveData<String> by lazy {
         MutableLiveData()
     }
@@ -44,10 +41,9 @@ class PatientSettingViewModel(
 
     val patient: Patient = Patient()
 
-    fun onItemSelected(genderSelected: Int, genderSelectedStr: String) {
+    fun onItemSelected(genderSelected: Int) {
         if (genderSelected != 0) {
             gender.postValue(genderSelected)
-            genderStr.postValue(genderSelectedStr)
         }
     }
 
@@ -56,46 +52,49 @@ class PatientSettingViewModel(
             try {
                 val height = height.value.toString()
                 val gender = gender.value?.toInt()
-                val patientNumber = patientNumber.value.toString()
+                val patientNumber = patientNumber.value
                 val createPatientForm =
                     CreatePatientForm(height, gender, patientNumber, ventilatorId)
-                val createPatient = if (userToken.isNullOrEmpty()) {
+                if (!loggedIn()) {
                     repository.createPatientNoAuth(createPatientForm, appkey)
                 } else {
                     repository.createPatient(createPatientForm, appkey, userToken)
-                }
-                if (createPatient.isSuccessful) {
-                    val createPatientResult = createPatient.body()?.result
-                    if(createPatientResult != null){
-                        //postValueだと非同期となりセットされる前に画面遷移されるためここはsetValueを使う
-                        predictedVt.value = createPatientResult.predicted_vt
-                        with(currentVentilatorPref.edit()) {
-                            putInt(
-                                "id",
-                                createPatientResult.patient_id.toInt()
-                            )
+                }.let {
+                    if (it.isSuccessful) {
+                        it.body()?.result?.let {
+                            //postValueだと非同期となりセットされる前に画面遷移されるためここはsetValueを使う
+                            predictedVt.value = it.predictedVt
+                            with(currentVentilatorPref.edit()) {
+                                putInt(
+                                    "patientId",
+                                    it.patientId.toInt()
+                                )
 
-                            commit()
+                                commit()
+                            }
+                            buildPatient()
+                            transitionToVentilatorSetting.value =
+                                jp.microvent.microvent.viewModel.util.Event("transitionToVentilatorSetting")
                         }
-                        buildPatient()
-                        transitionToVentilatorSetting.value =
-                            jp.microvent.microvent.viewModel.util.Event("transitionToVentilatorSetting")
-                    }
 
+                    } else {
+                        Log.i("test",createPatientForm.toString())
+                        Log.e("Submit:Failed", it.errorBody().toString())
+                    }
                 }
 
 
-            } catch (e: Exception) {
+            } catch (e: ConnectException) {
                 Log.e("Submit:Failed", e.stackTraceToString())
+                showDialogConnectionError.value = Event("connection_error")
             }
         }
     }
 
     private fun buildPatient() {
-        patient.patient_code = patientNumber.value
+        patient.patientCode = patientNumber.value
         patient.gender = gender.value
-        patient.gender_str = genderStr.value
         patient.height = height.value
-        patient.predicted_vt = predictedVt.value
+        patient.predictedVt = predictedVt.value
     }
 }

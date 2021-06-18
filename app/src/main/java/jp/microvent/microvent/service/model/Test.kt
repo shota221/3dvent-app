@@ -1,7 +1,11 @@
 package jp.microvent.microvent.service.model
 
-data class Test(
-    val name: String = "",
-    val stand: String = "",
+class Test(val name : String){
+    companion object Factory{
+        fun from(name:String):Test{
+            return Test(name)
+        }
+    }
 
-)
+    var test = "example"
+}

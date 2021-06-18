@@ -10,17 +10,15 @@
         android:name="jp.microvent.microvent.view.ui.AuthFragment"
         android:label="fragment_auth"
         tools:layout="@layout/fragment_auth">
-
-        <argument
-            android:name="gs1Code"
-            app:argType="string"
-            android:defaultValue="QRコードが読み込まれていません"/>
         <action
-            android:id="@+id/action_auth_not_login_to_patient_setting"
+            android:id="@+id/action_auth_to_qr_reading"
+            app:destination="@id/navi_qr_reading" />
+        <action
+            android:id="@+id/action_auth_to_patient_setting"
             app:destination="@id/patient_setting_fragment" />
         <action
-            android:id="@+id/action_auth_login_to_patient_setting"
-            app:destination="@id/patient_setting_fragment" />
+            android:id="@+id/action_auth_to_ventilator_setting"
+            app:destination="@id/ventilator_setting_fragment" />
     </fragment>
 
     <fragment
@@ -44,9 +42,6 @@
         <action
             android:id="@+id/action_ventilator_setting_to_sound_measurement"
             app:destination="@id/sound_measurement_fragment"/>
-        <argument
-            android:name="patient"
-            app:argType="jp.microvent.microvent.service.model.Patient" />
     </fragment>
 
     <fragment
@@ -54,6 +49,9 @@
         android:name="jp.microvent.microvent.view.ui.ManualMeasurementFragment"
         android:label="fragment_manual_measurement"
         tools:layout="@layout/fragment_manual_measurement">
+        <action
+            android:id="@+id/action_manual_measurement_pop"
+            app:popUpTo="@id/ventilator_setting_fragment"/>
         <action
             android:id="@+id/action_manual_measurement_to_ventilator_result"
             app:destination="@id/ventilator_result_fragment"/>
@@ -67,6 +65,9 @@
         android:name="jp.microvent.microvent.view.ui.SoundMeasurementFragment"
         android:label="fragment_sound_measurement"
         tools:layout="@layout/fragment_sound_measurement">
+        <action
+            android:id="@+id/action_sound_measurement_pop"
+            app:popUpTo="@id/ventilator_setting_fragment"/>
         <action
             android:id="@+id/action_sound_measurement_to_ventilator_result"
             app:destination="@id/ventilator_result_fragment"/>
@@ -99,6 +100,12 @@
             android:id="@+id/action_setting_to_home"
             app:destination="@id/auth_fragment">
         </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/navi_support"
+        android:name="jp.microvent.microvent.view.ui.SoundSamplingFragment"
+        android:label="fragment_setting">
     </fragment>
 
     <fragment

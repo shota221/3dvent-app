@@ -8,45 +8,30 @@ import androidx.lifecycle.viewModelScope
 import jp.microvent.microvent.R
 import jp.microvent.microvent.service.model.AppkeyFetchForm
 import jp.microvent.microvent.service.repository.MicroventRepository
-import jp.microvent.microvent.service.repository.TestRepository
 import jp.microvent.microvent.viewModel.util.Event
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import java.net.ConnectException
 
 class SettingViewModel(
     private val myApplication: Application
-) : BaseViewModel(myApplication){
+) : BaseViewModel(myApplication) {
 
-    val isLogoutEnabled: MutableLiveData<Boolean> by lazy{
-        if(userToken.isNullOrEmpty()){
-            MutableLiveData(false)
-        }else{
-            MutableLiveData(true)
-        }
+    val isLogoutEnabled: MutableLiveData<Boolean> by lazy {
+            MutableLiveData(loggedIn())
     }
 
     //画面遷移イベントの設定
-    val transitionToHome = MutableLiveData<Event<String>>()
+    val transitionToAuth = MutableLiveData<Event<String>>()
 
     fun onClickLogoutButton() {
-
-        viewModelScope.launch {
-            try{
-                val deleteUserToken = repository.deleteUserToken(appkey,userToken)
-                if(deleteUserToken.isSuccessful){
-                    //サーバでのトークン削除が確認できたら内部ストレージに記録してあるトークンも削除する
-                    with(networkPref.edit()){
-                        remove(context.getString(R.string.user_token))
-                        commit()
-                    }
-                    transitionToHome.value = Event("transitionToHome")
-                } else {
-                    Log.i("test","test")
-                }
-            }catch (e:Exception){
-                Log.e("removeToken:Failed", e.stackTrace.toString())
+        try {
+            resetUserToken().let {
+                transitionToAuth.value = Event("transitionToAuth")
             }
+        } catch (e:ConnectException){
+            showDialogConnectionError.value = Event("connect_error")
         }
     }
 

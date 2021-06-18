@@ -1,17 +1,27 @@
 package jp.microvent.microvent.service.model
 
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
+
+@JsonClass(generateAdapter = true)
 data class User(
-    val user_name: String?,
-    val organization_name: String?,
+    @Json(name = "user_name")
+    val userName: String?,
+    @Json(name = "organization_name")
+    val organizationName: String?,
     val email: String?
 )
 
+@JsonClass(generateAdapter = true)
 data class updateUserForm(
-    var user_name:String?,
+    @Json(name = "user_name")
+    var userName:String?,
     var email: String?
 )
 
+@JsonClass(generateAdapter = true)
 data class updatedUser(
-    val user_name:String?,
+    @Json(name = "user_name")
+    val userName:String?,
     val email:String?
 )

@@ -1,29 +1,22 @@
 package jp.microvent.microvent.view.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import jp.microvent.microvent.R
 import jp.microvent.microvent.databinding.FragmentVentilatorSettingBinding
-import jp.microvent.microvent.viewModel.AuthViewModel
 import jp.microvent.microvent.viewModel.VentilatorSettingViewModel
+import jp.microvent.microvent.viewModel.util.EventObserver
+
 
 class VentilatorSettingFragment : Fragment() {
 
-    private val args: VentilatorSettingFragmentArgs by navArgs()
-
-    private val ventilatorSettingViewModel by lazy {
-        ViewModelProvider(this, VentilatorSettingViewModel.Factory(
-            requireActivity().application, args.patient
-        )).get(VentilatorSettingViewModel::class.java)
-    }
+    private val ventilatorSettingViewModel by viewModels<VentilatorSettingViewModel>()
 
     private lateinit var binding: FragmentVentilatorSettingBinding
 
@@ -42,7 +35,7 @@ class VentilatorSettingFragment : Fragment() {
         }
 
         ventilatorSettingViewModel.transitionToManualMeasurement.observe(
-            viewLifecycleOwner, Observer {
+            viewLifecycleOwner, EventObserver {
                 val ventilatorValue = ventilatorSettingViewModel.ventilatorValue
                 val action = VentilatorSettingFragmentDirections.actionVentilatorSettingToManualMeasurement(ventilatorValue)
                 findNavController().navigate(action)
@@ -50,7 +43,7 @@ class VentilatorSettingFragment : Fragment() {
         )
 
         ventilatorSettingViewModel.transitionToSoundMeasurement.observe(
-            viewLifecycleOwner, Observer {
+            viewLifecycleOwner, EventObserver {
                 val ventilatorValue = ventilatorSettingViewModel.ventilatorValue
                 val action = VentilatorSettingFragmentDirections.actionVentilatorSettingToSoundMeasurement(ventilatorValue)
                 findNavController().navigate(action)
@@ -59,5 +52,4 @@ class VentilatorSettingFragment : Fragment() {
 
         return binding.root
     }
-
 }

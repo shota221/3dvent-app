@@ -1,31 +1,69 @@
 package jp.microvent.microvent.service.repository
 
+import android.preference.PreferenceManager
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import jp.microvent.microvent.service.model.*
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
+//forLocal
 const val MICROVENT_URL = "http://api.microvent.local/"
+const val API_TOKEN = "secret"
+//forDev
+//const val MICROVENT_URL = "http://api.microvent.r102.jp/"
+//const val API_TOKEN = "secret_for_dev"
 
-class MicroventRepository {
-    companion object Factory {
+class MicroventRepository{
+    companion object Factory{
         val instance: MicroventRepository
-            @Synchronized get() {
-                return MicroventRepository()
-            }
+        @Synchronized get(){
+            return MicroventRepository()
+        }
     }
 
-    private val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+    val moshi by lazy {
+        Moshi.Builder()
+            .add(KotlinJsonAdapterFactory())
+            .build()
+    }
 
-    //APIから取得したjsonデータをオブジェクト化してくれるRetrofitオブジェクトの作成
-    private val retrofit = Retrofit.Builder()
-        .addConverterFactory(MoshiConverterFactory.create(moshi))
-        .baseUrl(MICROVENT_URL)
-        .build()
+    private val microventApiInterceptor by lazy {
+        //リクエスト内容に対する干渉を記述(header付与)等
+        Interceptor { chain ->
+            val original = chain.request()
 
-    private val microventApiService: MicroventApiService =
+            chain.proceed(
+                original.newBuilder()
+                    .header("Accept", "application/json")
+                    .build()
+            )
+        }
+    }
+
+    private val microventApiClient by lazy {
+        val logging = HttpLoggingInterceptor()
+        logging.level = HttpLoggingInterceptor.Level.BODY
+
+        OkHttpClient.Builder()
+            .addInterceptor(microventApiInterceptor)
+            .addInterceptor(logging)
+            .build()
+    }
+
+    private val retrofit by lazy {
+        Retrofit.Builder()
+            .baseUrl(MICROVENT_URL)
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .client(microventApiClient)
+            .build()
+    }
+
+    protected val microventApiService: MicroventApiService =
         retrofit.create(MicroventApiService::class.java)
 
     /**********
@@ -33,9 +71,8 @@ class MicroventRepository {
      **********/
     suspend fun createAppkey(
         appkeyFetchForm: AppkeyFetchForm?,
-        apiToken: String?
     ): Response<ApiResult<Appkey>> =
-        microventApiService.createAppkey(appkeyFetchForm, apiToken)
+        microventApiService.createAppkey(appkeyFetchForm, API_TOKEN)
 
     /********
      * auth *
@@ -86,6 +123,12 @@ class MicroventRepository {
         appkey: String?
     ): Response<ApiResult<Ie>> =
         microventApiService.calcIeSound(ieSoundFetchForm, appkey)
+
+    suspend fun soundSampling(
+        ieSoundFetchForm: IeSoundFetchForm?,
+        apiToken: String?
+    ): Response<Test> =
+        microventApiService.soundSampling(ieSoundFetchForm, apiToken)
 
 
     /***********

@@ -16,7 +16,9 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import jp.microvent.microvent.R
 import jp.microvent.microvent.databinding.FragmentPatientSettingBinding
+import jp.microvent.microvent.view.ui.dialog.DialogConnectionErrorFragment
 import jp.microvent.microvent.viewModel.PatientSettingViewModel
+import jp.microvent.microvent.viewModel.util.EventObserver
 
 class PatientSettingFragment : Fragment() {
 
@@ -56,9 +58,7 @@ class PatientSettingFragment : Fragment() {
                     position: Int,
                     id: Long
                 ) {
-                    val spinner = parent as AppCompatSpinner
-                    val str = spinner.selectedItem.toString()
-                    viewModel.onItemSelected(position, str)
+                    viewModel.onItemSelected(position)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -69,9 +69,14 @@ class PatientSettingFragment : Fragment() {
 
         patientSettingViewModel.transitionToVentilatorSetting.observe(
             viewLifecycleOwner, Observer {
-                val patient = patientSettingViewModel.patient
-                val action = PatientSettingFragmentDirections.actionPatientSettingToVentilatorSetting(patient)
-                findNavController().navigate(action)
+                findNavController().navigate(R.id.action_patient_setting_to_ventilator_setting)
+            }
+        )
+
+        patientSettingViewModel.showDialogConnectionError.observe(
+            viewLifecycleOwner, EventObserver {
+                val dialog = DialogConnectionErrorFragment()
+                dialog.show(requireActivity().supportFragmentManager, it)
             }
         )
 

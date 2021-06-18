@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import jp.microvent.microvent.R
 import jp.microvent.microvent.databinding.FragmentSettingBinding
+import jp.microvent.microvent.view.ui.dialog.DialogConnectionErrorFragment
 import jp.microvent.microvent.viewModel.SettingViewModel
 import jp.microvent.microvent.viewModel.util.EventObserver
 
@@ -37,18 +38,27 @@ class SettingFragment : Fragment() {
 
         val viewModel = settingViewModel
 
-        binding.apply{
+        binding.apply {
             settingViewModel = viewModel
             lifecycleOwner = viewLifecycleOwner
         }
 
-        settingViewModel.transitionToHome.observe(
-            viewLifecycleOwner,
-            EventObserver{
-                findNavController().navigate(R.id.action_setting_to_home)
-            }
-        )
+        settingViewModel.apply {
+            transitionToAuth.observe(
+                viewLifecycleOwner,
+                EventObserver {
+                    findNavController().navigate(R.id.action_setting_to_home)
+                }
+            )
 
+            showDialogConnectionError.observe(
+                viewLifecycleOwner,
+                EventObserver {
+                    val dialog = DialogConnectionErrorFragment()
+                    dialog.show(requireActivity().supportFragmentManager, it)
+                }
+            )
+        }
         return binding.root
     }
 

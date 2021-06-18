@@ -7,11 +7,14 @@
     <string name="close">閉じる</string>
     <string name="required">※必須</string>
     <string name="unselected">未選択</string>
+    <string name="redo">再試行</string>
+    <string name="ok">OK</string>
+    <string name="cancel">キャンセル</string>
 
     <!-- 単位 -->
     <string name="unit_of_length">cm</string>
     <string name="unit_of_volume">ml</string>
-    <string name="unit_of_pressure">cmH<sub>2</sub>O</string>
+    <string name="unit_of_pressure">cm"H/u2082"O</string>
     <!--    <string name="unit_of_pressure">cmH&lt;sub>2&lt;/sub>O</string>-->
     <string name="percent">%</string>
     <string name="unit_of_flow">L/min</string>
@@ -103,6 +106,16 @@
     <string name="logout">ログアウト</string>
 
     <!-- others-->
+    <string name="temp_wav_name">temp.wav</string>
+    <string name="submit">送信</string>
+
+    <!-- dialog -->
+    <string name="using_another_terminal">アカウント同時利用不可</string>
+    <string name="using_another_terminal_message">同じアカウントでログイン中の他の端末は強制的にログアウトされます。</string>
+    <string name="connection_error">通信エラー</string>
+    <string name="connection_error_message">ネットワーク接続状況を確認してください。</string>
+
+    <!-- prefs -->
     <string name="network_pref">network_pref</string>
     <string name="appkey">X-App-Key</string>
     <string name="user_token">X-User-Token</string>
@@ -111,6 +124,35 @@
 
     <string name="current_ventilator_pref">current_ventilator_pref</string>
     <string name="current_ventilator_id">id</string>
+    <string name="current_patient_id">patientId</string>
+
+    <string name="unit_pref">unit_pref</string>
+    <string name="height">height</string>
+    <string name="weight">weight</string>
+    <string name="air_flow">airFlow</string>
+    <string name="o2_flow">o2Flow</string>
+    <string name="total_flow">totalFlow</string>
+    <string name="estimated_mv">estimatedMv</string>
+    <string name="airway_pressure">airwayPressure</string>
+    <string name="estimated_peep">estimatedPeep</string>
+    <string name="vt_per_kg">vtPerKg</string>
+    <string name="predicted_vt">predictedVt</string>
+    <string name="estimated_vt">estimatedVt</string>
+    <string name="i">i</string>
+    <string name="e">e</string>
+    <string name="i_avg">iAvg</string>
+    <string name="e_avg">eAvg</string>
+    <string name="rr">rr</string>
+    <string name="fio2">fio2</string>
+    <string name="spo2">spo2</string>
+    <string name="etco2">etco2</string>
+    <string name="pao2">pao2</string>
+    <string name="paco2">paco2</string>
+
+    <!-- toast message-->
+    <string name="server_error_toast">サーバーエラー</string>
+    <string name="validation_error_toast">入力内容に誤りがあります。</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

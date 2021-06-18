@@ -189,7 +189,7 @@
             android:id="@+id/tv_height_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{ventilatorSettingViewModel.patientData.height}"
+            android:text="@{ventilatorSettingViewModel.patient.height}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toEndOf="@+id/tv_height"
             app:layout_constraintTop_toTopOf="@+id/tv_height" />
@@ -198,7 +198,7 @@
             android:id="@+id/tv_gender_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{ventilatorSettingViewModel.patientData.gender_str}"
+            android:text="@{ventilatorSettingViewModel.genderStr}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toEndOf="@+id/tv_gender"
             app:layout_constraintTop_toTopOf="@+id/tv_gender" />
@@ -207,7 +207,7 @@
             android:id="@+id/tv_predicted_vt_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{ventilatorSettingViewModel.patientData.predicted_vt}"
+            android:text="@{ventilatorSettingViewModel.patient.predictedVt}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toEndOf="@+id/tv_predicted_vt"
             app:layout_constraintTop_toTopOf="@+id/tv_predicted_vt" />

@@ -8,16 +8,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.mlkit.vision.barcode.Barcode
 import jp.microvent.microvent.R
 import jp.microvent.microvent.databinding.FragmentQrReadingBinding
+import jp.microvent.microvent.view.permission.AccessLocationPermission
 import jp.microvent.microvent.view.permission.CameraPermission
+import jp.microvent.microvent.view.ui.dialog.DialogConnectionErrorFragment
 import jp.microvent.microvent.viewModel.QrReadingViewModel
 import jp.microvent.microvent.viewModel.TestViewModel
 import jp.microvent.microvent.viewModel.util.CodeScanner
@@ -30,9 +35,14 @@ class QrReadingFragment : Fragment() {
     private lateinit var binding: FragmentQrReadingBinding
 
     private lateinit var codeScanner: CodeScanner
-    private val launcher = registerForActivityResult(
-        CameraPermission.RequestContract(), ::onPermissionResult
+
+    private val cameraPermissionLauncher = registerForActivityResult(
+        CameraPermission.RequestContract(), ::onCameraPermissionResult
     )
+    private val accessLocationPermissionLauncher = registerForActivityResult(
+        AccessLocationPermission.RequestContract(), ::onAccessLocationPermissionResult
+    )
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,18 +62,56 @@ class QrReadingFragment : Fragment() {
 
         codeScanner = CodeScanner(requireActivity(), binding.previewView, ::onDetectCode)
         if (CameraPermission.hasPermission(requireActivity())) {
-            start()
+            codeScanner.start()
         } else {
-            launcher.launch(Unit)
+            cameraPermissionLauncher.launch(Unit)
         }
 
-        qrReadingViewModel.gs1Code.observe(
-            viewLifecycleOwner, Observer {
-                val action = QrReadingFragmentDirections.actionQrReadingToAuth(it)
-                findNavController().navigate(action)
-            }
-        )
+        if (AccessLocationPermission.hasPermission(requireActivity())) {
+            qrReadingViewModel.setLocation()
+        } else {
+            accessLocationPermissionLauncher.launch(Unit)
+        }
 
+        //画面制御用オブザーバーセット
+        qrReadingViewModel.apply {
+            transitionToAuth.observe(
+                viewLifecycleOwner, EventObserver {
+                    findNavController().navigate(R.id.action_qr_reading_to_auth)
+                }
+            )
+            transitionToPatientSetting.observe(
+                viewLifecycleOwner, EventObserver {
+                    findNavController().navigate(R.id.action_qr_reading_to_patient_setting)
+                }
+            )
+            transitionToVentilatorSetting.observe(
+                viewLifecycleOwner, EventObserver {
+                    findNavController().navigate(R.id.action_qr_reading_to_ventilator_setting)
+                }
+            )
+
+            /**
+             * 通信エラーダイアログの表示
+             */
+            showDialogConnectionError.observe(
+                viewLifecycleOwner,
+                EventObserver {
+                    val dialog = DialogConnectionErrorFragment()
+                    dialog.show(requireActivity().supportFragmentManager, it)
+                }
+            )
+
+            /**
+             * トースト表示
+             */
+            showToast.observe(
+                viewLifecycleOwner,
+                EventObserver {
+                    Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
+                }
+            )
+        }
 
         return binding.root
     }
@@ -73,29 +121,30 @@ class QrReadingFragment : Fragment() {
 
     }
 
-    private fun onPermissionResult(granted: Boolean) {
+    private fun onCameraPermissionResult(granted: Boolean) {
         if (granted) {
-            start()
+            codeScanner.start()
         } else {
             FragmentManager.POP_BACK_STACK_INCLUSIVE
         }
-    }
-
-    private fun start() {
-        codeScanner.start()
     }
 
     private fun onDetectCode(codes: List<Barcode>) {
         codes.forEach {
             val rawGs1Code = it.rawValue ?: return@forEach
             //gs1コードである宣言]C1も含まれる可能性があるため除去
-            var gs1Code = rawGs1Code.replace("]C1","")
+            var gs1Code = rawGs1Code.replace("]C1", "")
             //英数字以外の文字を消去
-            gs1Code = gs1Code.replace("[^0-9a-zA-Z]".toRegex(),"")
+            gs1Code = gs1Code.replace("[^0-9a-zA-Z]".toRegex(), "")
             //医療用バーコードとして不適切な桁数(20文字以下)と判断できれば返却(参考：https://www.rolan.co.jp/shouhin/s_sakurabarcode5_medical1.html)
-            if(gs1Code.length <= 20) return@forEach
-            qrReadingViewModel.gs1Code.postValue(gs1Code)
+            if (gs1Code.length <= 20) return@forEach
+            qrReadingViewModel.gs1Code.value = gs1Code
         }
     }
 
+    private fun onAccessLocationPermissionResult(granted: Boolean) {
+        if (granted) {
+            qrReadingViewModel.setLocation()
+        }
+    }
 }

@@ -1,36 +1,50 @@
 package jp.microvent.microvent.service.model
 
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import java.io.Serializable
 
+@JsonClass(generateAdapter = true)
 data class Patient(
-    var patient_code: String? = null,
+    @Json(name = "patient_code")
+    var patientCode: String? = null,
     var gender: Int? = null,
-    var gender_str : String? = null,
-    var predicted_vt: String? = null,
+    @Json(name = "predicted_vt")
+    var predictedVt: String? = null,
     var height: String? = null
 ):Serializable
 
+@JsonClass(generateAdapter = true)
 data class CreatePatientForm(
     var height: String?,
     var gender: Int?,
-    var patient_code:String?,
-    var ventilator_id: Int?
+    @Json(name = "patient_code")
+    var patientCode:String?,
+    @Json(name = "ventilator_id")
+    var ventilatorId: Int?
 )
 
+@JsonClass(generateAdapter = true)
 data class CreatedPatient(
-    val patient_id: String,
-    val predicted_vt: String
+    @Json(name = "patient_id")
+    val patientId: String,
+    @Json(name = "predicted_vt")
+    val predictedVt: String
 )
 
+@JsonClass(generateAdapter = true)
 data class UpdatePatientForm(
-    var patient_code: String?,
+    @Json(name = "patient_code")
+    var patientCode: String?,
     var height: String?,
     var gender: String?
 )
-
+@JsonClass(generateAdapter = true)
 data class UpdatedPatient(
-    val patient_code: String?,
+    @Json(name = "patient_code")
+    val patientCode: String?,
     val gender: Int,
-    val predicted_vt: String,
+    @Json(name = "predicted_vt")
+    val predictedVt: String,
     val height: String
 )

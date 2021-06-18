@@ -1,86 +1,180 @@
 package jp.microvent.microvent.service.model
 
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import java.io.Serializable
 
+@JsonClass(generateAdapter = true)
 data class VentilatorValue(
     var id: Int? = null,
-    var has_observed: Boolean? = null,
-    var ventilator_value_id: Int? = null,
-    var ventilator_id: Int? = null,
+    @Json(name = "has_observed")
+    var hasObserved: Boolean? = null,
+    @Json(name = "ventilator_value_id")
+    var ventilatorValueId: Int? = null,
+    @Json(name = "ventilator_id")
+    var ventilatorId: Int? = null,
     var city: String? = null,
     var height: String? = null,
     var weight: String? = null,
     var gender: Int? = null,
-    var ideal_weight: String? = null,
-    var airway_pressure: String? = null,
-    var total_flow: String? = null,
-    var air_flow: String? = null,
-    var o2_flow: String? = null,
+    @Json(name = "ideal_weight")
+    var idealWeight: String? = null,
+    @Json(name = "airway_pressure")
+    var airwayPressure: String? = null,
+    @Json(name = "total_flow")
+    var totalFlow: String? = null,
+    @Json(name = "air_flow")
+    var airFlow: String? = null,
+    @Json(name = "o2_flow")
+    var o2Flow: String? = null,
     var rr: String? = null,
-    var vt_per_kg: String? = null,
-    var predicted_vt: String? = null,
-    var estimated_vt: String? = null,
-    var estimated_mv: String? = null,
-    var estimated_peep: String? = null,
+    @Json(name = "vt_per_kg")
+    var vtPerKg: String? = null,
+    @Json(name = "predicted_vt")
+    var predictedVt: String? = null,
+    @Json(name = "estimated_vt")
+    var estimatedVt: String? = null,
+    @Json(name = "estimated_mv")
+    var estimatedMv: String? = null,
+    @Json(name = "estimated_peep")
+    var estimatedPeep: String? = null,
     var fio2: String? = null,
-    var fixed_flg: String? = null,
-    var registered_at: String? = null,
-    var registered_user_name: String? = null,
-    var confirmed_user_name: String? = null,
-    var status_use: String? = null,
-    var status_use_other: String? = null,
+    @Json(name = "fixed_flg")
+    var fixedFlg: String? = null,
+    @Json(name = "registered_at")
+    var registeredAt: String? = null,
+    @Json(name = "registered_user_name")
+    var registeredUserName: String? = null,
+    @Json(name = "confirmed_user_name")
+    var confirmedUserName: String? = null,
+    @Json(name = "status_use")
+    var statusUse: String? = null,
+    @Json(name = "status_use_other")
+    var statusUseOther: String? = null,
     var spo2: String? = null,
     var etco2: String? = null,
     var pao2: String? = null,
     var paco2: String? = null,
-    var expiratory_time: String? = null,
-    var inspiratory_time: String? = null,
+    @Json(name = "expiratory_time")
+    var expiratoryTime: String? = null,
+    @Json(name = "inspiratory_time")
+    var inspiratoryTime: String? = null,
 ) : Serializable
 
+@JsonClass(generateAdapter = true)
 data class VentilatorValueListElm(
     val id: Int?,
-    val registered_at: String?,
-    val registered_user_name: String?
+    @Json(name = "registered_at")
+    val registeredAt: String?,
+    @Json(name = "registered_user_name")
+    val registeredUserName: String?
 )
 
+@JsonClass(generateAdapter = true)
 data class CreateVentilatorValueForm(
-    var ventilator_id: Int?,
-    var patient_id: Int?,
-    var airway_pressure: String?,
-    var air_flow: String?,
-    var o2_flow: String?,
+    @Json(name = "ventilator_id")
+    var ventilatorId: Int?,
+    @Json(name = "patient_id")
+    var patientId: Int?,
+    @Json(name = "airway_pressure")
+    var airwayPressure: String?,
+    @Json(name = "air_flow")
+    var airFlow: String?,
+    @Json(name = "o2_flow")
+    var o2Flow: String?,
     var rr: String?,
-    var i_avg: String?,
-    var e_avg: String?,
-    var predicted_vt: String?
+    @Json(name = "i_avg")
+    var iAvg: String?,
+    @Json(name = "e_avg")
+    var eAvg: String?,
+    @Json(name = "predicted_vt")
+    var predictedVt: String?
 )
 
+@JsonClass(generateAdapter = true)
 data class CreatedVentilatorValue(
-    val ventilator_id: Int?,
+    @Json(name = "ventilator_id")
+    val ventilatorId: Int?,
     val fio2: String?,
-    val estimated_vt: String?,
-    val estimated_mv: String?,
-    val estimated_peep: String?
+    @Json(name = "estimated_vt")
+    val estimatedVt: String?,
+    @Json(name = "estimated_mv")
+    val estimatedMv: String?,
+    @Json(name = "estimated_peep")
+    val estimatedPeep: String?
 )
 
+@JsonClass(generateAdapter = true)
 data class UpdateVentilatorValueForm(
     var id: Int?,
-    var registered_at: String?,
+    @Json(name = "registered_at")
+    var registeredAt: String?,
     var gender: Int?,
     var height: String?,
     var weight: String?,
-    var airway_pressure: String?,
-    var air_flow: String?,
-    var o2_flow: String?,
-    var status_use: Int?,
-    var status_use_other: String?,
+    @Json(name = "airway_pressure")
+    var airwayPressure: String?,
+    @Json(name = "air_flow")
+    var airFlow: String?,
+    @Json(name = "o2_flow")
+    var o2Flow: String?,
+    @Json(name = "status_use")
+    var statusUse: Int?,
+    @Json(name = "status_use_other")
+    var statusUseOther: String?,
     var spo2: String?,
     var etco2: String?,
     var pao2: String?,
     var paco2: String?
 )
 
+@JsonClass(generateAdapter = true)
 data class UpdatedVentilatorValue(
     val id: Int?,
-    val revised_at: String?
+    @Json(name = "revised_at")
+    val revisedAt: String?
+)
+
+@JsonClass(generateAdapter = true)
+data class Units(
+    val height: String?,
+
+    val weight: String?,
+
+    @Json(name = "air_flow")
+    val airFlow: String?,
+    @Json(name = "o2_flow")
+    val o2Flow: String?,
+    @Json(name = "total_flow")
+    val totalFlow: String?,
+    @Json(name = "estimated_mv")
+    val estimatedMv: String?,
+
+    @Json(name = "airway_pressure")
+    val airwayPressure: String?,
+    @Json(name = "estimated_peep")
+    val estimatedPeep: String?,
+
+    @Json(name = "vt_per_kg")
+    val vtPerKg: String?,
+    @Json(name = "predicted_vt")
+    val predictedVt: String?,
+    @Json(name = "estimated_vt")
+    val estimatedVt: String?,
+
+    val i: String?,
+    val e: String?,
+    @Json(name = "i_avg")
+    val iAvg: String?,
+    @Json(name = "e_avg")
+    val eAvg: String?,
+
+    val rr: String?,
+
+    val fio2: String?,
+    val spo2: String?,
+
+    val etco2: String?,
+    val pao2: String?,
+    val paco2: String?,
 )

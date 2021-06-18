@@ -1,31 +1,17 @@
  package jp.microvent.microvent.viewModel
 
 import android.app.Application
-import android.content.Context
 import android.util.Log
-import android.widget.Toast
-import androidx.databinding.BaseObservable
-import androidx.databinding.Bindable
 import androidx.lifecycle.*
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.iid.FirebaseInstanceIdReceiver
-import com.google.firebase.iid.internal.FirebaseInstanceIdInternal
 import com.google.firebase.messaging.FirebaseMessaging
 import jp.microvent.microvent.R
-import jp.microvent.microvent.service.model.Appkey
 import jp.microvent.microvent.service.model.AppkeyFetchForm
-import jp.microvent.microvent.service.model.CreateUserTokenForm
-import jp.microvent.microvent.service.repository.MicroventRepository
-import jp.microvent.microvent.service.repository.TestRepository
-import jp.microvent.microvent.service.repository.UserRepository
 import jp.microvent.microvent.viewModel.util.Event
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import java.lang.Exception
+import java.net.ConnectException
 import java.util.*
-import kotlin.coroutines.CoroutineContext
 
-class MainViewModel(
+ class MainViewModel(
     private val myApplication: Application
 ) : BaseViewModel(myApplication) {
 
@@ -44,10 +30,9 @@ class MainViewModel(
     private fun createAppkey(token: String?) {
         viewModelScope.launch {
             try {
-                val apiToken = context.getString(R.string.api_token_string)
                 //インスタンスidを取得
                 val appkeyFetchForm = AppkeyFetchForm(token)
-                val createAppkey = repository.createAppkey(appkeyFetchForm, apiToken)
+                val createAppkey = repository.createAppkey(appkeyFetchForm)
                 if (createAppkey.isSuccessful) {
                     val createAppkeyResult = createAppkey.body()?.result
                     with(networkPref.edit()) {
@@ -57,12 +42,12 @@ class MainViewModel(
                         )
                         commit()
                     }
-                    Log.i("test", "done")
                 } else {
-                    Log.i("test", "test")
+                    Log.e("checkAppkey:Failed",createAppkey.errorBody().toString())
                 }
-            } catch (e: Exception) {
+            } catch (e: ConnectException) {
                 Log.e("checkAppkey:Failed", e.stackTraceToString())
+                showDialogConnectionError.value = Event("connection_error")
             }
 
         }

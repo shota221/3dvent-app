@@ -45,9 +45,7 @@ class VentilatorResultFragment : Fragment() {
 
         ventilatorResultViewModel.transitionToVentilatorSetting.observe(
             viewLifecycleOwner, Observer {
-                val patient = ventilatorResultViewModel.patient
-                val action = VentilatorResultFragmentDirections.actionVentilatorResultToVentilatorSetting(patient)
-                findNavController().navigate(action)
+                findNavController().navigate(R.id.action_ventilator_result_to_ventilator_setting)
             }
         )
 

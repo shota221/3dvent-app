@@ -3,8 +3,11 @@ package jp.microvent.microvent.view.ui
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -14,6 +17,7 @@ import jp.microvent.microvent.R
 import jp.microvent.microvent.databinding.FragmentManualMeasurementBinding
 import jp.microvent.microvent.viewModel.ManualMeasurementViewModel
 import jp.microvent.microvent.viewModel.VentilatorResultViewModel
+import jp.microvent.microvent.viewModel.util.EventObserver
 
 class ManualMeasurementFragment : Fragment() {
 
@@ -42,13 +46,47 @@ class ManualMeasurementFragment : Fragment() {
         }
 
         manualMeasurementViewModel.transitionToVentilatorResult.observe(
-            viewLifecycleOwner, Observer {
+            viewLifecycleOwner, EventObserver {
                 val ventilatorValue = manualMeasurementViewModel.ventilatorValue
                 val action = ManualMeasurementFragmentDirections.actionManualMeasurementToVentilatorResult(ventilatorValue)
                 findNavController().navigate(action)
             }
         )
 
+        setupBackButton()
+        setHasOptionsMenu(true)
+
         return binding.root
     }
+
+    override fun onStop() {
+        super.onStop()
+        hideBackButton()
+    }
+
+    fun setupBackButton() {
+        val activity = activity as AppCompatActivity
+        val actionBar = activity.supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    fun hideBackButton() {
+        val activity = activity as AppCompatActivity
+        val actionBar: ActionBar? = activity.supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(false)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        return when (item.itemId) {
+            android.R.id.home -> {
+                findNavController().navigate(R.id.action_manual_measurement_pop)
+                true
+            }
+            else->{
+                super.onOptionsItemSelected(item)
+            }
+        }
+    }
+
 }
