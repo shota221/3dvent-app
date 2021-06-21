@@ -7,15 +7,19 @@
     <string name="close">閉じる</string>
     <string name="required">※必須</string>
     <string name="unselected">未選択</string>
+    <string name="unentered">未入力</string>
     <string name="redo">再試行</string>
     <string name="ok">OK</string>
     <string name="cancel">キャンセル</string>
+    <string name="edit">編集</string>
+    <string name="register">登録</string>
+    <string name="save">保存</string>
+    <string name="none">なし</string>
 
-    <!-- 単位 -->
-    <string name="unit_of_length">cm</string>
-    <string name="unit_of_volume">ml</string>
-    <string name="unit_of_pressure">cm"H/u2082"O</string>
-    <!--    <string name="unit_of_pressure">cmH&lt;sub>2&lt;/sub>O</string>-->
+    <!-- 単位:TODO(単位をsharedPrefから参照) -->
+    <string name="unit_of_height">cm</string>
+    <string name="unit_of_volume">mL</string>
+    <string name="unit_of_pressure">cmH2O</string>
     <string name="percent">%</string>
     <string name="unit_of_flow">L/min</string>
     <string name="unit_of_time">s</string>
@@ -43,7 +47,7 @@
 
     <!-- patient_setting -->
     <string name="height_key">身長：</string>
-    <string name="height_label">身長（cm）</string>
+    <string name="height_label">身長（%1$s）</string>
     <string name="gender_key">性別：</string>
     <string name="gender">性別</string>
     <string-array name="gender_list">
@@ -53,18 +57,18 @@
     </string-array>
     <string name="male">男</string>
     <string name="female">女</string>
-    <string name="patient_code">患者コード</string>
+    <string name="patient_code">患者番号</string>
 
     <!-- ventilator_setting -->
     <string name="predicted_value">予測値</string>
     <string name="predicted_vt_key">Predicted Vt：</string>
     <string name="ventilator_setting">人工呼吸器設定</string>
     <string name="airway_pressure_key">設定圧：</string>
-    <string name="airway_pressure_label">設定圧（cmH<sub>2</sub>O）</string>
+    <string name="airway_pressure_label">設定圧（%1$s）</string>
     <string name="air_flow_key">空気流量：</string>
-    <string name="air_flow_label">空気流量（L/min）</string>
+    <string name="air_flow_label">空気流量（%1$s）</string>
     <string name="o2_flow_key">酸素流量：</string>
-    <string name="o2_flow_label">酸素流量（L/min）</string>
+    <string name="o2_flow_label">酸素流量（%1$s）</string>
     <string name="calculated_value">計算値</string>
     <string name="fio2_key">FiO<sub>2</sub>：</string>
     <string name="rr_key">RR：</string>
@@ -79,10 +83,10 @@
     <string name="manual_measurement">手動測定</string>
 
     <!-- manual_measurement -->
-    <string name="exhalation_first">呼気1回目（s）</string>
-    <string name="inhalation_first">吸気1回目（s）</string>
-    <string name="exhalation_second">呼気2回目（s）</string>
-    <string name="inhalation_second">吸気2回目（s）</string>
+    <string name="exhalation_first">呼気1回目（%1$s）</string>
+    <string name="inhalation_first">吸気1回目（%1$s）</string>
+    <string name="exhalation_second">呼気2回目（%1$s）</string>
+    <string name="inhalation_second">吸気2回目（%1$s）</string>
     <string name="calculate_average">平均呼気吸気時間計算</string>
     <string name="average_exhalation_time">平均呼気時間：</string>
     <string name="average_inhalation_time">平均吸気時間：</string>
@@ -102,8 +106,87 @@
     <!--ventilator_result -->
     <string name="back_to_ventilator_setting">機器の設定をやりなおす</string>
 
+
+    <!-- patient_info -->
+    <string name="patient_basic_info">患者基本情報</string>
+    <string name="patient_obs_data">患者観察研究データ</string>
+    <string name="measurement_data">患者測定データ</string>
+    <string name="ventilator_data">利用機器データ</string>
+
+    <!-- patient_basic_info-->
+    <string name="height">身長</string>
+    <string name="weight">体重</string>
+    <string name="weight_key">体重：</string>
+    <string name="weight_label">体重（%1$s）</string>
+    <string name="patient_code_key">患者番号：</string>
+
+    <!-- patient_obs_data-->
+    <string name="opt_out">オプトアウト</string>
+    <string name="age">年齢</string>
+    <string name="vent_disease_name">疾患名</string>
+    <string name="other_disease_name_1">その他疾患名1</string>
+    <string name="other_disease_name_2">その他疾患名2</string>
+    <string name="used_place">使用場所</string>
+    <string name="hospital">病院名</string>
+    <string name="national">国名</string>
+    <string name="discontinuation_at">使用中止日時</string>
+    <string name="outcome">使用中止時の転機</string>
+    <string name="treatment">使用中止後の呼吸不全治療</string>
+    <string name="adverse_event">機器に関する有害事象</string>
+    <string name="adverse_event_contents">機器に関する有害事象の内容</string>
+    <string name="opt_out_key">オプトアウト：</string>
+    <string name="age_key">年齢：</string>
+    <string name="vent_disease_name_key">疾患名：</string>
+    <string name="other_disease_name_1_key">その他疾患名1：</string>
+    <string name="other_disease_name_2_key">その他疾患名2：</string>
+    <string name="used_place_key">使用場所：</string>
+    <string name="hospital_key">病院名：</string>
+    <string name="national_key">国名：</string>
+    <string name="discontinuation_at_key">使用中止日時：</string>
+    <string name="outcome_key">使用中止時の転機：</string>
+    <string name="treatment_key">使用中止後の呼吸不全治療：</string>
+    <string name="adverse_event_key">機器に関する有害事象：</string>
+    <string name="adverse_event_contents_key">機器に関する有害事象の内容：</string>
+
+    <!--    measurement_data-->
+    <string name="prev_measurement_list">過去最終設定データ</string>
+    <string name="latest_measurement_data">最新測定データ</string>
+
+    <!--    prev_measurement_list-->
+    <string name="measurer_key">測定者：</string>
+    <string name="not_login_user">未ログインユーザー</string>
+
+    <!-- measurement_data_detail-->
+    <string name="measurement_date">測定日</string>
+    <string name="status_use">使用状況</string>
+    <string name="status_use_other">使用状況（その他の場合）</string>
+    <string name="spo2">経皮酸素飽和度</string>
+    <string name="etco2">呼気終末二酸化炭素分圧</string>
+    <string name="pao2">PaO2</string>
+    <string name="paco2">PaCO2</string>
+
+    <!-- ventilator_data-->
+    <string name="serial_number">シリアルNo.</string>
+    <string name="serial_number_key">シリアルNo.：</string>
+    <string name="start_using_at">使用開始日時</string>
+    <string name="start_using_at_key">使用開始日時：</string>
+
+    <!-- user_data-->
+    <string name="organization_name_label">組織名</string>
+    <string name="user_name">ユーザー名</string>
+    <string name="email">メールアドレス</string>
+    <!-- logout -->
+
+
+<!-- support -->
+<string name="edc_study">EDC研究データ</string>
+
     <!-- setting-->
+    <string name="user_data">使用者データ</string>
     <string name="logout">ログアウト</string>
+
+    <!-- operation_flow-->
+
 
     <!-- others-->
     <string name="temp_wav_name">temp.wav</string>
@@ -114,6 +197,8 @@
     <string name="using_another_terminal_message">同じアカウントでログイン中の他の端末は強制的にログアウトされます。</string>
     <string name="connection_error">通信エラー</string>
     <string name="connection_error_message">ネットワーク接続状況を確認してください。</string>
+    <string name="no_patient_linked">患者情報なし</string>
+    <string name="no_patient_linked_message">呼吸器が読み込まれていないか、患者が登録されていません。QRコードを読み取り直してください。</string>
 
     <!-- prefs -->
     <string name="network_pref">network_pref</string>
@@ -127,27 +212,27 @@
     <string name="current_patient_id">patientId</string>
 
     <string name="unit_pref">unit_pref</string>
-    <string name="height">height</string>
-    <string name="weight">weight</string>
-    <string name="air_flow">airFlow</string>
-    <string name="o2_flow">o2Flow</string>
-    <string name="total_flow">totalFlow</string>
-    <string name="estimated_mv">estimatedMv</string>
-    <string name="airway_pressure">airwayPressure</string>
-    <string name="estimated_peep">estimatedPeep</string>
-    <string name="vt_per_kg">vtPerKg</string>
-    <string name="predicted_vt">predictedVt</string>
-    <string name="estimated_vt">estimatedVt</string>
-    <string name="i">i</string>
-    <string name="e">e</string>
-    <string name="i_avg">iAvg</string>
-    <string name="e_avg">eAvg</string>
-    <string name="rr">rr</string>
-    <string name="fio2">fio2</string>
-    <string name="spo2">spo2</string>
-    <string name="etco2">etco2</string>
-    <string name="pao2">pao2</string>
-    <string name="paco2">paco2</string>
+    <string name="height_pref_key">height</string>
+    <string name="weight_pref_key">weight</string>
+    <string name="air_flow_pref_key">airFlow</string>
+    <string name="o2_flow_pref_key">o2Flow</string>
+    <string name="total_flow_pref_key">totalFlow</string>
+    <string name="estimated_mv_pref_key">estimatedMv</string>
+    <string name="airway_pressure_pref_key">airwayPressure</string>
+    <string name="estimated_peep_pref_key">estimatedPeep</string>
+    <string name="vt_per_kg_pref_key">vtPerKg</string>
+    <string name="predicted_vt_pref_key">predictedVt</string>
+    <string name="estimated_vt_pref_key">estimatedVt</string>
+    <string name="i_pref_key">i</string>
+    <string name="e_pref_key">e</string>
+    <string name="i_avg_pref_key">iAvg</string>
+    <string name="e_avg_pref_key">eAvg</string>
+    <string name="rr_pref_key">rr</string>
+    <string name="fio2_pref_key">fio2</string>
+    <string name="spo2_pref_key">spo2</string>
+    <string name="etco2_pref_key">etco2</string>
+    <string name="pao2_pref_key">pao2</string>
+    <string name="paco2_pref_key">paco2</string>
 
     <!-- toast message-->
     <string name="server_error_toast">サーバーエラー</string>

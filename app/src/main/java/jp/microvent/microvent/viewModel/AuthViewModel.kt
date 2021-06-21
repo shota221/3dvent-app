@@ -130,8 +130,6 @@ class AuthViewModel(
                 if (checkUserToken.isSuccessful) {
                     val hasToken: Boolean = checkUserToken.body()?.result?.hasToken ?: false
                     if (hasToken) {
-//                        val dialog = DialogConfirmLogoutOnAnotherTerminalFragment()
-//                        dialog.show(, "confirm")
                         showDialogConfirmLogoutOnAnotherTerminal.value = Event("confirm")
 
                     }
@@ -295,19 +293,5 @@ class AuthViewModel(
             }
 
         }//ログインしない場合
-    }
-
-
-    //エラー処理 TODO:バリデエラー時の処理詳細
-    private fun <T : Any?> errorHandling(errorResponse: Response<T>) {
-        when (errorResponse.code()) {
-            400 -> {
-                showToast.value = Event(context.getString(R.string.validation_error_toast))
-            }
-
-            500 -> {
-                showToast.value = Event(context.getString(R.string.server_error_toast))
-            }
-        }
     }
 }

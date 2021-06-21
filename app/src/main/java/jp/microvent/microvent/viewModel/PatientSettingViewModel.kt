@@ -2,7 +2,9 @@ package jp.microvent.microvent.viewModel
 
 import android.app.Application
 import android.util.Log
+import androidx.camera.core.impl.MutableOptionsBundle
 import androidx.lifecycle.*
+import jp.microvent.microvent.R
 import jp.microvent.microvent.service.model.CreatePatientForm
 import jp.microvent.microvent.service.model.CreatedPatient
 import jp.microvent.microvent.service.model.Patient
@@ -41,6 +43,14 @@ class PatientSettingViewModel(
 
     val patient: Patient = Patient()
 
+    val heightLabel:MutableLiveData<String> by lazy {
+        MutableLiveData()
+    }
+
+    init {
+        setUnit(heightLabel,context.getString(R.string.height_label),context.getString(R.string.height_pref_key))
+    }
+
     fun onItemSelected(genderSelected: Int) {
         if (genderSelected != 0) {
             gender.postValue(genderSelected)
@@ -78,14 +88,12 @@ class PatientSettingViewModel(
                         }
 
                     } else {
-                        Log.i("test",createPatientForm.toString())
-                        Log.e("Submit:Failed", it.errorBody().toString())
+                        errorHandling(it)
                     }
                 }
 
 
             } catch (e: ConnectException) {
-                Log.e("Submit:Failed", e.stackTraceToString())
                 showDialogConnectionError.value = Event("connection_error")
             }
         }

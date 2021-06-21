@@ -47,7 +47,7 @@ class SettingFragment : Fragment() {
             transitionToAuth.observe(
                 viewLifecycleOwner,
                 EventObserver {
-                    findNavController().navigate(R.id.action_setting_to_home)
+                    findNavController().navigate(R.id.action_to_auth)
                 }
             )
 

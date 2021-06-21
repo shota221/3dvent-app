@@ -75,11 +75,6 @@ class QrReadingFragment : Fragment() {
 
         //画面制御用オブザーバーセット
         qrReadingViewModel.apply {
-            transitionToAuth.observe(
-                viewLifecycleOwner, EventObserver {
-                    findNavController().navigate(R.id.action_qr_reading_to_auth)
-                }
-            )
             transitionToPatientSetting.observe(
                 viewLifecycleOwner, EventObserver {
                     findNavController().navigate(R.id.action_qr_reading_to_patient_setting)
@@ -88,6 +83,12 @@ class QrReadingFragment : Fragment() {
             transitionToVentilatorSetting.observe(
                 viewLifecycleOwner, EventObserver {
                     findNavController().navigate(R.id.action_qr_reading_to_ventilator_setting)
+                }
+            )
+
+            transitionToAuth.observe(
+                viewLifecycleOwner, EventObserver {
+                    findNavController().navigate(R.id.action_to_auth)
                 }
             )
 

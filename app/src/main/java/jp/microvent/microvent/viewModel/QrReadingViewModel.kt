@@ -34,10 +34,6 @@ class QrReadingViewModel(
         MutableLiveData()
     }
 
-    val transitionToAuth: MediatorLiveData<Event<String>> by lazy {
-        MediatorLiveData()
-    }
-
     val transitionToPatientSetting: MediatorLiveData<Event<String>> by lazy {
         MediatorLiveData()
     }
@@ -180,24 +176,5 @@ class QrReadingViewModel(
 
     fun test() {
         gs1Code.postValue(gs1CodeForTest.value)
-    }
-
-
-    //エラー処理 TODO:バリデエラー時の処理詳細
-    private fun <T : Any?> errorHandling(errorResponse: Response<T>) {
-        when (errorResponse.code()) {
-            400 -> {
-                showToast.value = Event(context.getString(R.string.validation_error_toast))
-            }
-
-            401 -> {
-                resetUserToken()
-                transitionToAuth.value = Event("transitionToAuth")
-            }
-
-            500 -> {
-                showToast.value = Event(context.getString(R.string.server_error_toast))
-            }
-        }
     }
 }

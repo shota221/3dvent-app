@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -15,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import jp.microvent.microvent.R
 import jp.microvent.microvent.databinding.FragmentManualMeasurementBinding
+import jp.microvent.microvent.view.ui.dialog.DialogConnectionErrorFragment
 import jp.microvent.microvent.viewModel.ManualMeasurementViewModel
 import jp.microvent.microvent.viewModel.VentilatorResultViewModel
 import jp.microvent.microvent.viewModel.util.EventObserver
@@ -24,9 +26,11 @@ class ManualMeasurementFragment : Fragment() {
     private val args: ManualMeasurementFragmentArgs by navArgs()
 
     private val manualMeasurementViewModel by lazy {
-        ViewModelProvider(this, ManualMeasurementViewModel.Factory(
-            requireActivity().application, args.ventilatorValue
-        )).get(ManualMeasurementViewModel::class.java)
+        ViewModelProvider(
+            this, ManualMeasurementViewModel.Factory(
+                requireActivity().application, args.ventilatorValue
+            )
+        ).get(ManualMeasurementViewModel::class.java)
     }
 
     private lateinit var binding: FragmentManualMeasurementBinding
@@ -36,7 +40,12 @@ class ManualMeasurementFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_manual_measurement, container, false)
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_manual_measurement,
+            container,
+            false
+        )
 
         val viewModel = manualMeasurementViewModel
 
@@ -45,14 +54,45 @@ class ManualMeasurementFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
         }
 
-        manualMeasurementViewModel.transitionToVentilatorResult.observe(
-            viewLifecycleOwner, EventObserver {
-                val ventilatorValue = manualMeasurementViewModel.ventilatorValue
-                val action = ManualMeasurementFragmentDirections.actionManualMeasurementToVentilatorResult(ventilatorValue)
-                findNavController().navigate(action)
-            }
-        )
+        manualMeasurementViewModel.apply {
+            transitionToVentilatorResult.observe(
+                viewLifecycleOwner, EventObserver {
+                    val ventilatorValue = manualMeasurementViewModel.ventilatorValue
+                    val action =
+                        ManualMeasurementFragmentDirections.actionManualMeasurementToVentilatorResult(
+                            ventilatorValue
+                        )
+                    findNavController().navigate(action)
+                }
+            )
 
+            transitionToAuth.observe(
+                viewLifecycleOwner, EventObserver {
+                    findNavController().navigate(R.id.action_to_auth)
+                }
+            )
+
+            /**
+             * 通信エラーダイアログの表示
+             */
+            showDialogConnectionError.observe(
+                viewLifecycleOwner,
+                EventObserver {
+                    val dialog = DialogConnectionErrorFragment()
+                    dialog.show(requireActivity().supportFragmentManager, it)
+                }
+            )
+
+            /**
+             * トースト表示
+             */
+            showToast.observe(
+                viewLifecycleOwner,
+                EventObserver {
+                    Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
+                }
+            )
+        }
         setupBackButton()
         setHasOptionsMenu(true)
 
@@ -83,7 +123,7 @@ class ManualMeasurementFragment : Fragment() {
                 findNavController().navigate(R.id.action_manual_measurement_pop)
                 true
             }
-            else->{
+            else -> {
                 super.onOptionsItemSelected(item)
             }
         }

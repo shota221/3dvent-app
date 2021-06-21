@@ -14,18 +14,29 @@ import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import jp.microvent.microvent.R
-import jp.microvent.microvent.databinding.FragmentPatientSettingBinding
+import jp.microvent.microvent.databinding.FragmentPatientBasicInfoUpdateBinding
 import jp.microvent.microvent.view.ui.dialog.DialogConnectionErrorFragment
-import jp.microvent.microvent.viewModel.PatientSettingViewModel
+import jp.microvent.microvent.viewModel.ManualMeasurementViewModel
+import jp.microvent.microvent.viewModel.PatientBasicInfoUpdateViewModel
 import jp.microvent.microvent.viewModel.util.EventObserver
 
-class PatientSettingFragment : Fragment() {
+class PatientBasicInfoUpdateFragment : Fragment() {
 
-    private val patientSettingViewModel by viewModels<PatientSettingViewModel>()
+    private val args: PatientBasicInfoUpdateFragmentArgs by navArgs()
 
-    private lateinit var binding: FragmentPatientSettingBinding
+    private val viewModel by lazy {
+        ViewModelProvider(
+            this, PatientBasicInfoUpdateViewModel.Factory(
+                requireActivity().application, args.patient
+            )
+        ).get(PatientBasicInfoUpdateViewModel::class.java)
+    }
+
+    private lateinit var binding: FragmentPatientBasicInfoUpdateBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,12 +44,10 @@ class PatientSettingFragment : Fragment() {
     ): View? {
 
         binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_patient_setting, container, false)
-
-        val viewModel = patientSettingViewModel
+            DataBindingUtil.inflate(inflater, R.layout.fragment_patient_basic_info_update, container, false)
 
         binding.apply {
-            patientSettingViewModel = viewModel
+            patientBasicInfoUpdateViewModel = viewModel
             lifecycleOwner = viewLifecycleOwner
         }
 
@@ -51,6 +60,8 @@ class PatientSettingFragment : Fragment() {
 
         binding.spGender.apply {
             setAdapter(adapter)
+
+            viewModel.patient.gender?.let { setSelection(it) }
 
             onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
@@ -68,10 +79,10 @@ class PatientSettingFragment : Fragment() {
             }
         }
 
-        patientSettingViewModel.apply {
-            transitionToVentilatorSetting.observe(
+        viewModel.apply {
+            transitionToPatientBasicInfoDetail.observe(
                 viewLifecycleOwner, Observer {
-                    findNavController().navigate(R.id.action_patient_setting_to_ventilator_setting)
+                    findNavController().navigate(R.id.action_patient_basic_info_update_to_detail)
                 }
             )
 

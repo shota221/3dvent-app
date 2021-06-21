@@ -27,10 +27,6 @@ import java.lang.Exception
 
 class AuthFragment : Fragment(),DialogConfirmLogoutOnAnotherTerminalFragment.DialogconfirmLogoutOnAnotherTerminalListener {
 
-//    private val authViewModel by lazy {
-//        ViewModelProvider(this, AuthViewModel.Factory(requireActivity().application)).get(AuthViewModel::class.java)
-//    }
-
     private val authViewModel by viewModels<AuthViewModel>()
 
     private lateinit var binding: FragmentAuthBinding
@@ -122,7 +118,6 @@ class AuthFragment : Fragment(),DialogConfirmLogoutOnAnotherTerminalFragment.Dia
     }
 
     override fun onDialogPositiveClick(dialog: DialogFragment) {
-        Log.i("test","test")
     }
 
 }

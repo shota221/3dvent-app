@@ -38,7 +38,7 @@ open class BaseViewModel(
         )
     }
 
-    protected val unitPref: SharedPreferences by lazy {
+    private val unitPref: SharedPreferences by lazy {
         context.getSharedPreferences(
             context.getString(R.string.unit_pref),
             Context.MODE_PRIVATE
@@ -105,29 +105,41 @@ open class BaseViewModel(
      */
     fun putUnits(units: Units) {
         with(unitPref.edit()) {
-            putString(context.getString(R.string.height),units.height)
-            putString(context.getString(R.string.weight),units.weight)
-            putString(context.getString(R.string.air_flow),units.airFlow)
-            putString(context.getString(R.string.o2_flow),units.o2Flow)
-            putString(context.getString(R.string.total_flow),units.totalFlow)
-            putString(context.getString(R.string.estimated_mv),units.estimatedMv)
-            putString(context.getString(R.string.airway_pressure),units.airwayPressure)
-            putString(context.getString(R.string.estimated_peep),units.estimatedPeep)
-            putString(context.getString(R.string.vt_per_kg),units.vtPerKg)
-            putString(context.getString(R.string.predicted_vt),units.predictedVt)
-            putString(context.getString(R.string.estimated_vt),units.estimatedVt)
-            putString(context.getString(R.string.i),units.i)
-            putString(context.getString(R.string.e),units.e)
-            putString(context.getString(R.string.i_avg),units.iAvg)
-            putString(context.getString(R.string.e_avg),units.eAvg)
-            putString(context.getString(R.string.rr),units.rr)
-            putString(context.getString(R.string.fio2),units.fio2)
-            putString(context.getString(R.string.spo2),units.spo2)
-            putString(context.getString(R.string.etco2),units.etco2)
-            putString(context.getString(R.string.pao2),units.pao2)
-            putString(context.getString(R.string.paco2),units.paco2)
+            putString(context.getString(R.string.height_pref_key), units.height)
+            putString(context.getString(R.string.weight_pref_key), units.weight)
+            putString(context.getString(R.string.air_flow_pref_key), units.airFlow)
+            putString(context.getString(R.string.o2_flow_pref_key), units.o2Flow)
+            putString(context.getString(R.string.total_flow_pref_key), units.totalFlow)
+            putString(context.getString(R.string.estimated_mv_pref_key), units.estimatedMv)
+            putString(context.getString(R.string.airway_pressure_pref_key), units.airwayPressure)
+            putString(context.getString(R.string.estimated_peep_pref_key), units.estimatedPeep)
+            putString(context.getString(R.string.vt_per_kg_pref_key), units.vtPerKg)
+            putString(context.getString(R.string.predicted_vt_pref_key), units.predictedVt)
+            putString(context.getString(R.string.estimated_vt_pref_key), units.estimatedVt)
+            putString(context.getString(R.string.i_pref_key), units.i)
+            putString(context.getString(R.string.e_pref_key), units.e)
+            putString(context.getString(R.string.i_avg_pref_key), units.iAvg)
+            putString(context.getString(R.string.e_avg_pref_key), units.eAvg)
+            putString(context.getString(R.string.rr_pref_key), units.rr)
+            putString(context.getString(R.string.fio2_pref_key), units.fio2)
+            putString(context.getString(R.string.spo2_pref_key), units.spo2)
+            putString(context.getString(R.string.etco2_pref_key), units.etco2)
+            putString(context.getString(R.string.pao2_pref_key), units.pao2)
+            putString(context.getString(R.string.paco2_pref_key), units.paco2)
             commit()
         }
+    }
+
+    /**
+     * 実際に表示する文字列に単位をsharedPrefから適用する\
+     * layoutLiveData:layout.xmlとリンクしているlivedata->実際に表示される文字列
+     * stringValue:string.xmlとリンクしている文字列。これを加工して実際に表示される文字列が決まる
+     * prefKey:unitPrefで定義されている測定値のキー
+     */
+    fun setUnit(layoutLiveData: MutableLiveData<String>, stringValue: String, prefKey: String) {
+        val unit = unitPref.getString(prefKey, null)
+        val netString = String.format(stringValue, unit)
+        layoutLiveData.postValue(netString)
     }
 
 
@@ -159,6 +171,13 @@ open class BaseViewModel(
      * ログイン中かどうか
      */
     protected fun loggedIn(): Boolean = !userToken.isNullOrEmpty()
+
+    /**
+     * ログイン画面遷移
+     */
+    val transitionToAuth: MediatorLiveData<Event<String>> by lazy {
+        MediatorLiveData()
+    }
 
     /**
      * 位置情報取得用
@@ -213,6 +232,37 @@ open class BaseViewModel(
     val showToast: MutableLiveData<Event<String>> by lazy {
         MutableLiveData()
     }
+
+
+    //エラー処理 TODO:バリデエラー時の処理詳細
+    protected fun <T : Any?> errorHandling(errorResponse: Response<T>) {
+        when (errorResponse.code()) {
+            400 -> {
+                badRequestHandling()
+            }
+            401 -> {
+                unauthorizedHandling()
+            }
+
+            500 -> {
+                serverErrorHandling()
+            }
+        }
+    }
+
+    protected fun badRequestHandling() {
+        showToast.value = Event(context.getString(R.string.validation_error_toast))
+    }
+
+    protected fun unauthorizedHandling() {
+        resetUserToken()
+        transitionToAuth.value = Event("transitionToAuth")
+    }
+
+    protected fun serverErrorHandling() {
+        showToast.value = Event(context.getString(R.string.server_error_toast))
+    }
 }
+
 
 

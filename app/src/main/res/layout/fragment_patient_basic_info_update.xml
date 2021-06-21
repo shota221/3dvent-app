@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="patientSettingViewModel"
-            type="jp.microvent.microvent.viewModel.PatientSettingViewModel" />
+            name="patientBasicInfoUpdateViewModel"
+            type="jp.microvent.microvent.viewModel.PatientBasicInfoUpdateViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,15 +15,15 @@
         tools:context=".view.ui.PatientRegistrationFragment">
 
         <Button
-            android:id="@+id/bt_patient_setting_to_ventilator_setting"
+            android:id="@+id/bt_save_patient_basic_info"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:insetTop="6dp"
             android:insetBottom="6dp"
-            android:text="@string/next"
+            android:onClick="@{()->patientBasicInfoUpdateViewModel.onClickSavePatientBasicInfoButton()}"
+            android:text="@string/save"
             android:textSize="@dimen/bt_text_size"
-            android:onClick="@{()->patientSettingViewModel.onClickButton()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/fragment_vertical_margin_top"
-            android:text="@{patientSettingViewModel.heightLabel}"
+            android:text="@{patientBasicInfoUpdateViewModel.heightLabel}"
             android:textSize="@dimen/tv_text_size_large"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -46,11 +46,25 @@
             android:layout_marginTop="8dp"
             android:ems="10"
             android:inputType="numberSigned|text"
-            android:text="@={patientSettingViewModel.height}"
+            android:text="@={patientBasicInfoUpdateViewModel.height}"
             android:textSize="@dimen/et_text_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_height_label" />
+
+        <EditText
+            android:id="@+id/et_weight"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="numberSigned|text"
+            android:text="@={patientBasicInfoUpdateViewModel.weight}"
+            android:textSize="@dimen/et_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_weight_label" />
 
         <TextView
             android:id="@+id/tv_gender_label"
@@ -62,6 +76,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_height" />
 
+        <TextView
+            android:id="@+id/tv_weight_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textSize="@dimen/tv_text_size_large"
+            android:text="@{patientBasicInfoUpdateViewModel.weightLabel}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sp_gender" />
+
         <Spinner
             android:id="@+id/sp_gender"
             android:layout_width="match_parent"
@@ -71,6 +95,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
+
             app:layout_constraintTop_toBottomOf="@+id/tv_gender_label" />
 
         <TextView
@@ -81,7 +106,7 @@
             android:text="@string/patient_code"
             android:textSize="@dimen/tv_text_size_large"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sp_gender" />
+            app:layout_constraintTop_toBottomOf="@+id/et_weight" />
 
         <EditText
             android:id="@+id/et_patient_code"
@@ -91,7 +116,7 @@
             android:ems="10"
             android:inputType="text"
             android:textSize="@dimen/et_text_size"
-            android:text="@={patientSettingViewModel.patientNumber}"
+            android:text="@={patientBasicInfoUpdateViewModel.patientNumber}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"

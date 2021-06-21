@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -17,6 +18,7 @@ import androidx.navigation.fragment.navArgs
 import jp.microvent.microvent.R
 import jp.microvent.microvent.databinding.FragmentSoundMeasurementBinding
 import jp.microvent.microvent.view.permission.RecordAudioPermission
+import jp.microvent.microvent.view.ui.dialog.DialogConnectionErrorFragment
 import jp.microvent.microvent.viewModel.SoundMeasurementViewModel
 import jp.microvent.microvent.viewModel.util.EventObserver
 
@@ -57,28 +59,56 @@ class SoundMeasurementFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
         }
 
-        soundMeasurementViewModel.transitionToManualMeasurement.observe(
-            viewLifecycleOwner, EventObserver {
-                val ventilatorValue = soundMeasurementViewModel.ventilatorValue
-                val action =
-                    SoundMeasurementFragmentDirections.actionSoundMeasurementToManualMeasurement(
-                        ventilatorValue
-                    )
-                findNavController().navigate(action)
-            }
-        )
+        soundMeasurementViewModel.apply {
+            transitionToManualMeasurement.observe(
+                viewLifecycleOwner, EventObserver {
+                    val ventilatorValue = soundMeasurementViewModel.ventilatorValue
+                    val action =
+                        SoundMeasurementFragmentDirections.actionSoundMeasurementToManualMeasurement(
+                            ventilatorValue
+                        )
+                    findNavController().navigate(action)
+                }
+            )
 
-        soundMeasurementViewModel.transitionToVentilatorResult.observe(
-            viewLifecycleOwner, EventObserver {
-                val ventilatorValue = soundMeasurementViewModel.ventilatorValue
-                val action =
-                    SoundMeasurementFragmentDirections.actionSoundMeasurementToVentilatorResult(
-                        ventilatorValue
-                    )
-                findNavController().navigate(action)
-            }
-        )
+            transitionToVentilatorResult.observe(
+                viewLifecycleOwner, EventObserver {
+                    val ventilatorValue = soundMeasurementViewModel.ventilatorValue
+                    val action =
+                        SoundMeasurementFragmentDirections.actionSoundMeasurementToVentilatorResult(
+                            ventilatorValue
+                        )
+                    findNavController().navigate(action)
+                }
+            )
 
+            transitionToAuth.observe(
+                viewLifecycleOwner, EventObserver {
+                    findNavController().navigate(R.id.action_to_auth)
+                }
+            )
+
+            /**
+             * 通信エラーダイアログの表示
+             */
+            showDialogConnectionError.observe(
+                viewLifecycleOwner,
+                EventObserver {
+                    val dialog = DialogConnectionErrorFragment()
+                    dialog.show(requireActivity().supportFragmentManager, it)
+                }
+            )
+
+            /**
+             * トースト表示
+             */
+            showToast.observe(
+                viewLifecycleOwner,
+                EventObserver {
+                    Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
+                }
+            )
+        }
         setupBackButton()
         setHasOptionsMenu(true)
 
@@ -119,7 +149,7 @@ class SoundMeasurementFragment : Fragment() {
                 findNavController().navigate(R.id.action_sound_measurement_pop)
                 true
             }
-            else->{
+            else -> {
                 super.onOptionsItemSelected(item)
             }
         }

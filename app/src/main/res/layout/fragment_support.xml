@@ -14,13 +14,13 @@
         android:layout_height="match_parent">
 
         <Button
-            android:id="@+id/bt_logout"
+            android:id="@+id/bt_edc_study"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/fragment_vertical_margin_top"
             android:enabled="@{settingViewModel.isLogoutEnabled}"
             android:onClick="@{()->settingViewModel.onClickLogoutButton()}"
-            android:text="@string/logout"
+            android:text="@string/edc_study"
             android:textSize="@dimen/bt_text_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"

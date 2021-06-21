@@ -136,6 +136,31 @@ interface MicroventApiService {
         @Header("X-App-Key") appkey: String?,
     ): Response<ApiResult<UpdatedPatient>>
 
+    @GET("patient/{id}/detail")
+    suspend fun getPatientObs(
+        @Path("id") patientId: Int?,
+        @Header("X-App-Key") appkey: String?,
+        @Header("X-User-Token") userToken: String?
+    ): Response<ApiResult<PatientObs>>
+
+    @Headers("Content-Type:application/json; charset=UTF-8")
+    @POST("patient/{id}/detail")
+    suspend fun createPatientObs(
+        @Path("id") patientId:Int?,
+        @Body createPatientObsForm: CreatePatientObsForm?,
+        @Header("X-App-Key") appkey: String?,
+        @Header("X-User-Token") userToken: String?
+    ): Response<ApiResult<CreatedPatientObs>>
+
+    @Headers("Content-Type:application/json; charset=UTF-8")
+    @PUT("patient/{id}/detail")
+    suspend fun updatePatientObs(
+        @Path("id") patientId:Int?,
+        @Body updatePatientObsForm: UpdatePatientObsForm?,
+        @Header("X-App-Key") appkey: String?,
+        @Header("X-User-Token") userToken: String?
+    ): Response<ApiResult<UpdatedPatientObs>>
+
     /**************
      * ventilator *
      **************/

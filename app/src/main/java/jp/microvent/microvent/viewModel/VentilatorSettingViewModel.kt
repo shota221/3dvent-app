@@ -3,6 +3,7 @@ package jp.microvent.microvent.viewModel
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
+import jp.microvent.microvent.R
 import jp.microvent.microvent.service.model.*
 import jp.microvent.microvent.viewModel.util.Event
 import kotlinx.coroutines.launch
@@ -12,11 +13,11 @@ class VentilatorSettingViewModel(
     private val myApplication: Application,
 ) : BaseViewModel(myApplication) {
 
-    val patient:MutableLiveData<Patient> by lazy {
+    val patient: MutableLiveData<Patient> by lazy {
         MutableLiveData()
     }
 
-    val genderStr:MutableLiveData<String> by lazy {
+    val genderStr: MutableLiveData<String> by lazy {
         MutableLiveData()
     }
 
@@ -59,28 +60,58 @@ class VentilatorSettingViewModel(
         MediatorLiveData()
     }
 
-    val ventilatorValue: VentilatorValue by lazy{
+    val ventilatorValue: VentilatorValue by lazy {
         VentilatorValue()
     }
 
-    init{
+    val o2FlowLabel: MutableLiveData<String> by lazy {
+        MutableLiveData()
+    }
+    val airFlowLabel: MutableLiveData<String> by lazy {
+        MutableLiveData()
+    }
+    val airwayPressureLabel: MutableLiveData<String> by lazy {
+        MutableLiveData()
+    }
+
+
+    init {
+        /**
+         * 単位設定
+         */
+        setUnit(
+            o2FlowLabel,
+            context.getString(R.string.o2_flow_label),
+            context.getString(R.string.o2_flow_pref_key)
+        )
+        setUnit(
+            airFlowLabel,
+            context.getString(R.string.air_flow_label),
+            context.getString(R.string.air_flow_pref_key)
+        )
+        setUnit(
+            airwayPressureLabel,
+            context.getString(R.string.airway_pressure_label),
+            context.getString(R.string.airway_pressure_pref_key)
+        )
+
         /**
          * 現在観察中のpatientIdから患者情報を取得
          */
-        viewModelScope.launch{
-            try{
-                repository.getPatient(patientId,appkey).let{
-                    if(it.isSuccessful) {
-                        it.body()?.result?.let {
+        viewModelScope.launch {
+            try {
+                repository.getPatient(patientId, appkey).let { res ->
+                    if (res.isSuccessful) {
+                        res.body()?.result?.let {
                             patient.postValue(it)
                             genderStr.postValue(Gender.buildGender(it.gender)?.getString(context))
                         }
-                    }else{
-                        Log.e("rendering:Failed", it.errorBody().toString())
+                    } else {
+                        errorHandling(res)
                     }
                 }
-            }catch (e:Exception){
-                Log.e("rendering:Failed", e.stackTraceToString())
+            } catch (e: Exception) {
+                showDialogConnectionError.value = Event("connect_error")
             }
         }
 
@@ -105,16 +136,17 @@ class VentilatorSettingViewModel(
             val o2Flow = o2Flow.value ?: ""
 
             viewModelScope.launch {
-                try{
-                    val calcEstimatedData = repository.calcEstimatedData(airwayPressure,airFlow,o2Flow,appkey)
-                    if(calcEstimatedData.isSuccessful) {
+                try {
+                    val calcEstimatedData =
+                        repository.calcEstimatedData(airwayPressure, airFlow, o2Flow, appkey)
+                    if (calcEstimatedData.isSuccessful) {
                         val calcEstimatedDataResult = calcEstimatedData.body()?.result
-                        if(calcEstimatedDataResult != null){
+                        if (calcEstimatedDataResult != null) {
                             fio2.value = calcEstimatedDataResult.fio2
                             estimatedPeep.value = calcEstimatedDataResult.estimatedPeep
                         }
                     }
-                } catch (e:Exception){
+                } catch (e: Exception) {
                     Log.e("calculate:Failed", e.stackTraceToString())
                 }
             }
@@ -129,17 +161,17 @@ class VentilatorSettingViewModel(
 
     }
 
-    fun onClickSoundMeasurementButton(){
+    fun onClickSoundMeasurementButton() {
         buildVentilatorValue()
         transitionToSoundMeasurement.value = Event("transitionToSoundMeasurement")
     }
 
-    fun onClickManualMeasurementButton(){
+    fun onClickManualMeasurementButton() {
         buildVentilatorValue()
         transitionToManualMeasurement.value = Event("transitionToManualMeasurement")
     }
 
-    private fun buildVentilatorValue(){
+    private fun buildVentilatorValue() {
         ventilatorValue.airwayPressure = airwayPressure.value
         ventilatorValue.o2Flow = o2Flow.value
         ventilatorValue.airFlow = airFlow.value

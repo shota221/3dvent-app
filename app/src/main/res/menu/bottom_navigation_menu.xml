@@ -5,7 +5,7 @@
         android:icon="@drawable/ic_baseline_home_24_black"
         android:title="@string/home"/>
     <item
-        android:id="@+id/navi_patient_data"
+        android:id="@+id/navi_patient_info"
         android:icon="@drawable/ic_baseline_airline_seat_individual_suite_24_black"
         android:title="@string/patient_data"/>
     <item

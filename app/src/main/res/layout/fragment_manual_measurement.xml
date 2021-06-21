@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/fragment_vertical_margin_top"
-            android:text="@string/inhalation_first"
+            android:text="@{manualMeasurementViewModel.inhalationFirstLabel}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -69,7 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/exhalation_first"
+            android:text="@{manualMeasurementViewModel.exhalationFirstLabel}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_inhalation_first" />
@@ -79,7 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/inhalation_second"
+            android:text="@{manualMeasurementViewModel.inhalationSecondLabel}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_exhalation_first" />
@@ -89,7 +89,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/exhalation_second"
+            android:text="@{manualMeasurementViewModel.exhalationSecondLabel}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_inhalation_second" />

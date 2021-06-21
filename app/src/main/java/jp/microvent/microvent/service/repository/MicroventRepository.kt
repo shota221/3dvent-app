@@ -18,12 +18,12 @@ const val API_TOKEN = "secret"
 //const val MICROVENT_URL = "http://api.microvent.r102.jp/"
 //const val API_TOKEN = "secret_for_dev"
 
-class MicroventRepository{
-    companion object Factory{
+class MicroventRepository {
+    companion object Factory {
         val instance: MicroventRepository
-        @Synchronized get(){
-            return MicroventRepository()
-        }
+            @Synchronized get() {
+                return MicroventRepository()
+            }
     }
 
     val moshi by lazy {
@@ -167,6 +167,29 @@ class MicroventRepository{
         appkey: String?,
     ): Response<ApiResult<UpdatedPatient>> =
         microventApiService.updatePatientNoAuth(patientId, updatePatientForm, appkey)
+
+    suspend fun getPatientObs(
+        patientId: Int?,
+        appkey: String?,
+        userToken: String
+    ): Response<ApiResult<PatientObs>> =
+        microventApiService.getPatientObs(patientId,appkey,userToken)
+
+    suspend fun createPatientObs(
+        patientId: Int?,
+        createPatientObsForm: CreatePatientObsForm?,
+        appkey: String?,
+        userToken: String
+    ): Response<ApiResult<CreatedPatientObs>> =
+        microventApiService.createPatientObs(patientId,createPatientObsForm,appkey,userToken)
+
+    suspend fun updatePatientObs(
+        patientId: Int?,
+        updatePatientObsForm: UpdatePatientObsForm?,
+        appkey: String?,
+        userToken: String
+    ): Response<ApiResult<UpdatedPatientObs>> =
+        microventApiService.updatePatientObs(patientId,updatePatientObsForm,appkey,userToken)
 
     /**************
      * ventilator *

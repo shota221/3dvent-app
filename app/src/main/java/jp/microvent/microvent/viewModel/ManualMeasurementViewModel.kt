@@ -3,6 +3,7 @@ package jp.microvent.microvent.viewModel
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
+import jp.microvent.microvent.R
 import jp.microvent.microvent.service.model.*
 import kotlinx.coroutines.launch
 import java.lang.Exception
@@ -35,6 +36,27 @@ class ManualMeasurementViewModel(
     val exhalationSecond: MutableLiveData<String> by lazy {
         MutableLiveData()
     }
+
+    val inhalationFirstLabel: MutableLiveData<String> by lazy {
+        MutableLiveData()
+    }
+    val inhalationSecondLabel: MutableLiveData<String> by lazy {
+        MutableLiveData()
+    }
+    val exhalationFirstLabel: MutableLiveData<String> by lazy {
+        MutableLiveData()
+    }
+    val exhalationSecondLabel: MutableLiveData<String> by lazy {
+        MutableLiveData()
+    }
+
+    init {
+        setUnit(inhalationFirstLabel,context.getString(R.string.inhalation_first),context.getString(R.string.i_pref_key))
+        setUnit(exhalationFirstLabel,context.getString(R.string.exhalation_first),context.getString(R.string.e_pref_key))
+        setUnit(inhalationSecondLabel,context.getString(R.string.inhalation_second),context.getString(R.string.i_pref_key))
+        setUnit(exhalationSecondLabel,context.getString(R.string.exhalation_second),context.getString(R.string.e_pref_key))
+    }
+
 
     override fun onClickCalculateAverageButton() {
         viewModelScope.launch {
