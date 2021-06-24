@@ -36,6 +36,9 @@ class PatientSettingViewModel(
     val transitionToVentilatorSetting: MutableLiveData<Event<String>> by lazy {
         MutableLiveData()
     }
+    val transitionToQrReading: MutableLiveData<Event<String>> by lazy {
+        MutableLiveData()
+    }
 
     val predictedVt: MutableLiveData<String> by lazy {
         MutableLiveData()
@@ -48,6 +51,13 @@ class PatientSettingViewModel(
     }
 
     init {
+        if(ventilatorId == null) {
+            transitionToQrReading.value = Event("transitionToQrReading")
+        }
+        //現在読み込んでいるventilatorにpatientId登録済みである場合はventilator_settingへ移動
+        if(patientId != null) {
+            transitionToVentilatorSetting.value = Event("transitionToVentilatorSetting")
+        }
         setUnit(heightLabel,context.getString(R.string.height_label),context.getString(R.string.height_pref_key))
     }
 
@@ -82,7 +92,6 @@ class PatientSettingViewModel(
 
                                 commit()
                             }
-                            buildPatient()
                             transitionToVentilatorSetting.value =
                                 jp.microvent.microvent.viewModel.util.Event("transitionToVentilatorSetting")
                         }
@@ -93,16 +102,9 @@ class PatientSettingViewModel(
                 }
 
 
-            } catch (e: ConnectException) {
+            } catch (e: Exception) {
                 showDialogConnectionError.value = Event("connection_error")
             }
         }
-    }
-
-    private fun buildPatient() {
-        patient.patientCode = patientNumber.value
-        patient.gender = gender.value
-        patient.height = height.value
-        patient.predictedVt = predictedVt.value
     }
 }

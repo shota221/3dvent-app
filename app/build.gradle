@@ -126,4 +126,7 @@ dependencies {
 
     //位置情報の取得用
     implementation 'com.google.android.gms:play-services-location:18.0.0'
+
+    //recyclerViewでリスト表示
+    implementation "androidx.recyclerview:recyclerview:1.2.1"
 }

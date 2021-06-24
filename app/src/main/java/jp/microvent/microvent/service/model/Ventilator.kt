@@ -2,6 +2,7 @@ package jp.microvent.microvent.service.model
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import java.io.Serializable
 
 @JsonClass(generateAdapter = true)
 data class CreatedVentilator(
@@ -38,7 +39,7 @@ data class Ventilator(
     @Json(name = "start_using_at")
     val startUsingAt: String?,
     val units: Units,
-)
+):Serializable
 
 @JsonClass(generateAdapter = true)
 data class UpdateVentilatorForm(

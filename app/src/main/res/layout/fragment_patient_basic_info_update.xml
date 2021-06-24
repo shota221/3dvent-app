@@ -52,20 +52,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_height_label" />
 
-        <EditText
-            android:id="@+id/et_weight"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:ems="10"
-            android:inputType="numberSigned|text"
-            android:text="@={patientBasicInfoUpdateViewModel.weight}"
-            android:textSize="@dimen/et_text_size"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_weight_label" />
-
         <TextView
             android:id="@+id/tv_gender_label"
             android:layout_width="wrap_content"
@@ -75,16 +61,6 @@
             android:textSize="@dimen/tv_text_size_large"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_height" />
-
-        <TextView
-            android:id="@+id/tv_weight_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:textSize="@dimen/tv_text_size_large"
-            android:text="@{patientBasicInfoUpdateViewModel.weightLabel}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sp_gender" />
 
         <Spinner
             android:id="@+id/sp_gender"
@@ -102,11 +78,11 @@
             android:id="@+id/tv_patient_code_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:text="@string/patient_code"
             android:textSize="@dimen/tv_text_size_large"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_weight" />
+            app:layout_constraintTop_toBottomOf="@+id/sp_gender" />
 
         <EditText
             android:id="@+id/et_patient_code"

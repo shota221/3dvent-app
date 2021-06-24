@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="ventilatorValue"
+            type="jp.microvent.microvent.service.model.VentilatorValueListElm" />
+        <variable
+            name="measurementDataListViewModel"
+            type="jp.microvent.microvent.viewModel.MeasurementDataListViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:onClick="@{() -> measurementDataListViewModel.onClickItem(ventilatorValue)}">
+
+        <TextView
+            android:id="@+id/tv_measurer_key"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/measurer_key"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_measurer_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{ventilatorValue.registeredUserName ?? @string/not_login_user}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/tv_measurer_key"
+            app:layout_constraintTop_toTopOf="@+id/tv_measurer_key" />
+
+        <TextView
+            android:id="@+id/tv_registered_at_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{ventilatorValue.registeredAt}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="@+id/tv_measurer_key"
+            app:layout_constraintTop_toBottomOf="@+id/tv_measurer_key" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

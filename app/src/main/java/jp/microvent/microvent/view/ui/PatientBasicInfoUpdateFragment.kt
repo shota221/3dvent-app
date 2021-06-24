@@ -5,10 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.widget.AppCompatSpinner
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
@@ -19,6 +16,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import jp.microvent.microvent.R
 import jp.microvent.microvent.databinding.FragmentPatientBasicInfoUpdateBinding
+import jp.microvent.microvent.service.enum.Gender
+import jp.microvent.microvent.view.adapter.SpinnerBinder
 import jp.microvent.microvent.view.ui.dialog.DialogConnectionErrorFragment
 import jp.microvent.microvent.viewModel.ManualMeasurementViewModel
 import jp.microvent.microvent.viewModel.PatientBasicInfoUpdateViewModel
@@ -36,6 +35,10 @@ class PatientBasicInfoUpdateFragment : Fragment() {
         ).get(PatientBasicInfoUpdateViewModel::class.java)
     }
 
+    private val spinnerBinder by lazy {
+        SpinnerBinder(requireContext())
+    }
+
     private lateinit var binding: FragmentPatientBasicInfoUpdateBinding
 
     override fun onCreateView(
@@ -44,39 +47,23 @@ class PatientBasicInfoUpdateFragment : Fragment() {
     ): View? {
 
         binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_patient_basic_info_update, container, false)
+            DataBindingUtil.inflate(
+                inflater,
+                R.layout.fragment_patient_basic_info_update,
+                container,
+                false
+            )
 
         binding.apply {
             patientBasicInfoUpdateViewModel = viewModel
             lifecycleOwner = viewLifecycleOwner
-        }
 
-        //スピナーdatabinding用のadapterを準備
-        val adapter = ArrayAdapter.createFromResource(
-            requireContext(),
-            R.array.gender_list,
-            android.R.layout.simple_spinner_item
-        )
-
-        binding.spGender.apply {
-            setAdapter(adapter)
-
-            viewModel.patient.gender?.let { setSelection(it) }
-
-            onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
-                ) {
-                    viewModel.onItemSelected(position)
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                }
-
-            }
+            spinnerBinder.bind(
+                spGender,
+                Gender.getStringList(requireContext()),
+                viewModel::onItemSelected,
+                viewModel.patient.gender
+            )
         }
 
         viewModel.apply {

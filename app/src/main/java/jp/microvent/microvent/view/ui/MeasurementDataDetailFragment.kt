@@ -11,47 +11,50 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import jp.microvent.microvent.R
-import jp.microvent.microvent.databinding.FragmentMeasurementDataBinding
-import jp.microvent.microvent.viewModel.MeasurementDataViewModel
+import jp.microvent.microvent.databinding.FragmentMeasurementDataDetailBinding
+import jp.microvent.microvent.viewModel.MeasurementDataDetailViewModel
 import jp.microvent.microvent.viewModel.util.EventObserver
 
-class MeasurementDataFragment : Fragment() {
+class MeasurementDataDetailFragment : Fragment() {
 
-    private val viewModel by viewModels<MeasurementDataViewModel>()
+    private val args: MeasurementDataDetailFragmentArgs by navArgs()
 
-    private lateinit var binding: FragmentMeasurementDataBinding
+    private val viewModel by lazy {
+        ViewModelProvider(
+            this, MeasurementDataDetailViewModel.Factory(
+                requireActivity().application, args.ventilatorValueId
+            )
+        ).get(MeasurementDataDetailViewModel::class.java)
+    }
+
+    private lateinit var binding: FragmentMeasurementDataDetailBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_measurement_data, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_measurement_data_detail, container, false)
 
         binding.apply {
-            measurementDataViewModel = viewModel
+            measurementDataDetailViewModel = viewModel
             lifecycleOwner = viewLifecycleOwner
         }
 
         viewModel.apply {
-            transitionToLatestMeasurementData.observe(
+            transitionToMeasurementDataUpdate.observe(
                 viewLifecycleOwner, EventObserver {
-                    viewModel.ventilatorValueId.value?.let {
+                    viewModel.ventilatorValue.value?.let {
                         val action =
-                            MeasurementDataFragmentDirections.actionMeasurementDataToDetail(
+                            MeasurementDataDetailFragmentDirections.actionMeasurementDataDetailToUpdate(
                                 it
                             )
                         findNavController().navigate(action)
                     }
-                }
-            )
-
-            transitionToPrevMeasurementList.observe(
-                viewLifecycleOwner, EventObserver {
-                    findNavController().navigate(R.id.action_measurement_data_to_list)
                 }
             )
         }

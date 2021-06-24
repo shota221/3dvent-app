@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="ventilatorSettingViewModel"
             type="jp.microvent.microvent.viewModel.VentilatorSettingViewModel" />
@@ -21,8 +22,8 @@
             android:layout_marginTop="8dp"
             android:ems="10"
             android:inputType="numberSigned|text"
-            android:textSize="@dimen/et_text_size"
             android:text="@={ventilatorSettingViewModel.o2Flow}"
+            android:textSize="@dimen/et_text_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_o2_flow" />
@@ -219,8 +220,8 @@
             android:layout_marginTop="8dp"
             android:ems="10"
             android:inputType="numberSigned|text"
-            android:textSize="@dimen/et_text_size"
             android:text="@={ventilatorSettingViewModel.airwayPressure}"
+            android:textSize="@dimen/et_text_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_airway_pressure" />
@@ -232,8 +233,8 @@
             android:layout_marginTop="8dp"
             android:ems="10"
             android:inputType="numberSigned|text"
-            android:textSize="@dimen/et_text_size"
             android:text="@={ventilatorSettingViewModel.airFlow}"
+            android:textSize="@dimen/et_text_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_air_flow" />
@@ -262,9 +263,9 @@
             android:id="@+id/cb_valid_spo2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:checked="@={ventilatorSettingViewModel.isValidSpo2}"
             android:text="@string/valid_spo2"
             android:textSize="@dimen/cb_text_size"
-            android:checked="@={ventilatorSettingViewModel.isValidSpo2}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cb_valid_rr" />
 
@@ -272,9 +273,9 @@
             android:id="@+id/cb_valid_rr"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:checked="@={ventilatorSettingViewModel.isValidRr}"
             android:text="@string/valid_rr"
             android:textSize="@dimen/cb_text_size"
-            android:checked="@={ventilatorSettingViewModel.isValidRr}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_condition_check" />
 
@@ -283,23 +284,23 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/sound_measurement"
-            android:textSize="@dimen/bt_text_size"
             android:enabled="@{ventilatorSettingViewModel.isButtonEnabled}"
             android:onClick="@{()->ventilatorSettingViewModel.onClickSoundMeasurementButton()}"
+            android:text="@string/sound_measurement"
+            android:textSize="@dimen/bt_text_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cb_valid_spo2" />
 
         <Button
-            android:id="@+id/bt_ventilator_setting_to_manual_measurement"
+            android:id="@+id/bt_save_measuremnt_data"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/manual_measurement"
-            android:textSize="@dimen/bt_text_size"
             android:enabled="@{ventilatorSettingViewModel.isButtonEnabled}"
             android:onClick="@{()->ventilatorSettingViewModel.onClickManualMeasurementButton()}"
+            android:text="@string/manual_measurement"
+            android:textSize="@dimen/bt_text_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"

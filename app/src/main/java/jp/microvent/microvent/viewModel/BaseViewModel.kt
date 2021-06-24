@@ -132,13 +132,19 @@ open class BaseViewModel(
 
     /**
      * 実際に表示する文字列に単位をsharedPrefから適用する\
-     * layoutLiveData:layout.xmlとリンクしているlivedata->実際に表示される文字列
+     * layoutLiveData:layout.xmlとリンクしているlivedata->実際に表示される文字列,%1$sが代替文字列であるが、これが含まれない場合、末尾に追記する
      * stringValue:string.xmlとリンクしている文字列。これを加工して実際に表示される文字列が決まる
      * prefKey:unitPrefで定義されている測定値のキー
      */
     fun setUnit(layoutLiveData: MutableLiveData<String>, stringValue: String, prefKey: String) {
+        val regex = Regex("%1")
+        val str:String = if (regex.containsMatchIn(stringValue)){
+            stringValue
+        }else{
+            stringValue + "%s"
+        }
         val unit = unitPref.getString(prefKey, null)
-        val netString = String.format(stringValue, unit)
+        val netString = String.format(str, unit)
         layoutLiveData.postValue(netString)
     }
 
@@ -261,6 +267,14 @@ open class BaseViewModel(
 
     protected fun serverErrorHandling() {
         showToast.value = Event(context.getString(R.string.server_error_toast))
+    }
+
+    protected fun showToastUpdated(){
+        showToast.value = Event(context.getString(R.string.update_success))
+    }
+
+    protected fun showToastCreated(){
+        showToast.value = Event(context.getString(R.string.create_success))
     }
 }
 

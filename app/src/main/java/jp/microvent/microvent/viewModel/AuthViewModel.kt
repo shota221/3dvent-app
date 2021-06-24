@@ -36,7 +36,7 @@ class AuthViewModel(
     }
 
     val organizationName: MutableLiveData<String> by lazy {
-        MutableLiveData(context.getString(R.string.unregistered))
+        MutableLiveData()
     }
 
     val accountName: MutableLiveData<String> by lazy {

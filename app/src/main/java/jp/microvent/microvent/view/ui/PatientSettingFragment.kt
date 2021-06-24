@@ -17,6 +17,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import jp.microvent.microvent.R
 import jp.microvent.microvent.databinding.FragmentPatientSettingBinding
+import jp.microvent.microvent.service.enum.Gender
 import jp.microvent.microvent.view.ui.dialog.DialogConnectionErrorFragment
 import jp.microvent.microvent.viewModel.PatientSettingViewModel
 import jp.microvent.microvent.viewModel.util.EventObserver
@@ -42,12 +43,9 @@ class PatientSettingFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
         }
 
-        //スピナーdatabinding用のadapterを準備
-        val adapter = ArrayAdapter.createFromResource(
-            requireContext(),
-            R.array.gender_list,
-            android.R.layout.simple_spinner_item
-        )
+        val adapter = ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_item, Gender.getStringList(requireContext()))
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         binding.spGender.apply {
             setAdapter(adapter)
@@ -78,6 +76,12 @@ class PatientSettingFragment : Fragment() {
             transitionToAuth.observe(
                 viewLifecycleOwner, Observer {
                     findNavController().navigate(R.id.action_to_auth)
+                }
+            )
+
+            transitionToQrReading.observe(
+                viewLifecycleOwner, Observer {
+                    findNavController().navigate(R.id.action_patient_setting_to_qr_reading)
                 }
             )
 

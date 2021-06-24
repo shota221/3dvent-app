@@ -27,29 +27,13 @@ class PatientBasicInfoUpdateViewModel(
         }
     }
 
-    val height: MutableLiveData<String> by lazy {
-        MutableLiveData(patient.height)
-    }
+    val height: MutableLiveData<String> = MutableLiveData(patient.height)
 
-    val weight: MutableLiveData<String> by lazy {
-        MutableLiveData(patient.weight)
-    }
+    val gender: MutableLiveData<Int> = MutableLiveData(patient.gender)
 
-    val gender: MutableLiveData<Int> by lazy {
-        MutableLiveData()
-    }
+    val patientNumber: MutableLiveData<String> = MutableLiveData(patient.patientCode)
 
-    val patientNumber: MutableLiveData<String> by lazy {
-        MutableLiveData(patient.patientCode)
-    }
-
-    val heightLabel: MutableLiveData<String> by lazy {
-        MutableLiveData()
-    }
-
-    val weightLabel: MutableLiveData<String> by lazy {
-        MutableLiveData()
-    }
+    val heightLabel: MutableLiveData<String> = MutableLiveData()
 
     val transitionToPatientBasicInfoDetail: MutableLiveData<Event<String>> by lazy {
         MutableLiveData()
@@ -60,11 +44,6 @@ class PatientBasicInfoUpdateViewModel(
             heightLabel,
             context.getString(R.string.height_label),
             context.getString(R.string.height_pref_key)
-        )
-        setUnit(
-            weightLabel,
-            context.getString(R.string.weight_label),
-            context.getString(R.string.weight_pref_key)
         )
     }
 
@@ -88,18 +67,20 @@ class PatientBasicInfoUpdateViewModel(
                     repository.updatePatient(patientId, updatePatientForm, appkey, userToken)
                 }.let { res ->
                     if (res.isSuccessful) {
+                        showToastUpdated()
                         transitionToPatientBasicInfoDetail.value =
                             Event("transitionToBasicInfoDetail")
-
                     } else {
                         errorHandling(res)
                     }
                 }
 
 
-            } catch (e: ConnectException) {
+
+            } catch (e: Exception) {
                 showDialogConnectionError.value = Event("connection_error")
             }
         }
+
     }
 }

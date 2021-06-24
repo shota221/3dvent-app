@@ -206,10 +206,10 @@ interface MicroventApiService {
      ********************/
     @GET("ventilator_value")
     suspend fun getVentilatorValueList(
-        @Query("ventilator_id") ventilatorId: String?,
+        @Query("ventilator_id") ventilatorId: Int?,
         @Query("limit") limit: Int?,
         @Query("offset") offset: Int?,
-        @Query("fixed_flg") fixedFlg: Boolean?,
+        @Query("fixed_flg") fixedFlg: Int?,
         @Header("X-App-Key") appkey: String?,
     ):Response<ApiResult<List<VentilatorValueListElm>>>
 

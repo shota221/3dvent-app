@@ -27,7 +27,7 @@
             android:id="@+id/tv_serial_number_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="@{ventilatorDataDetailViewModel.ventilator.serialNumber}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toEndOf="@+id/textView38"
             app:layout_constraintTop_toTopOf="@+id/textView38" />
@@ -46,7 +46,7 @@
             android:id="@+id/tv_start_using_at_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="@{ventilatorDataDetailViewModel.ventilator.startUsingAt}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toEndOf="@+id/textView39"
             app:layout_constraintTop_toTopOf="@+id/textView39" />

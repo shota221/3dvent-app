@@ -231,10 +231,10 @@ class MicroventRepository {
      * ventilator_value *
      ********************/
     suspend fun getVentilatorValueList(
-        ventilatorId: String?,
+        ventilatorId: Int?,
         limit: Int?,
         offset: Int?,
-        fixedFlg: Boolean?,
+        fixedFlg: Int?,
         appkey: String?,
     ): Response<ApiResult<List<VentilatorValueListElm>>> =
         microventApiService.getVentilatorValueList(ventilatorId, limit, offset, fixedFlg, appkey)

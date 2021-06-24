@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.*
 import jp.microvent.microvent.R
 import jp.microvent.microvent.service.model.*
+import jp.microvent.microvent.service.enum.Gender
 import jp.microvent.microvent.viewModel.util.Event
 import kotlinx.coroutines.launch
 import java.lang.Exception

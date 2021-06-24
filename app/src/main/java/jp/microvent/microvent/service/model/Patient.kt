@@ -54,38 +54,36 @@ data class UpdatedPatient(
 @JsonClass(generateAdapter = true)
 data class PatientObs(
     @Json(name = "has_observed")
-    var hasObserved: Int,
+    var hasObserved: Boolean,
     @Json(name = "opt_out_flg")
-    var optOutFlg: Int?,
+    var optOutFlg: Int? = null,
     @Json(name = "patient_code")
-    var patientCode: String?,
-    var age: String?,
+    var patientCode: String? = null,
+    var age: String? = null,
     @Json(name = "vent_disease_name")
-    var ventDiseaseName: String?,
+    var ventDiseaseName: String? = null,
     @Json(name = "other_disease_name_1")
-    var otherDiseaseName1: String?,
+    var otherDiseaseName1: String? = null,
     @Json(name = "other_disease_name_2")
-    var otherDiseaseName2: String?,
+    var otherDiseaseName2: String? = null,
     @Json(name = "used_place")
-    var usedPlace: Int?,
-    var hospital: String?,
-    var national: String?,
+    var usedPlace: Int? = null,
+    var hospital: String? = null,
+    var national: String? = null,
     @Json(name = "discontinuation_at")
-    var discontinuationAt: Int?,
-    var outcome: Int?,
-    var treatment: Int?,
+    var discontinuationAt: String? = null,
+    var outcome: Int? = null,
+    var treatment: Int? = null,
     @Json(name = "adverse_event_flg")
-    var adverseEventFlg: Int?,
+    var adverseEventFlg: Int? = null,
     @Json(name = "adverse_event_contents")
-    var adverseEventContents: String?,
-)
+    var adverseEventContents: String? = null,
+):Serializable
 
 @JsonClass(generateAdapter = true)
 data class CreatePatientObsForm(
     @Json(name = "opt_out_flg")
     var optOutFlg: Int?,
-    @Json(name = "patient_code")
-    var patientCode: String?,
     var age: String?,
     @Json(name = "vent_disease_name")
     var ventDiseaseName: String?,
@@ -98,7 +96,7 @@ data class CreatePatientObsForm(
     var hospital: String?,
     var national: String?,
     @Json(name = "discontinuation_at")
-    var discontinuationAt: Int?,
+    var discontinuationAt: String?,
     var outcome: Int?,
     var treatment: Int?,
     @Json(name = "adverse_event_flg")
@@ -119,8 +117,6 @@ data class CreatedPatientObs(
 data class UpdatePatientObsForm(
     @Json(name = "opt_out_flg")
     var optOutFlg: Int?,
-    @Json(name = "patient_code")
-    var patientCode: String?,
     var age: String?,
     @Json(name = "vent_disease_name")
     var ventDiseaseName: String?,
@@ -133,7 +129,7 @@ data class UpdatePatientObsForm(
     var hospital: String?,
     var national: String?,
     @Json(name = "discontinuation_at")
-    var discontinuationAt: Int?,
+    var discontinuationAt: String?,
     var outcome: Int?,
     var treatment: Int?,
     @Json(name = "adverse_event_flg")

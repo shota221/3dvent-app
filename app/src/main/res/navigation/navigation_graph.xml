@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_patient_setting_to_ventilator_setting"
             app:destination="@id/ventilator_setting_fragment" />
+        <action
+            android:id="@+id/action_patient_setting_to_qr_reading"
+            app:destination="@id/qr_reading_fragment" />
     </fragment>
 
     <fragment
@@ -102,6 +105,19 @@
             android:name="ventilatorValue"
             app:argType="jp.microvent.microvent.service.model.VentilatorValue" />
     </fragment>
+
+    <fragment
+        android:id="@+id/navi_home"
+        android:name="jp.microvent.microvent.view.ui.PatientSettingFragment"
+        android:label="fragment_patient_setting">
+        <action
+            android:id="@+id/action_patient_setting_to_ventilator_setting"
+            app:destination="@id/ventilator_setting_fragment" />
+        <action
+            android:id="@+id/action_patient_setting_to_qr_reading"
+            app:destination="@id/qr_reading_fragment" />
+    </fragment>
+
 
     <fragment
         android:id="@+id/navi_setting"
@@ -186,6 +202,9 @@
         <action
             android:id="@+id/action_patient_obs_update_to_detail"
             app:destination="@id/patient_obs_data_detail_fragment"/>
+        <argument
+            android:name="patientObs"
+            app:argType="jp.microvent.microvent.service.model.PatientObs" />
 
     </fragment>
 
@@ -193,6 +212,46 @@
         android:id="@+id/measurement_data_fragment"
         android:name="jp.microvent.microvent.view.ui.MeasurementDataFragment"
         android:label="fragment_measurement_data">
+        <action
+            android:id="@+id/action_measurement_data_to_list"
+            app:destination="@id/measurement_data_list_fragment"/>
+        <action
+            android:id="@+id/action_measurement_data_to_detail"
+            app:destination="@id/measurement_data_detail_fragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/measurement_data_list_fragment"
+        android:name="jp.microvent.microvent.view.ui.MeasurementDataListFragment"
+        android:label="fragment_measurement_data">
+        <action
+            android:id="@+id/action_measurement_data_list_to_detail"
+            app:destination="@id/measurement_data_detail_fragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/measurement_data_detail_fragment"
+        android:name="jp.microvent.microvent.view.ui.MeasurementDataDetailFragment"
+        android:label="fragment_measurement_data_detail">
+        <action
+            android:id="@+id/action_measurement_data_detail_to_update"
+            app:destination="@id/measurement_data_update_fragment"/>
+        <argument
+            android:name="ventilatorValueId"
+            app:argType="integer" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/measurement_data_update_fragment"
+        android:name="jp.microvent.microvent.view.ui.MeasurementDataUpdateFragment"
+        android:label="fragment_measurement_data_update">
+        <action
+            android:id="@+id/action_measurement_data_update_to_detail"
+            app:destination="@id/measurement_data_detail_fragment"/>
+        <argument
+            android:name="ventilatorValue"
+            app:argType="jp.microvent.microvent.service.model.VentilatorValue" />
 
     </fragment>
 
@@ -212,6 +271,9 @@
         <action
             android:id="@+id/action_ventilator_data_update_to_detail"
             app:destination="@id/ventilator_data_detail_fragment"/>
+        <argument
+            android:name="ventilator"
+            app:argType="jp.microvent.microvent.service.model.Ventilator" />
     </fragment>
 
     <action

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
@@ -14,6 +15,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.fragment.findNavController
 import jp.microvent.microvent.R
 import jp.microvent.microvent.databinding.FragmentVentilatorDataDetailBinding
+import jp.microvent.microvent.view.ui.dialog.DialogConnectionErrorFragment
 import jp.microvent.microvent.viewModel.VentilatorDataDetailViewModel
 import jp.microvent.microvent.viewModel.util.EventObserver
 
@@ -38,7 +40,41 @@ class VentilatorDataDetailFragment : Fragment() {
         viewModel.apply{
             transitionToVentilatorDataUpdate.observe(
                 viewLifecycleOwner,EventObserver{
-                    findNavController().navigate(R.id.action_ventilator_data_detail_to_update)
+                    viewModel.ventilator.value?.let { ventilator->
+                        val action =
+                            VentilatorDataDetailFragmentDirections.actionVentilatorDataDetailToUpdate(
+                                ventilator
+                            )
+                        findNavController().navigate(action)
+                    }
+                }
+            )
+
+
+            transitionToAuth.observe(
+                viewLifecycleOwner, EventObserver {
+                    findNavController().navigate(R.id.action_to_auth)
+                }
+            )
+
+            /**
+             * 通信エラーダイアログの表示
+             */
+            showDialogConnectionError.observe(
+                viewLifecycleOwner,
+                EventObserver {
+                    val dialog = DialogConnectionErrorFragment()
+                    dialog.show(requireActivity().supportFragmentManager, it)
+                }
+            )
+
+            /**
+             * トースト表示
+             */
+            showToast.observe(
+                viewLifecycleOwner,
+                EventObserver {
+                    Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
                 }
             )
         }

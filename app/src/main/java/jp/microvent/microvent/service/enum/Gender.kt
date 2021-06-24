@@ -1,4 +1,4 @@
-package jp.microvent.microvent.service.model
+package jp.microvent.microvent.service.enum
 
 import android.content.Context
 import jp.microvent.microvent.R
@@ -19,15 +19,25 @@ enum class Gender {
 
     abstract fun getString(context: Context):String
 
-    /**
-     * 逆引き用
-     */
+
     companion object{
+        /**
+         * 逆引き用
+         */
         fun buildGender(i :Int?):Gender?{
             Gender.values().forEach{
                 if(it.ordinal == i) return it
             }
             return null
+        }
+
+        /**
+         * スピナーセット用
+         */
+        fun getStringList(context: Context):List<String>{
+            return Gender.values().map {
+                it.getString(context)
+            }
         }
     }
 

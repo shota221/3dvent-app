@@ -15,7 +15,7 @@
         tools:context=".view.ui.PatientRegistrationFragment">
 
         <Spinner
-            android:id="@+id/sp_opt_out"
+            android:id="@+id/sp_opt_out_flg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -24,20 +24,6 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_opt_out_label" />
-
-        <EditText
-            android:id="@+id/et_height3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:ems="10"
-            android:inputType="numberSigned|text"
-            android:text="@={patientObsDataUpdateViewModel.age}"
-            android:textSize="@dimen/et_text_size"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_age_label" />
 
         <EditText
             android:id="@+id/et_age"
@@ -59,8 +45,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:ems="10"
-            android:inputType="numberSigned|text"
-            android:text="@={patientObsDataUpdateViewModel.age}"
+            android:inputType="text"
+            android:text="@={patientObsDataUpdateViewModel.ventDiseaseName}"
             android:textSize="@dimen/et_text_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -73,8 +59,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:ems="10"
-            android:inputType="numberSigned|text"
-            android:text="@={patientObsDataUpdateViewModel.age}"
+            android:inputType="text"
+            android:text="@={patientObsDataUpdateViewModel.otherDiseaseName1}"
             android:textSize="@dimen/et_text_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -87,8 +73,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:ems="10"
-            android:inputType="numberSigned|text"
-            android:text="@={patientObsDataUpdateViewModel.age}"
+            android:inputType="text"
+            android:text="@={patientObsDataUpdateViewModel.otherDiseaseName2}"
             android:textSize="@dimen/et_text_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -96,27 +82,13 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_other_disease_name_2" />
 
         <EditText
-            android:id="@+id/et_height8"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:ems="10"
-            android:inputType="numberSigned|text"
-            android:text="@={patientObsDataUpdateViewModel.age}"
-            android:textSize="@dimen/et_text_size"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_hospital" />
-
-        <EditText
             android:id="@+id/et_hospital"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:ems="10"
-            android:inputType="numberSigned|text"
-            android:text="@={patientObsDataUpdateViewModel.age}"
+            android:inputType="text"
+            android:text="@={patientObsDataUpdateViewModel.hospital}"
             android:textSize="@dimen/et_text_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -129,8 +101,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:ems="10"
-            android:inputType="numberSigned|text"
-            android:text="@={patientObsDataUpdateViewModel.age}"
+            android:inputType="text"
+            android:text="@={patientObsDataUpdateViewModel.national}"
             android:textSize="@dimen/et_text_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -143,8 +115,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:ems="10"
-            android:inputType="numberSigned|text"
-            android:text="@={patientObsDataUpdateViewModel.age}"
+            android:inputType="datetime|text"
+            android:text="@={patientObsDataUpdateViewModel.discontinuationAt}"
             android:textSize="@dimen/et_text_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -158,6 +130,7 @@
             android:layout_marginTop="8dp"
             android:ems="10"
             android:inputType="textImeMultiLine"
+            android:text="@={patientObsDataUpdateViewModel.adverseEventContents}"
             android:textSize="@dimen/et_text_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -253,7 +226,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_treatment" />
 
         <Spinner
-            android:id="@+id/sp_adverse_event"
+            android:id="@+id/sp_adverse_event_flg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -281,17 +254,17 @@
             android:text="@string/age"
             android:textSize="@dimen/tv_text_size_large"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sp_opt_out" />
+            app:layout_constraintTop_toBottomOf="@+id/sp_opt_out_flg" />
 
         <TextView
             android:id="@+id/tv_vent_disease_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:text="@string/vent_disease_name"
             android:textSize="@dimen/tv_text_size_large"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_height3" />
+            app:layout_constraintTop_toBottomOf="@+id/et_age" />
 
         <TextView
             android:id="@+id/tv_other_disease_name_1"
@@ -327,11 +300,11 @@
             android:id="@+id/tv_national"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:text="@string/national"
             android:textSize="@dimen/tv_text_size_large"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_height8" />
+            app:layout_constraintTop_toBottomOf="@+id/et_hospital" />
 
         <TextView
             android:id="@+id/tv_discontinuation_at"
@@ -351,7 +324,7 @@
             android:text="@string/adverse_event_contents"
             android:textSize="@dimen/tv_text_size_large"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sp_adverse_event" />
+            app:layout_constraintTop_toBottomOf="@+id/sp_adverse_event_flg" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

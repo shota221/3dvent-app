@@ -17,20 +17,41 @@ class MeasurementDataViewModel(
     private val myApplication: Application
 ) : BaseViewModel(myApplication) {
 
-    val transitionToPrevMeasurementList :MutableLiveData<Event<String>> by lazy{
+    val transitionToPrevMeasurementList: MutableLiveData<Event<String>> by lazy {
         MutableLiveData()
     }
 
-    val transitionToLatestMeasurementData :MutableLiveData<Event<String>> by lazy{
+    val transitionToLatestMeasurementData: MutableLiveData<Event<String>> by lazy {
         MutableLiveData()
     }
 
+    val ventilatorValueId: MutableLiveData<Int> by lazy {
+        MutableLiveData()
+    }
 
     fun onClickPrevMeasurementListButton() {
         transitionToPrevMeasurementList.value = Event("transitionToPrevMeasurementList")
     }
+
     fun onClickLatestMeasurementDataButton() {
-        transitionToLatestMeasurementData.value = Event("transitionToLatestMeasurementData")
+        viewModelScope.launch {
+            try {
+                repository.getVentilatorValueList(ventilatorId, 1, 0, null, appkey).let { res ->
+                    if (res.isSuccessful) {
+                        res.body()?.result?.let {
+                            ventilatorValueId.value = it.first().id
+                            transitionToLatestMeasurementData.value =
+                                Event("transitionToLatestMeasurementData")
+                        }
+                    } else {
+                        errorHandling(res)
+                    }
+                }
+            } catch (e: Exception) {
+                showDialogConnectionError.value = Event("connect_error")
+            }
+        }
+
     }
 
 

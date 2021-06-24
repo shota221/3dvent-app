@@ -6,7 +6,6 @@ import java.io.Serializable
 
 @JsonClass(generateAdapter = true)
 data class VentilatorValue(
-    var id: Int? = null,
     @Json(name = "has_observed")
     var hasObserved: Boolean? = null,
     @Json(name = "ventilator_value_id")
@@ -48,7 +47,7 @@ data class VentilatorValue(
     @Json(name = "confirmed_user_name")
     var confirmedUserName: String? = null,
     @Json(name = "status_use")
-    var statusUse: String? = null,
+    var statusUse: Int? = null,
     @Json(name = "status_use_other")
     var statusUseOther: String? = null,
     var spo2: String? = null,
@@ -106,9 +105,6 @@ data class CreatedVentilatorValue(
 
 @JsonClass(generateAdapter = true)
 data class UpdateVentilatorValueForm(
-    var id: Int?,
-    @Json(name = "registered_at")
-    var registeredAt: String?,
     var gender: Int?,
     var height: String?,
     var weight: String?,
