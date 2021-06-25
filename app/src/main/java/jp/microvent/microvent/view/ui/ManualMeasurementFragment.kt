@@ -21,7 +21,7 @@ import jp.microvent.microvent.viewModel.ManualMeasurementViewModel
 import jp.microvent.microvent.viewModel.VentilatorResultViewModel
 import jp.microvent.microvent.viewModel.util.EventObserver
 
-class ManualMeasurementFragment : Fragment() {
+class ManualMeasurementFragment : DrawableFragment() {
 
     private val args: ManualMeasurementFragmentArgs by navArgs()
 
@@ -63,6 +63,19 @@ class ManualMeasurementFragment : Fragment() {
                             ventilatorValue
                         )
                     findNavController().navigate(action)
+                }
+            )
+
+            transitionToHelp.observe(
+                viewLifecycleOwner, EventObserver{
+                    val action = ManualMeasurementFragmentDirections.actionToHelp(getString(R.string.manual_measurement_manual_path))
+                    findNavController().navigate(action)
+                }
+            )
+
+            showFlowDrawer.observe(
+                viewLifecycleOwner, EventObserver{
+                    showFlowDrawer(R.id.point_flow_ie_measurement)
                 }
             )
 

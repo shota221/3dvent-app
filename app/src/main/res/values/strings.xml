@@ -272,6 +272,23 @@
     <string name="update_success">更新しました。</string>
     <string name="create_success">登録しました。</string>
 
+    <!-- manual_url_path -->
+    <string name="qr_reading_manual_path">qr</string>
+    <string name="auth_manual_path">auth</string>
+    <string name="patient_setting_manual_path">patient_setting</string>
+    <string name="ventilator_setting_manual_path">ventilator_setting</string>
+    <string name="manual_measurement_manual_path">manual_measurement</string>
+    <string name="sound_measurement_manual_path">sound_measurement</string>
+    <string name="ventilator_result_manual_path">ventilator_result</string>
+
+<!-- operation_flow -->
+    <string name="operation_flow">利用フロー</string>
+    <string name="flow_qr_reading">QRコード読み取り</string>
+    <string name="flow_patient_setting">患者情報入力</string>
+    <string name="flow_ventilator_setting">データ入力</string>
+    <string name="flow_ie_measurement">呼吸時間測定</string>
+    <string name="flow_ventilator_result">登録完了</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

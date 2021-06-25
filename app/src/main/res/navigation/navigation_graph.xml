@@ -279,4 +279,17 @@
     <action
         android:id="@+id/action_to_auth"
         app:destination="@id/auth_fragment" />
+    <action
+        android:id="@+id/action_to_help"
+        app:destination="@id/help_fragment" />
+
+    <fragment
+        android:id="@+id/help_fragment"
+        android:name="jp.microvent.microvent.view.ui.HelpFragment"
+        android:label="fragment_help"
+        android:tag="handlingBackPressed">
+        <argument
+            android:name="urlPath"
+            app:argType="string"/>
+    </fragment>
 </navigation>

@@ -4,9 +4,10 @@
     <base-config cleartextTrafficPermitted="false" />
     <!-- ドメイン毎の設定 -->
     <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">apppppp.com</domain>
         <domain includeSubdomains="true">api.microvent.r102.jp</domain>
         <domain includeSubdomains="true">api.microvent.local</domain>
+        <domain includeSubdomains="true">manual.microvent.r102.jp</domain>
+        <domain includeSubdomains="true">manual.microvent.local</domain>
         <domain includeSubdomains="true">fcm.googleapis.com</domain>
     </domain-config>
 </network-security-config>

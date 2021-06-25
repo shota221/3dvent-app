@@ -1,13 +1,18 @@
 package jp.microvent.microvent.view.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
@@ -19,7 +24,9 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.mlkit.vision.barcode.Barcode
 import jp.microvent.microvent.R
+import jp.microvent.microvent.databinding.DrawerOperationFlowBinding
 import jp.microvent.microvent.databinding.FragmentQrReadingBinding
+import jp.microvent.microvent.databinding.MeasurementDataListItemBinding
 import jp.microvent.microvent.view.permission.AccessLocationPermission
 import jp.microvent.microvent.view.permission.CameraPermission
 import jp.microvent.microvent.view.ui.dialog.DialogConnectionErrorFragment
@@ -28,7 +35,7 @@ import jp.microvent.microvent.viewModel.TestViewModel
 import jp.microvent.microvent.viewModel.util.CodeScanner
 import jp.microvent.microvent.viewModel.util.EventObserver
 
-class QrReadingFragment : Fragment() {
+class QrReadingFragment : DrawableFragment() {
 
     private val qrReadingViewModel by viewModels<QrReadingViewModel>()
 
@@ -93,6 +100,25 @@ class QrReadingFragment : Fragment() {
             )
 
             /**
+             * ヘルプボタン監視
+             */
+            transitionToHelp.observe(
+                viewLifecycleOwner, EventObserver{
+                    val action = QrReadingFragmentDirections.actionToHelp(getString(R.string.qr_reading_manual_path))
+                    findNavController().navigate(action)
+                }
+            )
+
+            /**
+             *　ドロワーボタン監視
+             */
+            showFlowDrawer.observe(
+                viewLifecycleOwner, EventObserver{
+                    showFlowDrawer(R.id.point_flow_qr_reading)
+                }
+            )
+
+            /**
              * 通信エラーダイアログの表示
              */
             showDialogConnectionError.observe(
@@ -115,11 +141,6 @@ class QrReadingFragment : Fragment() {
         }
 
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
     }
 
     private fun onCameraPermissionResult(granted: Boolean) {

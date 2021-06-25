@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="jp.microvent.microvent.viewModel.BaseViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_flow_patient_setting"
+            android:tag="@string/flow_patient_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/flow_patient_setting"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/tv_flow_qr_reading" />
+
+        <TextView
+            android:id="@+id/tv_flow_qr_reading"
+            android:tag="@string/flow_qr_reading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/flow_qr_reading"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/tv_operation_flow" />
+
+        <TextView
+            android:id="@+id/tv_operation_flow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/operation_flow"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_flow_ventilator_setting"
+            android:tag="@string/flow_ventilator_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/flow_ventilator_setting"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/tv_flow_patient_setting" />
+
+        <TextView
+            android:id="@+id/tv_flow_ie_measurement"
+            android:tag="@string/flow_ie_measurement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/flow_ie_measurement"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/tv_flow_ventilator_setting" />
+
+        <TextView
+            android:id="@+id/tv_flow_ventilator_result"
+            android:tag="@string/flow_ventilator_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/flow_ventilator_result"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/tv_flow_ie_measurement" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="73dp" />
+
+        <ImageView
+            android:id="@+id/point_flow_patient_setting"
+            android:tag="@string/flow_patient_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_flow_patient_setting"
+            app:layout_constraintEnd_toStartOf="@+id/tv_flow_patient_setting"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_flow_patient_setting"
+            android:src="@drawable/flow_circle" />
+
+        <ImageView
+            android:id="@+id/point_flow_qr_reading"
+            android:tag="@string/flow_qr_reading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_flow_qr_reading"
+            app:layout_constraintEnd_toStartOf="@+id/tv_flow_qr_reading"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_flow_qr_reading"
+            android:src="@drawable/flow_circle" />
+
+        <ImageView
+            android:id="@+id/point_flow_ventilator_setting"
+            android:tag="@string/flow_ventilator_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_flow_ventilator_setting"
+            app:layout_constraintEnd_toStartOf="@+id/tv_flow_ventilator_setting"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_flow_ventilator_setting"
+            android:src="@drawable/flow_circle" />
+        <ImageView
+            android:id="@+id/point_flow_ie_measurement"
+            android:tag="@string/flow_ie_measurement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_flow_ie_measurement"
+            app:layout_constraintEnd_toStartOf="@+id/tv_flow_ie_measurement"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_flow_ie_measurement"
+            android:src="@drawable/flow_circle" />
+        <ImageView
+            android:id="@+id/point_flow_ventilator_result"
+            android:tag="@string/flow_ventilator_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_flow_ventilator_result"
+            app:layout_constraintEnd_toStartOf="@+id/tv_flow_ventilator_result"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_flow_ventilator_result"
+            android:src="@drawable/flow_circle" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

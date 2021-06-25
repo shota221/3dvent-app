@@ -22,7 +22,7 @@ import jp.microvent.microvent.view.ui.dialog.DialogConnectionErrorFragment
 import jp.microvent.microvent.viewModel.SoundMeasurementViewModel
 import jp.microvent.microvent.viewModel.util.EventObserver
 
-class SoundMeasurementFragment : Fragment() {
+class SoundMeasurementFragment : DrawableFragment() {
 
     private val args: SoundMeasurementFragmentArgs by navArgs()
 
@@ -79,6 +79,19 @@ class SoundMeasurementFragment : Fragment() {
                             ventilatorValue
                         )
                     findNavController().navigate(action)
+                }
+            )
+
+            transitionToHelp.observe(
+                viewLifecycleOwner, EventObserver{
+                    val action = SoundMeasurementFragmentDirections.actionToHelp(getString(R.string.sound_measurement_manual_path))
+                    findNavController().navigate(action)
+                }
+            )
+
+            showFlowDrawer.observe(
+                viewLifecycleOwner, EventObserver{
+                    showFlowDrawer(R.id.point_flow_ie_measurement)
                 }
             )
 

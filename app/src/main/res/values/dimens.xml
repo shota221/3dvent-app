@@ -9,4 +9,6 @@
     <dimen name="et_text_size">18sp</dimen>
     <dimen name="cb_text_size">14sp</dimen>
     <dimen name="scrollbar_size">24dp</dimen>
+    <dimen name="flow_circle_size">20dp</dimen>
+    <dimen name="flow_circle_frame_width">2dp</dimen>
 </resources>

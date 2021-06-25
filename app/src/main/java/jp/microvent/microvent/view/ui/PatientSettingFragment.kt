@@ -22,7 +22,7 @@ import jp.microvent.microvent.view.ui.dialog.DialogConnectionErrorFragment
 import jp.microvent.microvent.viewModel.PatientSettingViewModel
 import jp.microvent.microvent.viewModel.util.EventObserver
 
-class PatientSettingFragment : Fragment() {
+class PatientSettingFragment : DrawableFragment() {
 
     private val patientSettingViewModel by viewModels<PatientSettingViewModel>()
 
@@ -82,6 +82,22 @@ class PatientSettingFragment : Fragment() {
             transitionToQrReading.observe(
                 viewLifecycleOwner, Observer {
                     findNavController().navigate(R.id.action_patient_setting_to_qr_reading)
+                }
+            )
+
+            transitionToHelp.observe(
+                viewLifecycleOwner, EventObserver{
+                    val action = PatientSettingFragmentDirections.actionToHelp(getString(R.string.patient_setting_manual_path))
+                    findNavController().navigate(action)
+                }
+            )
+
+            /**
+             *　ドロワーボタン監視
+             */
+            showFlowDrawer.observe(
+                viewLifecycleOwner, EventObserver{
+                    showFlowDrawer(R.id.point_flow_patient_setting)
                 }
             )
 

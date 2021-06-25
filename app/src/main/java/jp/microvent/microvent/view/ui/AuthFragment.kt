@@ -74,6 +74,13 @@ class AuthFragment : Fragment(),DialogConfirmLogoutOnAnotherTerminalFragment.Dia
                 }
             )
 
+            transitionToHelp.observe(
+                viewLifecycleOwner, EventObserver{
+                    val action = AuthFragmentDirections.actionToHelp(getString(R.string.auth_manual_path))
+                    findNavController().navigate(action)
+                }
+            )
+
 
             /**
              * 通信エラーダイアログの表示

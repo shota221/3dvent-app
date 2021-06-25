@@ -276,7 +276,24 @@ open class BaseViewModel(
     protected fun showToastCreated(){
         showToast.value = Event(context.getString(R.string.create_success))
     }
+
+
+    /**
+     * ヘルプボタン用
+     */
+    val transitionToHelp: MutableLiveData<Event<String>> by lazy {
+        MutableLiveData()
+    }
+
+    fun onClickHelpButton() {
+        transitionToHelp.value = Event("transitionToHelp")
+    }
+
+    val showFlowDrawer: MutableLiveData<Event<String>> by lazy {
+        MutableLiveData()
+    }
+
+    fun onClickFlowButton() {
+        showFlowDrawer.value = Event("showFlowDrawer")
+    }
 }
-
-
-

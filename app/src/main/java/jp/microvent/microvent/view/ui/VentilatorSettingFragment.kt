@@ -16,7 +16,7 @@ import jp.microvent.microvent.viewModel.VentilatorSettingViewModel
 import jp.microvent.microvent.viewModel.util.EventObserver
 
 
-class VentilatorSettingFragment : Fragment() {
+class VentilatorSettingFragment : DrawableFragment() {
 
     private val ventilatorSettingViewModel by viewModels<VentilatorSettingViewModel>()
 
@@ -56,6 +56,19 @@ class VentilatorSettingFragment : Fragment() {
                             ventilatorValue
                         )
                     findNavController().navigate(action)
+                }
+            )
+
+            transitionToHelp.observe(
+                viewLifecycleOwner, EventObserver{
+                    val action = VentilatorSettingFragmentDirections.actionToHelp(getString(R.string.ventilator_setting_manual_path))
+                    findNavController().navigate(action)
+                }
+            )
+
+            showFlowDrawer.observe(
+                viewLifecycleOwner, EventObserver{
+                    showFlowDrawer(R.id.point_flow_ventilator_setting)
                 }
             )
 

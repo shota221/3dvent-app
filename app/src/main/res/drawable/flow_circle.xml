@@ -1,0 +1,5 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+<size android:width="@dimen/flow_circle_size" android:height="@dimen/flow_circle_size" />
+<stroke android:width="@dimen/flow_circle_frame_width" android:color="@color/general_purpose_blue" />
+</shape>
