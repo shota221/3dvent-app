@@ -59,9 +59,7 @@ class PatientObsDataUpdateViewModel(
     }
 
     fun onOptOutFlgSelected(itemSelected: Int) {
-        if (itemSelected != 0) {
             optOutFlg.postValue(itemSelected)
-        }
     }
 
     fun onUsedPlaceSelected(itemSelected: Int) {
@@ -83,9 +81,7 @@ class PatientObsDataUpdateViewModel(
     }
 
     fun onAdverseEventFlgSelected(itemSelected: Int) {
-        if (itemSelected != 0) {
             adverseEventFlg.postValue(itemSelected)
-        }
     }
 
     fun onClickSavePatientObsDataButton() {
