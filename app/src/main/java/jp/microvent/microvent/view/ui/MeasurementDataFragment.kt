@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
@@ -14,6 +15,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.fragment.findNavController
 import jp.microvent.microvent.R
 import jp.microvent.microvent.databinding.FragmentMeasurementDataBinding
+import jp.microvent.microvent.view.ui.dialog.DialogConnectionErrorFragment
 import jp.microvent.microvent.viewModel.MeasurementDataViewModel
 import jp.microvent.microvent.viewModel.util.EventObserver
 
@@ -52,6 +54,33 @@ class MeasurementDataFragment : Fragment() {
             transitionToPrevMeasurementList.observe(
                 viewLifecycleOwner, EventObserver {
                     findNavController().navigate(R.id.action_measurement_data_to_list)
+                }
+            )
+
+            transitionToAuth.observe(
+                viewLifecycleOwner, EventObserver {
+                    findNavController().navigate(R.id.action_to_auth)
+                }
+            )
+
+            /**
+             * 通信エラーダイアログの表示
+             */
+            showDialogConnectionError.observe(
+                viewLifecycleOwner,
+                EventObserver {
+                    val dialog = DialogConnectionErrorFragment()
+                    dialog.show(requireActivity().supportFragmentManager, it)
+                }
+            )
+
+            /**
+             * トースト表示
+             */
+            showToast.observe(
+                viewLifecycleOwner,
+                EventObserver {
+                    Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
                 }
             )
         }

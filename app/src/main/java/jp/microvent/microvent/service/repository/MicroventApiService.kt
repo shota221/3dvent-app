@@ -255,10 +255,10 @@ interface MicroventApiService {
     @Headers("Content-Type:application/json; charset=UTF-8")
     @PUT("user")
     suspend fun updateUser(
-        @Body updateUserForm: updateUserForm?,
+        @Body updateUserForm: UpdateUserForm?,
         @Header("X-App-Key") appkey: String?,
         @Header("X-User-Token") userToken: String?,
-    ):Response<ApiResult<updatedUser>>
+    ):Response<ApiResult<UpdatedUser>>
 
 
 }

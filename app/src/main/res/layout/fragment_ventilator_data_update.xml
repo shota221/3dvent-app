@@ -27,14 +27,23 @@
             app:layout_constraintTop_toBottomOf="@+id/et_start_using_at" />
 
         <TextView
-            android:id="@+id/tv_sesial_number_label"
+            android:id="@+id/tv_serial_number_key"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/fragment_vertical_margin_top"
-            android:text="@string/serial_number"
+            android:text="@string/serial_number_key"
             android:textSize="@dimen/tv_text_size_large"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_serial_number_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/tv_text_size_large"
+            android:text="@{ventilatorDataUpdateViewModel.serialNumber}"
+            app:layout_constraintStart_toEndOf="@+id/tv_serial_number_key"
+            app:layout_constraintTop_toTopOf="@+id/tv_serial_number_key" />
 
         <TextView
             android:id="@+id/tv_start_using_at_label"
@@ -44,21 +53,7 @@
             android:text="@string/start_using_at"
             android:textSize="@dimen/tv_text_size_large"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_serial_number" />
-
-        <EditText
-            android:id="@+id/et_serial_number"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:ems="10"
-            android:enabled="false"
-            android:text="@={ventilatorDataUpdateViewModel.serialNumber}"
-            android:textSize="@dimen/et_text_size"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_sesial_number_label" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_serial_number_key" />
 
         <EditText
             android:id="@+id/et_start_using_at"

@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/fragment_vertical_margin_top"
-            android:text="@{patientObsDataDetailViewModel.optOutFlgStr.isEmpty() ? @string/off : patientObsDataDetailViewModel.optOutFlgStr}"
+            android:text="@{patientObsDataDetailViewModel.optOutFlgStr.isEmpty() ? @string/off : patientObsDataDetailViewModel.optOutFlgStr ?? @string/off}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toEndOf="@+id/textView3"
             app:layout_constraintTop_toTopOf="parent" />
@@ -60,7 +60,7 @@
             android:id="@+id/tv_age_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{patientObsDataDetailViewModel.patientObs.age.isEmpty() ? @string/unregistered : patientObsDataDetailViewModel.patientObs.age}"
+            android:text="@{patientObsDataDetailViewModel.patientObs.age.isEmpty() ? @string/unregistered : patientObsDataDetailViewModel.patientObs.age ?? @string/unregistered}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toEndOf="@+id/textView4"
             app:layout_constraintTop_toTopOf="@+id/textView4" />
@@ -79,7 +79,7 @@
             android:id="@+id/tv_vent_disease_name_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{patientObsDataDetailViewModel.patientObs.ventDiseaseName.isEmpty() ? @string/unregistered : patientObsDataDetailViewModel.patientObs.ventDiseaseName}"
+            android:text="@{patientObsDataDetailViewModel.patientObs.ventDiseaseName.isEmpty() ? @string/unregistered : patientObsDataDetailViewModel.patientObs.ventDiseaseName ?? @string/unregistered}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toEndOf="@+id/textView5"
             app:layout_constraintTop_toTopOf="@+id/textView5" />
@@ -188,7 +188,7 @@
             android:id="@+id/tv_other_disease_name_1_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{patientObsDataDetailViewModel.patientObs.otherDiseaseName1.isEmpty() ? @string/unregistered : patientObsDataDetailViewModel.patientObs.otherDiseaseName1}"
+            android:text="@{patientObsDataDetailViewModel.patientObs.otherDiseaseName1.isEmpty() ? @string/unregistered : patientObsDataDetailViewModel.patientObs.otherDiseaseName1 ?? @string/unregistered}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toEndOf="@+id/textView6"
             app:layout_constraintTop_toTopOf="@+id/textView6" />
@@ -197,7 +197,7 @@
             android:id="@+id/tv_other_disease_name_2_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{patientObsDataDetailViewModel.patientObs.otherDiseaseName2.isEmpty() ? @string/unregistered : patientObsDataDetailViewModel.patientObs.otherDiseaseName2}"
+            android:text="@{patientObsDataDetailViewModel.patientObs.otherDiseaseName2.isEmpty() ? @string/unregistered : patientObsDataDetailViewModel.patientObs.otherDiseaseName2 ?? @string/unregistered}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toEndOf="@+id/textView17"
             app:layout_constraintTop_toTopOf="@+id/textView17" />
@@ -206,7 +206,7 @@
             android:id="@+id/tv_used_place_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{patientObsDataDetailViewModel.usedPlaceStr.isEmpty() ? @string/unregistered : patientObsDataDetailViewModel.usedPlaceStr}"
+            android:text="@{patientObsDataDetailViewModel.usedPlaceStr.isEmpty() ? @string/unregistered : patientObsDataDetailViewModel.usedPlaceStr ?? @string/unregistered}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toEndOf="@+id/textView36"
             app:layout_constraintTop_toTopOf="@+id/textView36" />
@@ -215,7 +215,7 @@
             android:id="@+id/tv_hospital_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{patientObsDataDetailViewModel.patientObs.hospital.isEmpty() ? @string/unregistered : patientObsDataDetailViewModel.patientObs.hospital}"
+            android:text="@{patientObsDataDetailViewModel.patientObs.hospital.isEmpty() ? @string/unregistered : patientObsDataDetailViewModel.patientObs.hospital ?? @string/unregistered}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toEndOf="@+id/textView16"
             app:layout_constraintTop_toTopOf="@+id/textView16" />
@@ -224,7 +224,7 @@
             android:id="@+id/tv_national_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{patientObsDataDetailViewModel.patientObs.national.isEmpty() ? @string/unregistered : patientObsDataDetailViewModel.patientObs.national}"
+            android:text="@{patientObsDataDetailViewModel.patientObs.national.isEmpty() ? @string/unregistered : patientObsDataDetailViewModel.patientObs.national ?? @string/unregistered}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toEndOf="@+id/textView20"
             app:layout_constraintTop_toTopOf="@+id/textView20" />
@@ -233,7 +233,7 @@
             android:id="@+id/tv_discontinuation_at_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{patientObsDataDetailViewModel.patientObs.discontinuationAt.isEmpty() ? @string/unregistered : patientObsDataDetailViewModel.patientObs.discontinuationAt}"
+            android:text="@{patientObsDataDetailViewModel.patientObs.discontinuationAt.isEmpty() ? @string/unregistered : patientObsDataDetailViewModel.patientObs.discontinuationAt ?? @string/unregistered}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toEndOf="@+id/textView22"
             app:layout_constraintTop_toTopOf="@+id/textView22" />
@@ -242,7 +242,7 @@
             android:id="@+id/tv_treatment_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{patientObsDataDetailViewModel.treatmentStr.isEmpty() ? @string/unregistered : patientObsDataDetailViewModel.treatmentStr}"
+            android:text="@{patientObsDataDetailViewModel.treatmentStr.isEmpty() ? @string/unregistered : patientObsDataDetailViewModel.treatmentStr ?? @string/unregistered}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toEndOf="@+id/textView26"
             app:layout_constraintTop_toTopOf="@+id/textView26" />
@@ -251,7 +251,7 @@
             android:id="@+id/tv_adverse_event_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{patientObsDataDetailViewModel.adverseEventFlgStr.isEmpty() ? @string/none : patientObsDataDetailViewModel.adverseEventFlgStr}"
+            android:text="@{patientObsDataDetailViewModel.adverseEventFlgStr.isEmpty() ? @string/none : patientObsDataDetailViewModel.adverseEventFlgStr ?? @string/none}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toEndOf="@+id/textView28"
             app:layout_constraintTop_toTopOf="@+id/textView28" />
@@ -260,7 +260,7 @@
             android:id="@+id/tv_adverse_event_contents_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{patientObsDataDetailViewModel.patientObs.adverseEventContents.isEmpty() ? @string/unregistered : patientObsDataDetailViewModel.patientObs.adverseEventContents}"
+            android:text="@{patientObsDataDetailViewModel.patientObs.adverseEventContents.isEmpty() ? @string/unregistered : patientObsDataDetailViewModel.patientObs.adverseEventContents ?? @string/unregistered}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toEndOf="@+id/textView31"
             app:layout_constraintTop_toTopOf="@+id/textView31" />
@@ -269,7 +269,7 @@
             android:id="@+id/tv_outcome_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{patientObsDataDetailViewModel.outcomeStr.isEmpty() ? @string/unregistered : patientObsDataDetailViewModel.outcomeStr}"
+            android:text="@{patientObsDataDetailViewModel.outcomeStr.isEmpty() ? @string/unregistered : patientObsDataDetailViewModel.outcomeStr ?? @string/unregistered}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toEndOf="@+id/textView24"
             app:layout_constraintTop_toTopOf="@+id/textView24" />

@@ -18,8 +18,12 @@ class SettingViewModel(
     private val myApplication: Application
 ) : BaseViewModel(myApplication) {
 
-    val isLogoutEnabled: MutableLiveData<Boolean> by lazy {
+    val loggedIn: MutableLiveData<Boolean> by lazy {
             MutableLiveData(loggedIn())
+    }
+
+    val transitionToUserData: MutableLiveData<Event<String>> by lazy {
+        MutableLiveData()
     }
 
     fun onClickLogoutButton() {
@@ -30,6 +34,10 @@ class SettingViewModel(
         } catch (e:ConnectException){
             showDialogConnectionError.value = Event("connect_error")
         }
+    }
+
+    fun onClickUserDataButton(){
+        transitionToUserData.value = Event("transitionToUserData")
     }
 
 }

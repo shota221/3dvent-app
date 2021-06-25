@@ -122,7 +122,11 @@
     <fragment
         android:id="@+id/navi_setting"
         android:name="jp.microvent.microvent.view.ui.SettingFragment"
-        android:label="fragment_setting"></fragment>
+        android:label="fragment_setting">
+        <action
+            android:id="@+id/action_setting_to_user_data_detail"
+            app:destination="@+id/user_data_detail_fragment"/>
+    </fragment>
 
     <fragment
         android:id="@+id/navi_support"
@@ -275,6 +279,27 @@
             android:name="ventilator"
             app:argType="jp.microvent.microvent.service.model.Ventilator" />
     </fragment>
+
+    <fragment
+        android:id="@+id/user_data_detail_fragment"
+        android:name="jp.microvent.microvent.view.ui.UserDataDetailFragment"
+        android:label="fragment_user_data_detail">
+        <action
+            android:id="@+id/action_user_data_detail_to_update"
+            app:destination="@id/user_data_update_fragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/user_data_update_fragment"
+        android:name="jp.microvent.microvent.view.ui.UserDataUpdateFragment"
+        android:label="fragment_user_data_update">
+        <action
+            android:id="@+id/action_user_data_update_to_detail"
+            app:destination="@id/user_data_detail_fragment" />
+        <argument
+            android:name="user"
+            app:argType="jp.microvent.microvent.service.model.User" />
+    </fragment>
+
 
     <action
         android:id="@+id/action_to_auth"

@@ -279,10 +279,10 @@ class MicroventRepository {
     ): Response<ApiResult<User>> = microventApiService.getUser(appkey, userToken)
 
     suspend fun updateUser(
-        updateUserForm: updateUserForm?,
+        updateUserForm: UpdateUserForm?,
         appkey: String?,
         userToken: String?,
-    ): Response<ApiResult<updatedUser>> =
+    ): Response<ApiResult<UpdatedUser>> =
         microventApiService.updateUser(updateUserForm, appkey, userToken)
 
 }

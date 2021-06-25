@@ -18,7 +18,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/fragment_vertical_margin_top"
-            android:enabled="@{settingViewModel.isLogoutEnabled}"
+            android:enabled="@{settingViewModel.loggedIn}"
             android:onClick="@{()->settingViewModel.onClickLogoutButton()}"
             android:text="@string/edc_study"
             android:textSize="@dimen/bt_text_size"

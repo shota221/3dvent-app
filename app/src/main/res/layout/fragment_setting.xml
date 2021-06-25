@@ -17,13 +17,27 @@
             android:id="@+id/bt_logout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/fragment_vertical_margin_top"
-            android:enabled="@{settingViewModel.isLogoutEnabled}"
+            android:layout_marginTop="16dp"
+            android:enabled="@{settingViewModel.loggedIn}"
             android:onClick="@{()->settingViewModel.onClickLogoutButton()}"
             android:text="@string/logout"
             android:textSize="@dimen/bt_text_size"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bt_user_data" />
+
+        <Button
+            android:id="@+id/bt_user_data"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/fragment_vertical_margin_top"
+            android:enabled="@{settingViewModel.loggedIn}"
+            android:onClick="@{()->settingViewModel.onClickUserDataButton()}"
+            android:text="@string/user_data"
+            android:textSize="@dimen/bt_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

@@ -150,14 +150,14 @@ class AuthViewModel(
                             commit()
                         }
 
+                        //次にGs1Codeが読まれるまでは直近に読んだventilatorIdを参照する…sharedPrefに保存
+                        saveVentilatorId()
+
+                        transit()
+
                     } else {
                         errorHandling(createUserToken)
                     }
-
-                    //次にGs1Codeが読まれるまでは直近に読んだventilatorIdを参照する…sharedPrefに保存
-                    saveVentilatorId()
-
-                    transit()
 
                 } else {
                     errorHandling(checkUserToken)

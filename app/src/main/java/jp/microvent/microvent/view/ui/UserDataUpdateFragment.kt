@@ -1,64 +1,59 @@
 package jp.microvent.microvent.view.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import jp.microvent.microvent.R
-import jp.microvent.microvent.databinding.FragmentMeasurementDataDetailBinding
+import jp.microvent.microvent.databinding.FragmentUserDataUpdateBinding
 import jp.microvent.microvent.view.ui.dialog.DialogConnectionErrorFragment
-import jp.microvent.microvent.viewModel.MeasurementDataDetailViewModel
+import jp.microvent.microvent.viewModel.UserDataUpdateViewModel
 import jp.microvent.microvent.viewModel.util.EventObserver
 
-class MeasurementDataDetailFragment : Fragment() {
+class UserDataUpdateFragment : Fragment() {
 
-    private val args: MeasurementDataDetailFragmentArgs by navArgs()
+    private val args: UserDataUpdateFragmentArgs by navArgs()
 
     private val viewModel by lazy {
         ViewModelProvider(
-            this, MeasurementDataDetailViewModel.Factory(
-                requireActivity().application, args.ventilatorValueId
+            this, UserDataUpdateViewModel.Factory(
+                requireActivity().application, args.user
             )
-        ).get(MeasurementDataDetailViewModel::class.java)
+        ).get(UserDataUpdateViewModel::class.java)
     }
 
-    private lateinit var binding: FragmentMeasurementDataDetailBinding
+    private lateinit var binding : FragmentUserDataUpdateBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_measurement_data_detail, container, false)
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_user_data_update,
+            container,
+            false
+        )
 
         binding.apply {
-            measurementDataDetailViewModel = viewModel
+            userDataUpdateViewModel = viewModel
             lifecycleOwner = viewLifecycleOwner
         }
 
-        viewModel.apply {
-            transitionToMeasurementDataUpdate.observe(
-                viewLifecycleOwner, EventObserver {
-                    viewModel.ventilatorValue.value?.let {
-                        val action =
-                            MeasurementDataDetailFragmentDirections.actionMeasurementDataDetailToUpdate(
-                                it
-                            )
-                        findNavController().navigate(action)
-                    }
+        viewModel.apply{
+            transitionToUserDataDetail.observe(
+                viewLifecycleOwner,EventObserver{
+                    findNavController().navigate(R.id.action_user_data_update_to_detail)
                 }
             )
+
 
             transitionToAuth.observe(
                 viewLifecycleOwner, EventObserver {
@@ -86,9 +81,9 @@ class MeasurementDataDetailFragment : Fragment() {
                     Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
                 }
             )
+
         }
 
         return binding.root
     }
-
 }

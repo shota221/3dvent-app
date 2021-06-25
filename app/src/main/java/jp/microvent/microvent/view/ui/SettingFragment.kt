@@ -44,6 +44,13 @@ class SettingFragment : Fragment() {
         }
 
         settingViewModel.apply {
+            transitionToUserData.observe(
+                viewLifecycleOwner,
+                EventObserver {
+                    findNavController().navigate(R.id.action_setting_to_user_data_detail)
+                }
+            )
+
             transitionToAuth.observe(
                 viewLifecycleOwner,
                 EventObserver {

@@ -204,9 +204,11 @@
     <string name="start_using_at_key">使用開始日時：</string>
 
     <!-- user_data-->
-    <string name="organization_name_label">組織名</string>
+    <string name="organization_name_key">組織名：</string>
     <string name="user_name">ユーザー名</string>
     <string name="email">メールアドレス</string>
+    <string name="user_name_key">ユーザー名：</string>
+    <string name="email_key">メールアドレス：</string>
     <!-- logout -->
 
 
@@ -281,7 +283,7 @@
     <string name="sound_measurement_manual_path">sound_measurement</string>
     <string name="ventilator_result_manual_path">ventilator_result</string>
 
-<!-- operation_flow -->
+    <!-- operation_flow -->
     <string name="operation_flow">利用フロー</string>
     <string name="flow_qr_reading">QRコード読み取り</string>
     <string name="flow_patient_setting">患者情報入力</string>
