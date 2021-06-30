@@ -21,7 +21,7 @@ import jp.microvent.microvent.view.ui.dialog.DialogConnectionErrorFragment
 import jp.microvent.microvent.viewModel.MeasurementDataDetailViewModel
 import jp.microvent.microvent.viewModel.util.EventObserver
 
-class MeasurementDataDetailFragment : Fragment() {
+class MeasurementDataDetailFragment : BaseFragment() {
 
     private val args: MeasurementDataDetailFragmentArgs by navArgs()
 
@@ -83,7 +83,21 @@ class MeasurementDataDetailFragment : Fragment() {
             showToast.observe(
                 viewLifecycleOwner,
                 EventObserver {
-                    Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireActivity(), it, Toast.LENGTH_LONG).show()
+                }
+            )
+
+            /**
+             * プログレスバー制御
+             */
+            setProgressBar.observe(
+                viewLifecycleOwner,
+                EventObserver {
+                    progressBar.visibility = if (it) {
+                        View.VISIBLE
+                    } else {
+                        View.GONE
+                    }
                 }
             )
         }

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
@@ -25,7 +26,7 @@ import jp.microvent.microvent.viewModel.util.Event
 import jp.microvent.microvent.viewModel.util.EventObserver
 import java.lang.Exception
 
-class AuthFragment : Fragment(),DialogConfirmLogoutOnAnotherTerminalFragment.DialogconfirmLogoutOnAnotherTerminalListener {
+class AuthFragment : BaseFragment(),DialogConfirmLogoutOnAnotherTerminalFragment.DialogconfirmLogoutOnAnotherTerminalListener {
 
     private val authViewModel by viewModels<AuthViewModel>()
 
@@ -110,7 +111,21 @@ class AuthFragment : Fragment(),DialogConfirmLogoutOnAnotherTerminalFragment.Dia
             showToast.observe(
                 viewLifecycleOwner,
                 EventObserver {
-                    Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireActivity(), it, Toast.LENGTH_LONG).show()
+                }
+            )
+
+            /**
+             * プログレスバー制御
+             */
+            setProgressBar.observe(
+                viewLifecycleOwner,
+                EventObserver {
+                    progressBar.visibility = if (it) {
+                        View.VISIBLE
+                    } else {
+                        View.GONE
+                    }
                 }
             )
         }

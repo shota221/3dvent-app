@@ -69,7 +69,7 @@ class SoundSamplingFragment : Fragment() {
             showToast.observe(
                 viewLifecycleOwner,
                 EventObserver {
-                    Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireActivity(), it, Toast.LENGTH_LONG).show()
                 }
             )
         }

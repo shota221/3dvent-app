@@ -38,6 +38,7 @@ class VentilatorDataUpdateViewModel(
 
     fun onClickSaveVentilatorDataButton() {
         viewModelScope.launch {
+            setProgressBar.value = Event(true)
             try {
                 val updateVentilatorForm = UpdateVentilatorForm(startUsingAt.value)
                 repository.updateVentilator(ventilatorId, updateVentilatorForm, appkey, userToken)
@@ -53,6 +54,7 @@ class VentilatorDataUpdateViewModel(
             } catch (e: Exception) {
                 showDialogConnectionError.value = Event("connection_error")
             }
+            setProgressBar.value = Event(false)
         }
     }
 

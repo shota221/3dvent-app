@@ -55,6 +55,7 @@ class PatientBasicInfoUpdateViewModel(
 
     fun onClickSavePatientBasicInfoButton() {
         viewModelScope.launch {
+            setProgressBar.value = Event(true)
             try {
                 val height = height.value
                 val gender = gender.value
@@ -80,6 +81,7 @@ class PatientBasicInfoUpdateViewModel(
             } catch (e: Exception) {
                 showDialogConnectionError.value = Event("connection_error")
             }
+            setProgressBar.value = Event(false)
         }
 
     }

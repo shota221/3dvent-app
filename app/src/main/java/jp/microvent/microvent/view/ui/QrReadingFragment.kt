@@ -56,7 +56,6 @@ class QrReadingFragment : DrawableFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_qr_reading, container, false)
 
         val viewModel = qrReadingViewModel
@@ -135,7 +134,21 @@ class QrReadingFragment : DrawableFragment() {
             showToast.observe(
                 viewLifecycleOwner,
                 EventObserver {
-                    Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireActivity(), it, Toast.LENGTH_LONG).show()
+                }
+            )
+
+            /**
+             * プログレスバー制御
+             */
+            setProgressBar.observe(
+                viewLifecycleOwner,
+                EventObserver {
+                    progressBar.visibility = if (it) {
+                        View.VISIBLE
+                    } else {
+                        View.GONE
+                    }
                 }
             )
         }

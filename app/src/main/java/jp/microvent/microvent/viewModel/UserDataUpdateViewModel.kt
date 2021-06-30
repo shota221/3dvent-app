@@ -40,6 +40,7 @@ class UserDataUpdateViewModel(
 
     fun onClickSaveUserDataButton() {
         viewModelScope.launch {
+            setProgressBar.value = Event(true)
             try {
                 val updateUserForm = UpdateUserForm(userName.value,email.value)
                 repository.updateUser(updateUserForm, appkey, userToken)
@@ -55,6 +56,7 @@ class UserDataUpdateViewModel(
             } catch (e: Exception) {
                 showDialogConnectionError.value = Event("connection_error")
             }
+            setProgressBar.value = Event(false)
         }
     }
 

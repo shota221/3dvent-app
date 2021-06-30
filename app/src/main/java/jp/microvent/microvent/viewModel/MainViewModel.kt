@@ -45,7 +45,7 @@ import java.util.*
                 } else {
                     Log.e("checkAppkey:Failed",createAppkey.errorBody().toString())
                 }
-            } catch (e: ConnectException) {
+            } catch (e: Exception) {
                 Log.e("checkAppkey:Failed", e.stackTraceToString())
                 showDialogConnectionError.value = Event("connection_error")
             }

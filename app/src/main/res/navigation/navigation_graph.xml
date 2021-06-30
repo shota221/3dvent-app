@@ -130,7 +130,7 @@
 
     <fragment
         android:id="@+id/navi_support"
-        android:name="jp.microvent.microvent.view.ui.SoundSamplingFragment"
+        android:name="jp.microvent.microvent.view.ui.SupportFragment"
         android:label="fragment_setting"></fragment>
 
     <fragment

@@ -141,7 +141,7 @@ open class BaseViewModel(
         val str:String = if (regex.containsMatchIn(stringValue)){
             stringValue
         }else{
-            stringValue + "%s"
+            stringValue + " %s"
         }
         val unit = unitPref.getString(prefKey, null)
         val netString = String.format(str, unit)
@@ -239,9 +239,14 @@ open class BaseViewModel(
         MutableLiveData()
     }
 
+    /**
+     * プログレスバー制御用イベント/trueでvisible,falseでgone
+     */
+    val setProgressBar: MutableLiveData<Event<Boolean>> = MutableLiveData()
 
     //エラー処理 TODO:バリデエラー時の処理詳細
     protected fun <T : Any?> errorHandling(errorResponse: Response<T>) {
+        setProgressBar.value = Event(false)
         when (errorResponse.code()) {
             400 -> {
                 badRequestHandling()

@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.*
 import jp.microvent.microvent.R
 import jp.microvent.microvent.service.model.*
+import jp.microvent.microvent.viewModel.util.Event
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
@@ -60,6 +61,7 @@ class ManualMeasurementViewModel(
 
     override fun onClickCalculateAverageButton() {
         viewModelScope.launch {
+            setProgressBar.value = Event(true)
             try {
                 val ieFirst =
                     IeManualFetchFormDataListElm(inhalationFirst.value, exhalationFirst.value)
@@ -72,15 +74,18 @@ class ManualMeasurementViewModel(
                 if (calcIeManual.isSuccessful) {
                     calcIeManual.body()?.result?.let{
                         averageInhalationTime.postValue(it.iAvg)
+                        setUnit(averageInhalationTimeWithUnit, it.iAvg, context.getString(R.string.i_avg_pref_key))
                         averageExhalationTime.postValue(it.eAvg)
+                        setUnit(averageExhalationTimeWithUnit, it.eAvg, context.getString(R.string.e_avg_pref_key))
                         rr.postValue(it.rr)
                     }
                 }else {
-                    Log.i("calcIe", calcIeManual.errorBody().toString())
+                    errorHandling(calcIeManual)
                 }
             } catch (e: Exception) {
-                Log.e("calculate:Failed", e.stackTrace.toString())
+                showDialogConnectionError.value = Event("connection_error")
             }
+            setProgressBar.value = Event(false)
         }
     }
 }

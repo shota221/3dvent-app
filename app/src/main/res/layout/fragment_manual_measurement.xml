@@ -145,7 +145,7 @@
             android:id="@+id/tv_average_inhalation_time_value_manual"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{manualMeasurementViewModel.averageInhalationTime}"
+            android:text="@{manualMeasurementViewModel.averageInhalationTimeWithUnit}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toEndOf="@+id/tv_average_inhalation_time"
             app:layout_constraintTop_toTopOf="@+id/tv_average_inhalation_time" />
@@ -154,7 +154,7 @@
             android:id="@+id/tv_average_exhalation_time_value_manual"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{manualMeasurementViewModel.averageExhalationTime}"
+            android:text="@{manualMeasurementViewModel.averageExhalationTimeWithUnit}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toEndOf="@+id/tv_average_exhalation_time"
             app:layout_constraintTop_toTopOf="@+id/tv_average_exhalation_time" />

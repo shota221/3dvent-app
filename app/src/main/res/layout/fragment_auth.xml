@@ -86,7 +86,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:textSize="@dimen/tv_text_size_large"
-            android:text="@{authViewModel.organizationName.isEmpty() ? @string/unregistered : authViewModel.organizationName}"
+            android:text="@{authViewModel.organizationName.isEmpty() ? @string/unregistered : authViewModel.organizationName ?? @string/unregistered}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view3" />
 

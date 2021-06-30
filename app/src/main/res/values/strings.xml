@@ -273,6 +273,8 @@
     <string name="validation_error_toast">入力内容に誤りがあります。</string>
     <string name="update_success">更新しました。</string>
     <string name="create_success">登録しました。</string>
+    <string name="measurement_data_not_found">測定データが見つかりません。</string>
+    <string name="bad_sound">計測に失敗しました。もう一度録音してください。</string>
 
     <!-- manual_url_path -->
     <string name="qr_reading_manual_path">qr</string>
@@ -290,6 +292,12 @@
     <string name="flow_ventilator_setting">データ入力</string>
     <string name="flow_ie_measurement">呼吸時間測定</string>
     <string name="flow_ventilator_result">登録完了</string>
+
+    <!-- support -->
+    <string name="text_manual">テキストマニュアル</string>
+    <string name="movie_manual">動画マニュアル</string>
+    <string name="chat_support">チャットサポート</string>
+    <string name="bug_report">人工呼吸器の不具合、改善要望</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

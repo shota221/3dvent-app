@@ -77,7 +77,6 @@ class AuthViewModel(
      * 画面遷移先制御
      */
     private fun transit() {
-        Log.i("test", latestGs1Code.toString())
         if (latestGs1Code.isNullOrEmpty()) {
             //qrコードが読み込まれていない場合
             transitionToQrReading.value = Event("transitionToQrReading")
@@ -112,19 +111,23 @@ class AuthViewModel(
 
     fun onClickNotLoginButton() {
         viewModelScope.launch {
+            setProgressBar.value = Event(true)
             try {
                 saveVentilatorId()
                 transit()
-            } catch (e: ConnectException) {
+            } catch (e: Exception) {
                 showDialogConnectionError.value = Event("connection_error")
             }
+            setProgressBar.value = Event(false)
         }
     }
 
     //TODO("異常系の実装")
     fun onClickLoginButton() {
         viewModelScope.launch {
+            setProgressBar.value = Event(true)
             try {
+
                 val accountName = accountName.value.toString()
                 val checkUserToken = repository.checkUserToken(accountName, appkey)
                 if (checkUserToken.isSuccessful) {
@@ -152,7 +155,6 @@ class AuthViewModel(
 
                         //次にGs1Codeが読まれるまでは直近に読んだventilatorIdを参照する…sharedPrefに保存
                         saveVentilatorId()
-
                         transit()
 
                     } else {
@@ -163,9 +165,10 @@ class AuthViewModel(
                     errorHandling(checkUserToken)
                 }
 
-            } catch (e: ConnectException) {
+            } catch (e: Exception) {
                 showDialogConnectionError.value = Event("connection_error")
             }
+            setProgressBar.value = Event(false)
         }
     }
 
@@ -290,6 +293,9 @@ class AuthViewModel(
                         }
                     }
                 }//登録済みでない場合
+            } else {
+                Log.i("appkey_test",appkey)
+                errorHandling(getVentilatorNoAuth)
             }
 
         }//ログインしない場合

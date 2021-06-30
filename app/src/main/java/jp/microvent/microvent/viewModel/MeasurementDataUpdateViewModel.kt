@@ -32,11 +32,11 @@ class MeasurementDataUpdateViewModel(
     val airwayPressure: MutableLiveData<String> = MutableLiveData(ventilatorValue.airwayPressure)
     val airFlow: MutableLiveData<String> = MutableLiveData(ventilatorValue.airFlow)
     val o2Flow: MutableLiveData<String> = MutableLiveData(ventilatorValue.o2Flow)
-    val rr: MutableLiveData<String> = MutableLiveData(ventilatorValue.rr)
-    val estimatedVt: MutableLiveData<String> = MutableLiveData(ventilatorValue.estimatedVt)
-    val estimatedMv: MutableLiveData<String> = MutableLiveData(ventilatorValue.estimatedMv)
-    val estimatedPeep: MutableLiveData<String> = MutableLiveData(ventilatorValue.estimatedPeep)
-    val fio2: MutableLiveData<String> = MutableLiveData(ventilatorValue.fio2)
+    val rrWithUnit: MutableLiveData<String> = MutableLiveData()
+    val estimatedVtWithUnit: MutableLiveData<String> = MutableLiveData()
+    val estimatedMvWithUnit: MutableLiveData<String> = MutableLiveData()
+    val estimatedPeepWithUnit: MutableLiveData<String> = MutableLiveData()
+    val fio2WithUnit: MutableLiveData<String> = MutableLiveData()
     val registeredAt: MutableLiveData<String> = MutableLiveData(ventilatorValue.registeredAt)
     val statusUse: MutableLiveData<Int> = MutableLiveData(ventilatorValue.statusUse)
     val statusUseOther: MutableLiveData<String> = MutableLiveData(ventilatorValue.statusUseOther)
@@ -126,6 +126,41 @@ class MeasurementDataUpdateViewModel(
             context.getString(R.string.paco2_label),
             context.getString(R.string.paco2_pref_key)
         )
+        if (!ventilatorValue.fio2.isNullOrEmpty()) ventilatorValue.fio2?.run {
+            setUnit(
+                rrWithUnit,
+                this,
+                context.getString(R.string.rr_pref_key)
+            )
+        }
+        if (!ventilatorValue.rr.isNullOrEmpty()) ventilatorValue.rr?.run {
+            setUnit(
+                fio2WithUnit,
+                this,
+                context.getString(R.string.fio2_pref_key)
+            )
+        }
+        if (!ventilatorValue.estimatedVt.isNullOrEmpty()) ventilatorValue.estimatedVt?.run {
+            setUnit(
+                estimatedVtWithUnit,
+                this,
+                context.getString(R.string.estimated_vt_pref_key)
+            )
+        }
+        if (!ventilatorValue.estimatedMv.isNullOrEmpty()) ventilatorValue.estimatedMv?.run {
+            setUnit(
+                estimatedMvWithUnit,
+                this,
+                context.getString(R.string.estimated_mv_pref_key)
+            )
+        }
+        if (!ventilatorValue.estimatedPeep.isNullOrEmpty()) ventilatorValue.estimatedPeep?.run {
+            setUnit(
+                estimatedPeepWithUnit,
+                this,
+                context.getString(R.string.estimated_peep_pref_key)
+            )
+        }
     }
 
     val transitionToMeasurementDataDetail: MutableLiveData<Event<String>> by lazy {
@@ -146,6 +181,7 @@ class MeasurementDataUpdateViewModel(
 
     fun onClickSaveMeasurementDataButton() {
         viewModelScope.launch {
+            setProgressBar.value = Event(true)
             try {
                 repository.updateVentilatorValue(
                     ventilatorValue.ventilatorValueId,
@@ -157,7 +193,8 @@ class MeasurementDataUpdateViewModel(
                         res.body()?.result?.let {
                             showToastUpdated()
                             updatedVentilatorValueId.value = it.id
-                            transitionToMeasurementDataDetail.value = Event("transitionToMeasurementDataDetail")
+                            transitionToMeasurementDataDetail.value =
+                                Event("transitionToMeasurementDataDetail")
                         }
                     } else {
                         errorHandling(res)
@@ -167,6 +204,7 @@ class MeasurementDataUpdateViewModel(
             } catch (e: Exception) {
                 showDialogConnectionError.value = Event("connection_error")
             }
+            setProgressBar.value = Event(false)
         }
     }
 

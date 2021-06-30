@@ -19,7 +19,7 @@ import jp.microvent.microvent.view.ui.dialog.DialogConnectionErrorFragment
 import jp.microvent.microvent.viewModel.PatientObsDataDetailViewModel
 import jp.microvent.microvent.viewModel.util.EventObserver
 
-class PatientObsDataDetailFragment : Fragment() {
+class PatientObsDataDetailFragment : BaseFragment() {
 
     private val viewModel by viewModels<PatientObsDataDetailViewModel>()
 
@@ -75,7 +75,21 @@ class PatientObsDataDetailFragment : Fragment() {
             showToast.observe(
                 viewLifecycleOwner,
                 EventObserver {
-                    Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireActivity(), it, Toast.LENGTH_LONG).show()
+                }
+            )
+
+            /**
+             * プログレスバー制御
+             */
+            setProgressBar.observe(
+                viewLifecycleOwner,
+                EventObserver {
+                    progressBar.visibility = if (it) {
+                        View.VISIBLE
+                    } else {
+                        View.GONE
+                    }
                 }
             )
         }

@@ -21,7 +21,7 @@ import jp.microvent.microvent.view.ui.dialog.DialogNoPatientLinkedFragment
 import jp.microvent.microvent.viewModel.PatientInfoViewModel
 import jp.microvent.microvent.viewModel.util.EventObserver
 
-class PatientInfoFragment : Fragment(),DialogNoPatientLinkedFragment.DialogNoPatientLinkedListener {
+class PatientInfoFragment : BaseFragment(),DialogNoPatientLinkedFragment.DialogNoPatientLinkedListener {
 
     private val viewModel by viewModels<PatientInfoViewModel>()
 
@@ -95,7 +95,21 @@ class PatientInfoFragment : Fragment(),DialogNoPatientLinkedFragment.DialogNoPat
             showToast.observe(
                 viewLifecycleOwner,
                 EventObserver {
-                    Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireActivity(), it, Toast.LENGTH_LONG).show()
+                }
+            )
+
+            /**
+             * プログレスバー制御
+             */
+            setProgressBar.observe(
+                viewLifecycleOwner,
+                EventObserver {
+                    progressBar.visibility = if (it) {
+                        View.VISIBLE
+                    } else {
+                        View.GONE
+                    }
                 }
             )
         }

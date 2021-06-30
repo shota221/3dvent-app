@@ -49,6 +49,14 @@ class VentilatorSettingViewModel(
         MediatorLiveData()
     }
 
+    val fio2WithUnit: MediatorLiveData<String> by lazy {
+        MediatorLiveData()
+    }
+
+    val estimatedPeepWithUnit: MediatorLiveData<String> by lazy {
+        MediatorLiveData()
+    }
+
     val isValidSpo2: MutableLiveData<Boolean> by lazy {
         MutableLiveData()
     }
@@ -74,6 +82,10 @@ class VentilatorSettingViewModel(
     val airwayPressureLabel: MutableLiveData<String> by lazy {
         MutableLiveData()
     }
+
+    val heightWithUnit: MutableLiveData<String> = MutableLiveData()
+    val predictedVt: MutableLiveData<String> = MutableLiveData()
+    val predictedVtWithUnit: MutableLiveData<String> = MutableLiveData()
 
 
     init {
@@ -103,9 +115,25 @@ class VentilatorSettingViewModel(
             try {
                 repository.getPatient(patientId, appkey).let { res ->
                     if (res.isSuccessful) {
-                        res.body()?.result?.let {
-                            patient.postValue(it)
-                            genderStr.postValue(Gender.buildGender(it.gender)?.getString(context))
+                        res.body()?.result?.let { patient ->
+                            patient.height?.let {
+                                setUnit(
+                                    heightWithUnit,
+                                    it,
+                                    context.getString(R.string.height_pref_key)
+                                )
+                            }
+                            predictedVt.postValue(patient.predictedVt)
+                            patient.predictedVt?.let {
+                                setUnit(
+                                    predictedVtWithUnit,
+                                    it,
+                                    context.getString(R.string.predicted_vt_pref_key)
+                                )
+                            }
+                            genderStr.postValue(
+                                Gender.buildGender(patient.gender)?.getString(context)
+                            )
                         }
                     } else {
                         errorHandling(res)
@@ -138,15 +166,19 @@ class VentilatorSettingViewModel(
 
             viewModelScope.launch {
                 try {
-                    val calcEstimatedData =
-                        repository.calcEstimatedData(airwayPressure, airFlow, o2Flow, appkey)
-                    if (calcEstimatedData.isSuccessful) {
-                        val calcEstimatedDataResult = calcEstimatedData.body()?.result
-                        if (calcEstimatedDataResult != null) {
-                            fio2.value = calcEstimatedDataResult.fio2
-                            estimatedPeep.value = calcEstimatedDataResult.estimatedPeep
+                    repository.calcEstimatedData(airwayPressure, airFlow, o2Flow, appkey)
+                        .let { res ->
+                            if (res.isSuccessful) {
+                                res.body()?.result?.let {
+                                    fio2.value = it.fio2
+                                    setUnit(fio2WithUnit, it.fio2, context.getString(R.string.fio2_pref_key))
+
+                                    estimatedPeep.value = it.estimatedPeep
+                                    setUnit(estimatedPeepWithUnit, it.estimatedPeep, context.getString(R.string.estimated_peep_pref_key))
+                                }
+                            }
                         }
-                    }
+
                 } catch (e: Exception) {
                     Log.e("calculate:Failed", e.stackTraceToString())
                 }
@@ -159,6 +191,12 @@ class VentilatorSettingViewModel(
         estimatedPeep.addSource(airwayPressure, ventilatorSettingObserver)
         estimatedPeep.addSource(airFlow, ventilatorSettingObserver)
         estimatedPeep.addSource(o2Flow, ventilatorSettingObserver)
+        fio2WithUnit.addSource(airwayPressure, ventilatorSettingObserver)
+        fio2WithUnit.addSource(airFlow, ventilatorSettingObserver)
+        fio2WithUnit.addSource(o2Flow, ventilatorSettingObserver)
+        estimatedPeepWithUnit.addSource(airwayPressure, ventilatorSettingObserver)
+        estimatedPeepWithUnit.addSource(airFlow, ventilatorSettingObserver)
+        estimatedPeepWithUnit.addSource(o2Flow, ventilatorSettingObserver)
 
     }
 
@@ -178,7 +216,7 @@ class VentilatorSettingViewModel(
         ventilatorValue.airFlow = airFlow.value
         ventilatorValue.fio2 = fio2.value
         ventilatorValue.estimatedPeep = estimatedPeep.value
-        ventilatorValue.predictedVt = patient.value?.predictedVt
+        ventilatorValue.predictedVt = predictedVt.value
     }
 
 }

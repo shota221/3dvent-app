@@ -23,7 +23,7 @@ import jp.microvent.microvent.viewModel.ManualMeasurementViewModel
 import jp.microvent.microvent.viewModel.PatientBasicInfoUpdateViewModel
 import jp.microvent.microvent.viewModel.util.EventObserver
 
-class PatientBasicInfoUpdateFragment : Fragment() {
+class PatientBasicInfoUpdateFragment : BaseFragment() {
 
     private val args: PatientBasicInfoUpdateFragmentArgs by navArgs()
 
@@ -96,7 +96,21 @@ class PatientBasicInfoUpdateFragment : Fragment() {
             showToast.observe(
                 viewLifecycleOwner,
                 EventObserver {
-                    Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireActivity(), it, Toast.LENGTH_LONG).show()
+                }
+            )
+
+            /**
+             * プログレスバー制御
+             */
+            setProgressBar.observe(
+                viewLifecycleOwner,
+                EventObserver {
+                    progressBar.visibility = if (it) {
+                        View.VISIBLE
+                    } else {
+                        View.GONE
+                    }
                 }
             )
         }

@@ -86,6 +86,7 @@ class PatientObsDataUpdateViewModel(
 
     fun onClickSavePatientObsDataButton() {
         viewModelScope.launch{
+            setProgressBar.value = Event(true)
             try{
                 if(!hasObserved){
                     repository.createPatientObs(patientId, buildCreatePatientObsForm(), appkey, userToken).let { res ->
@@ -109,6 +110,7 @@ class PatientObsDataUpdateViewModel(
             }catch (e:ConnectException){
                 showDialogConnectionError.value = Event("connection_error")
             }
+            setProgressBar.value = Event(false)
         }
     }
 

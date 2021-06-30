@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import jp.microvent.microvent.R
 import jp.microvent.microvent.service.model.AppkeyFetchForm
 import jp.microvent.microvent.service.repository.MicroventRepository
 import jp.microvent.microvent.viewModel.util.Event
@@ -35,13 +36,18 @@ class MeasurementDataViewModel(
 
     fun onClickLatestMeasurementDataButton() {
         viewModelScope.launch {
+            setProgressBar.value = Event(true)
             try {
                 repository.getVentilatorValueList(ventilatorId, 1, 0, null, appkey).let { res ->
                     if (res.isSuccessful) {
                         res.body()?.result?.let {
-                            ventilatorValueId.value = it.first().id
-                            transitionToLatestMeasurementData.value =
-                                Event("transitionToLatestMeasurementData")
+                            if(it.isEmpty()) {
+                                showToast.value = Event(context.getString(R.string.measurement_data_not_found))
+                            } else {
+                                ventilatorValueId.value = it.first().id
+                                transitionToLatestMeasurementData.value =
+                                    Event("transitionToLatestMeasurementData")
+                            }
                         }
                     } else {
                         errorHandling(res)
@@ -50,6 +56,7 @@ class MeasurementDataViewModel(
             } catch (e: Exception) {
                 showDialogConnectionError.value = Event("connect_error")
             }
+            setProgressBar.value = Event(false)
         }
 
     }

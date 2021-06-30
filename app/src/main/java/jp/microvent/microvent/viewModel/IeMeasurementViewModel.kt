@@ -25,6 +25,14 @@ abstract class IeMeasurementViewModel(
         MutableLiveData()
     }
 
+    val averageInhalationTimeWithUnit: MutableLiveData<String> by lazy {
+        MutableLiveData()
+    }
+
+    val averageExhalationTimeWithUnit: MutableLiveData<String> by lazy {
+        MutableLiveData()
+    }
+
     val rr: MutableLiveData<String> by lazy {
         MutableLiveData()
     }
@@ -41,6 +49,7 @@ abstract class IeMeasurementViewModel(
 
     fun onClickRegisterButton() {
         viewModelScope.launch {
+            setProgressBar.value = Event(true)
             try {
                 val createVentilatorValueForm = CreateVentilatorValueForm(
                     ventilatorId,
@@ -71,13 +80,13 @@ abstract class IeMeasurementViewModel(
                             transitionToVentilatorResult.value = Event("transitionToVentilatorResult")
                         }
                     } else {
-                        Log.i("test",createVentilatorValueForm.toString())
-                        Log.e("register:Failed", it.errorBody().toString())
+                        errorHandling(it)
                     }
                 }
             } catch (e: Exception) {
-                Log.e("register:Failed", e.stackTraceToString())
+                showDialogConnectionError.value = Event("connection_error")
             }
+            setProgressBar.value = Event(false)
         }
     }
 

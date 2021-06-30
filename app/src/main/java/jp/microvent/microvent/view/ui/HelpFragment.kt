@@ -20,7 +20,7 @@ import java.net.ConnectException
 
 private const val BASE_URL = "http://manual.microvent.r102.jp/"
 
-class HelpFragment : Fragment(), OnBackKeyPressedListener {
+class HelpFragment : BaseFragment(), OnBackKeyPressedListener {
 
     private val args: HelpFragmentArgs by navArgs()
 
@@ -38,8 +38,11 @@ class HelpFragment : Fragment(), OnBackKeyPressedListener {
 
             settings.javaScriptEnabled = true // JavaScriptを有効にする
             try {
+                progressBar.visibility = View.VISIBLE
                 loadUrl(url) // URLを読み込む
+                progressBar.visibility = View.GONE
             } catch (e: ConnectException){
+                progressBar.visibility = View.GONE
                 val dialog = DialogConnectionErrorFragment()
                 dialog.show(requireActivity().supportFragmentManager, "connection_error")
             }

@@ -67,23 +67,36 @@ class SoundMeasurementViewModel(
 
     override fun onClickCalculateAverageButton() {
         viewModelScope.launch {
+            setProgressBar.value = Event(true)
             try {
                 val fileData = File(filePath).readBytes()
                 val encodedData = Base64.encodeToString(fileData, Base64.DEFAULT)
-                Log.i("recordingtest", encodedData)
                 val ieSoundFetchFormSoundElm = IeSoundFetchFormSoundElm(fileData = encodedData)
                 val ieSoundFetchForm = IeSoundFetchForm(ieSoundFetchFormSoundElm)
                 val calcIeSound = repository.calcIeSound(ieSoundFetchForm, appkey)
                 if (calcIeSound.isSuccessful) {
-                    calcIeSound.body()?.result?.let{
+                    calcIeSound.body()?.result?.let {
                         averageInhalationTime.postValue(it.iAvg)
+                        setUnit(
+                            averageInhalationTimeWithUnit,
+                            it.iAvg,
+                            context.getString(R.string.i_avg_pref_key)
+                        )
                         averageExhalationTime.postValue(it.eAvg)
+                        setUnit(
+                            averageExhalationTimeWithUnit,
+                            it.eAvg,
+                            context.getString(R.string.e_avg_pref_key)
+                        )
                         rr.postValue(it.rr)
                     }
                 } else {
+                    showToast.value = Event(context.getString(R.string.bad_sound))
                 }
             } catch (e: Exception) {
+                showDialogConnectionError.value = Event("connection_error")
             }
+            setProgressBar.value = Event(false)
         }
     }
 
@@ -123,7 +136,7 @@ class SoundMeasurementViewModel(
         )
     }//オーディオレコード用バッファのサイズ
 
-    private val audioRecord:AudioRecord by lazy{
+    private val audioRecord: AudioRecord by lazy {
         AudioRecord(
             MediaRecorder.AudioSource.MIC,
             samplingRate,

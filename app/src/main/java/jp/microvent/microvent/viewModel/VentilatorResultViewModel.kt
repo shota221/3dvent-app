@@ -3,6 +3,7 @@ package jp.microvent.microvent.viewModel
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
+import jp.microvent.microvent.R
 import jp.microvent.microvent.service.model.CreatePatientForm
 import jp.microvent.microvent.service.model.CreatedPatient
 import jp.microvent.microvent.service.model.Patient
@@ -22,6 +23,28 @@ class VentilatorResultViewModel(
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return VentilatorResultViewModel(application, ventilatorValue) as T
         }
+    }
+
+    val o2Flow: MutableLiveData<String> = MutableLiveData()
+    val fio2: MutableLiveData<String> = MutableLiveData()
+    val rr: MutableLiveData<String> = MutableLiveData()
+    val predictedVt: MutableLiveData<String> = MutableLiveData()
+    val estimatedVt: MutableLiveData<String> = MutableLiveData()
+    val estimatedMv: MutableLiveData<String> = MutableLiveData()
+    val estimatedPeep: MutableLiveData<String> = MutableLiveData()
+    val airwayPressure: MutableLiveData<String> = MutableLiveData()
+    val airFlow: MutableLiveData<String> = MutableLiveData()
+
+    init {
+        ventilatorValue.o2Flow?.let{setUnit(o2Flow, it,context.getString(R.string.o2_flow_pref_key))}
+        ventilatorValue.fio2?.let{setUnit(fio2, it,context.getString(R.string.fio2_pref_key))}
+        ventilatorValue.rr?.let{setUnit(rr, it,context.getString(R.string.rr_pref_key))}
+        ventilatorValue.predictedVt?.let{setUnit(predictedVt, it,context.getString(R.string.predicted_vt_pref_key))}
+        ventilatorValue.estimatedVt?.let{setUnit(estimatedVt, it,context.getString(R.string.estimated_vt_pref_key))}
+        ventilatorValue.estimatedMv?.let{setUnit(estimatedMv, it,context.getString(R.string.estimated_mv_pref_key))}
+        ventilatorValue.estimatedPeep?.let{setUnit(estimatedPeep, it,context.getString(R.string.estimated_peep_pref_key))}
+        ventilatorValue.airwayPressure?.let{setUnit(airwayPressure, it,context.getString(R.string.airway_pressure_pref_key))}
+        ventilatorValue.airFlow?.let{setUnit(airFlow, it,context.getString(R.string.air_flow_pref_key))}
     }
 
     val transitionToVentilatorSetting: MutableLiveData<Event<String>> by lazy {

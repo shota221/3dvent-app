@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -14,17 +15,7 @@ import jp.microvent.microvent.view.ui.dialog.DialogConnectionErrorFragment
 import jp.microvent.microvent.viewModel.SettingViewModel
 import jp.microvent.microvent.viewModel.util.EventObserver
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [SettingFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class SettingFragment : Fragment() {
+class SettingFragment : BaseFragment() {
     private val settingViewModel by viewModels<SettingViewModel>()
 
     private lateinit var binding: FragmentSettingBinding
@@ -63,6 +54,41 @@ class SettingFragment : Fragment() {
                 EventObserver {
                     val dialog = DialogConnectionErrorFragment()
                     dialog.show(requireActivity().supportFragmentManager, it)
+                }
+            )
+
+            /**
+             * 通信エラーダイアログの表示
+             */
+            showDialogConnectionError.observe(
+                viewLifecycleOwner,
+                EventObserver {
+                    val dialog = DialogConnectionErrorFragment()
+                    dialog.show(requireActivity().supportFragmentManager, it)
+                }
+            )
+
+            /**
+             * トースト表示
+             */
+            showToast.observe(
+                viewLifecycleOwner,
+                EventObserver {
+                    Toast.makeText(requireActivity(), it, Toast.LENGTH_LONG).show()
+                }
+            )
+
+            /**
+             * プログレスバー制御
+             */
+            setProgressBar.observe(
+                viewLifecycleOwner,
+                EventObserver {
+                    progressBar.visibility = if (it) {
+                        View.VISIBLE
+                    } else {
+                        View.GONE
+                    }
                 }
             )
         }
