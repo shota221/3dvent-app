@@ -4,13 +4,16 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.*
 import com.google.android.gms.location.*
+import com.google.firebase.messaging.FirebaseMessaging
 import jp.microvent.microvent.R
 import jp.microvent.microvent.service.model.*
 import jp.microvent.microvent.service.repository.MicroventRepository
 import jp.microvent.microvent.viewModel.util.Event
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import retrofit2.Response
 
@@ -138,9 +141,9 @@ open class BaseViewModel(
      */
     fun setUnit(layoutLiveData: MutableLiveData<String>, stringValue: String, prefKey: String) {
         val regex = Regex("%1")
-        val str:String = if (regex.containsMatchIn(stringValue)){
+        val str: String = if (regex.containsMatchIn(stringValue)) {
             stringValue
-        }else{
+        } else {
             stringValue + " %s"
         }
         val unit = unitPref.getString(prefKey, null)
@@ -170,6 +173,49 @@ open class BaseViewModel(
                 remove(context.getString(R.string.user_token))
                 commit()
             }
+        }
+    }
+
+    /**
+     * アプリキー発行
+     */
+    private fun createAppkey(token: String?) {
+        viewModelScope.launch {
+            try {
+                //インスタンスidを取得
+                val appkeyFetchForm = AppkeyFetchForm(token)
+                val createAppkey = repository.createAppkey(appkeyFetchForm)
+                if (createAppkey.isSuccessful) {
+                    val createAppkeyResult = createAppkey.body()?.result
+                    with(networkPref.edit()) {
+                        putString(
+                            context.getString(R.string.appkey),
+                            createAppkeyResult?.appkey.toString()
+                        )
+                        commit()
+                    }
+                }
+            } catch (e: Exception) {
+                showDialogConnectionError.value = Event("connection_error")
+            }
+
+        }
+    }
+
+    /**
+     * プッシュ通知の際に必要となるInstanceId（microventサーバーに送りappkeyとしても用いる）をfirebaseから取得
+     */
+    protected fun createInstanceId() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w("test", "getInstanceId failed", task.exception)
+                return@addOnCompleteListener
+            }
+
+            //create new instance id Token
+            val msg = task.result
+            createAppkey(msg)
+
         }
     }
 
@@ -266,19 +312,24 @@ open class BaseViewModel(
     }
 
     protected fun unauthorizedHandling() {
-        resetUserToken()
-        transitionToAuth.value = Event("transitionToAuth")
+        if (this is AuthViewModel) {
+            createInstanceId()
+            showToast.value = Event(context.getString(R.string.invalid_appkey))
+        } else {
+            resetUserToken()
+            transitionToAuth.value = Event("transitionToAuth")
+        }
     }
 
     protected fun serverErrorHandling() {
         showToast.value = Event(context.getString(R.string.server_error_toast))
     }
 
-    protected fun showToastUpdated(){
+    protected fun showToastUpdated() {
         showToast.value = Event(context.getString(R.string.update_success))
     }
 
-    protected fun showToastCreated(){
+    protected fun showToastCreated() {
         showToast.value = Event(context.getString(R.string.create_success))
     }
 

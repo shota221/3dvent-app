@@ -122,7 +122,6 @@ class AuthViewModel(
         }
     }
 
-    //TODO("異常系の実装")
     fun onClickLoginButton() {
         viewModelScope.launch {
             setProgressBar.value = Event(true)

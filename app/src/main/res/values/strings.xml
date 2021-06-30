@@ -275,6 +275,7 @@
     <string name="create_success">登録しました。</string>
     <string name="measurement_data_not_found">測定データが見つかりません。</string>
     <string name="bad_sound">計測に失敗しました。もう一度録音してください。</string>
+    <string name="invalid_appkey">アプリキーが期限切れです。MicroVentを再起動してください。</string>
 
     <!-- manual_url_path -->
     <string name="qr_reading_manual_path">qr</string>
