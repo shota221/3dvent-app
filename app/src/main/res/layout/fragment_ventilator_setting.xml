@@ -246,7 +246,7 @@
             android:id="@+id/tv_weight_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{ventilatorSettingViewModel.weightWithUnit}"
+            android:text="@{ventilatorSettingViewModel.weightWithUnit.isEmpty() ? @string/unregistered : ventilatorSettingViewModel.weightWithUnit ?? @string/unregistered}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toEndOf="@+id/tv_weight"
             app:layout_constraintTop_toTopOf="@+id/tv_weight" />

@@ -124,13 +124,7 @@ class VentilatorSettingViewModel(
                                     context.getString(R.string.height_pref_key)
                                 )
                             }
-                            patient.weight?.let {
-                                setUnit(
-                                    weightWithUnit,
-                                    it,
-                                    context.getString(R.string.weight_pref_key)
-                                )
-                            }
+                            if(!patient.weight.isNullOrEmpty())patient.weight?.run{ setUnit(weightWithUnit, this,context.getString(R.string.weight_pref_key))}
                             predictedVt.postValue(patient.predictedVt)
                             patient.predictedVt?.let {
                                 setUnit(
