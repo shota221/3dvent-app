@@ -60,13 +60,7 @@ class PatientBasicInfoDetailViewModel(
                                     context.getString(R.string.height_pref_key)
                                 )
                             }
-                            it.weight?.let {
-                                setUnit(
-                                    weightWithUnit,
-                                    it,
-                                    context.getString(R.string.weight_pref_key)
-                                )
-                            }
+                            if(!it.weight.isNullOrEmpty())it.weight?.run{ setUnit(weightWithUnit, this,context.getString(R.string.weight_pref_key))}
                         }
                     } else {
                         errorHandling(res)
