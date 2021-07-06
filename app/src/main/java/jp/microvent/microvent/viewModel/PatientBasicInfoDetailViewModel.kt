@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import jp.microvent.microvent.R
 import jp.microvent.microvent.service.model.AppkeyFetchForm
 import jp.microvent.microvent.service.enum.Gender
 import jp.microvent.microvent.service.model.Patient
@@ -32,6 +33,14 @@ class PatientBasicInfoDetailViewModel(
         MutableLiveData()
     }
 
+    val heightWithUnit: MutableLiveData<String> by lazy {
+        MutableLiveData()
+    }
+
+    val weightWithUnit: MutableLiveData<String> by lazy {
+        MutableLiveData()
+    }
+
     fun onClickEditPatientBasicInfo() {
             transitionToPatientBasicInfoUpdate.value = Event("transitionToPatientBasicInfoUpdate")
     }
@@ -44,6 +53,20 @@ class PatientBasicInfoDetailViewModel(
                         res.body()?.result?.let {
                             patient.postValue(it)
                             genderStr.postValue(Gender.buildGender(it.gender)?.getString(context))
+                            it.height?.let {
+                                setUnit(
+                                    heightWithUnit,
+                                    it,
+                                    context.getString(R.string.height_pref_key)
+                                )
+                            }
+                            it.weight?.let {
+                                setUnit(
+                                    weightWithUnit,
+                                    it,
+                                    context.getString(R.string.weight_pref_key)
+                                )
+                            }
                         }
                     } else {
                         errorHandling(res)

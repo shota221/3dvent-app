@@ -236,7 +236,7 @@
             android:text="@string/gender_key"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_height_key" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_weight_key" />
 
         <TextView
             android:id="@+id/tv_weight_key"
@@ -246,7 +246,7 @@
             android:text="@string/weight_key"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_gender_key" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_height_key" />
 
         <TextView
             android:id="@+id/tv_fio2"
@@ -336,7 +336,7 @@
             android:text="@string/ventilator_setting"
             android:textSize="@dimen/tv_text_size_large"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_weight_key" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_gender_key" />
 
         <TextView
             android:id="@+id/tv_patient_data_at_that_time"

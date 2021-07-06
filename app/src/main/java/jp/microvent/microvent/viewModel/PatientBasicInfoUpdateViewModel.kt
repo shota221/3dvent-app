@@ -29,11 +29,15 @@ class PatientBasicInfoUpdateViewModel(
 
     val height: MutableLiveData<String> = MutableLiveData(patient.height)
 
+    val weight: MutableLiveData<String> = MutableLiveData(patient.weight)
+
     val gender: MutableLiveData<Int> = MutableLiveData(patient.gender)
 
     val patientNumber: MutableLiveData<String> = MutableLiveData(patient.patientCode)
 
     val heightLabel: MutableLiveData<String> = MutableLiveData()
+
+    val weightLabel: MutableLiveData<String> = MutableLiveData()
 
     val transitionToPatientBasicInfoDetail: MutableLiveData<Event<String>> by lazy {
         MutableLiveData()
@@ -44,6 +48,11 @@ class PatientBasicInfoUpdateViewModel(
             heightLabel,
             context.getString(R.string.height_label),
             context.getString(R.string.height_pref_key)
+        )
+        setUnit(
+            weightLabel,
+            context.getString(R.string.weight_label),
+            context.getString(R.string.weight_pref_key)
         )
     }
 
@@ -58,10 +67,11 @@ class PatientBasicInfoUpdateViewModel(
             setProgressBar.value = Event(true)
             try {
                 val height = height.value
+                val weight = weight.value
                 val gender = gender.value
                 val patientNumber = patientNumber.value
                 val updatePatientForm =
-                    UpdatePatientForm(height, gender, patientNumber)
+                    UpdatePatientForm(height, weight, gender, patientNumber)
                 if (!loggedIn()) {
                     repository.updatePatientNoAuth(patientId, updatePatientForm, appkey)
                 } else {

@@ -14,6 +14,26 @@
         android:layout_height="match_parent"
         tools:context=".view.ui.PatientRegistrationFragment">
 
+        <TextView
+            android:id="@+id/tv_required10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/required"
+            android:textColor="@color/required"
+            android:textSize="@dimen/tv_text_size_small"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_height_label"
+            app:layout_constraintStart_toEndOf="@+id/tv_height_label" />
+
+        <TextView
+            android:id="@+id/tv_required9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/required"
+            android:textColor="@color/required"
+            android:textSize="@dimen/tv_text_size_small"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_gender_label"
+            app:layout_constraintStart_toEndOf="@+id/tv_gender_label" />
+
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/glFloatAreaVertical"
             android:layout_width="wrap_content"
@@ -76,6 +96,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/tv_weight_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@{patientSettingViewModel.weightLabel}"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_height" />
+
         <EditText
             android:id="@+id/et_height"
             android:layout_width="0dp"
@@ -89,6 +119,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_height_label" />
 
+        <EditText
+            android:id="@+id/et_weight"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="numberSigned|text"
+            android:text="@={patientSettingViewModel.weight}"
+            android:textSize="@dimen/et_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_weight_label" />
+
         <TextView
             android:id="@+id/tv_gender_label"
             android:layout_width="wrap_content"
@@ -97,7 +140,7 @@
             android:text="@string/gender"
             android:textSize="@dimen/tv_text_size_large"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_height" />
+            app:layout_constraintTop_toBottomOf="@+id/et_weight" />
 
         <Spinner
             android:id="@+id/sp_gender"

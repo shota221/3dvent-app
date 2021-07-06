@@ -30,12 +30,12 @@
     <!-- タブメニュー -->
     <string name="home">ホーム</string>
     <string name="patient_data">患者情報</string>
-    <string name="qr_reading">QR読込</string>
+    <string name="qr_reading">GS1読込</string>
     <string name="support">サポート</string>
     <string name="setting">設定</string>
 
     <!-- qr_reading -->
-    <string name="scan_waiting">人工呼吸器のQRコードをスキャンしてください。</string>
+    <string name="scan_waiting">人工呼吸器のGS1コードをスキャンしてください。</string>
 
     <!-- auth -->
     <string name="registered_organization">登録組織</string>
@@ -84,7 +84,7 @@
     <string name="inhalation_first">吸気1回目（%1$s）</string>
     <string name="exhalation_second">呼気2回目（%1$s）</string>
     <string name="inhalation_second">吸気2回目（%1$s）</string>
-    <string name="calculate_average">平均呼気吸気時間計算</string>
+    <string name="calculate_average">平均吸気呼気時間計算</string>
     <string name="average_exhalation_time">平均呼気時間：</string>
     <string name="average_inhalation_time">平均吸気時間：</string>
     <string name="register_to_calculate">登録して計算する</string>
@@ -232,7 +232,7 @@
     <string name="connection_error">通信エラー</string>
     <string name="connection_error_message">ネットワーク接続状況を確認してください。</string>
     <string name="no_patient_linked">患者情報なし</string>
-    <string name="no_patient_linked_message">呼吸器が読み込まれていないか、患者が登録されていません。QRコードを読み取り直してください。</string>
+    <string name="no_patient_linked_message">呼吸器が読み込まれていないか、患者が登録されていません。GS1コードを読み取り直してください。</string>
 
     <!-- prefs -->
     <string name="network_pref">network_pref</string>
@@ -288,7 +288,7 @@
 
     <!-- operation_flow -->
     <string name="operation_flow">利用フロー</string>
-    <string name="flow_qr_reading">QRコード読み取り</string>
+    <string name="flow_qr_reading">GS1コード読み取り</string>
     <string name="flow_patient_setting">患者情報入力</string>
     <string name="flow_ventilator_setting">データ入力</string>
     <string name="flow_ie_measurement">呼吸時間測定</string>

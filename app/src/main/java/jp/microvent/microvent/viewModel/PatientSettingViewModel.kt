@@ -25,6 +25,10 @@ class PatientSettingViewModel(
         MutableLiveData()
     }
 
+    val weight: MutableLiveData<String> by lazy {
+        MutableLiveData()
+    }
+
     val gender: MutableLiveData<Int> by lazy {
         MutableLiveData()
     }
@@ -50,6 +54,10 @@ class PatientSettingViewModel(
         MutableLiveData()
     }
 
+    val weightLabel:MutableLiveData<String> by lazy {
+        MutableLiveData()
+    }
+
     init {
         if(ventilatorId == null) {
             transitionToQrReading.value = Event("transitionToQrReading")
@@ -59,6 +67,7 @@ class PatientSettingViewModel(
             transitionToVentilatorSetting.value = Event("transitionToVentilatorSetting")
         }
         setUnit(heightLabel,context.getString(R.string.height_label),context.getString(R.string.height_pref_key))
+        setUnit(weightLabel,context.getString(R.string.weight_label),context.getString(R.string.weight_pref_key))
     }
 
     fun onItemSelected(genderSelected: Int) {
@@ -72,10 +81,11 @@ class PatientSettingViewModel(
             setProgressBar.value = Event(true)
             try {
                 val height = height.value.toString()
+                val weight = weight.value
                 val gender = gender.value?.toInt()
                 val patientNumber = patientNumber.value
                 val createPatientForm =
-                    CreatePatientForm(height, gender, patientNumber, ventilatorId)
+                    CreatePatientForm(height, weight, gender, patientNumber, ventilatorId)
                 if (!loggedIn()) {
                     repository.createPatientNoAuth(createPatientForm, appkey)
                 } else {

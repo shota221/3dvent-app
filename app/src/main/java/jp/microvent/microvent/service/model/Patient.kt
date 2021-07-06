@@ -18,6 +18,7 @@ data class Patient(
 @JsonClass(generateAdapter = true)
 data class CreatePatientForm(
     var height: String?,
+    var weight: String?,
     var gender: Int?,
     @Json(name = "patient_code")
     var patientCode: String?,
@@ -36,6 +37,7 @@ data class CreatedPatient(
 @JsonClass(generateAdapter = true)
 data class UpdatePatientForm(
     var height: String?,
+    var weight: String?,
     var gender: Int?,
     @Json(name = "patient_code")
     var patientCode: String?,
@@ -48,7 +50,8 @@ data class UpdatedPatient(
     val gender: Int,
     @Json(name = "predicted_vt")
     val predictedVt: String,
-    val height: String
+    val height: String,
+    val weight: String?
 )
 
 @JsonClass(generateAdapter = true)

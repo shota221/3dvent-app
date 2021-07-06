@@ -123,11 +123,11 @@
             android:id="@+id/tv_gender_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:text="@string/gender"
             android:textSize="@dimen/tv_text_size_large"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_height" />
+            app:layout_constraintTop_toBottomOf="@+id/et_weight" />
 
         <TextView
             android:id="@+id/tv_status_use"
@@ -143,11 +143,11 @@
             android:id="@+id/tv_weight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:text="@{measurementDataUpdateViewModel.weightLabel}"
             android:textSize="@dimen/tv_text_size_large"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sp_gender" />
+            app:layout_constraintTop_toBottomOf="@+id/et_height" />
 
         <TextView
             android:id="@+id/tv_status_use_other"
@@ -293,7 +293,7 @@
             android:text="@string/ventilator_setting"
             android:textSize="@dimen/tv_text_size_large"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_weight" />
+            app:layout_constraintTop_toBottomOf="@+id/sp_gender" />
 
         <TextView
             android:id="@+id/tv_calculated_value"

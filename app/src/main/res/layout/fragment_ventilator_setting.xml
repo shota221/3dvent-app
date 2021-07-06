@@ -146,6 +146,16 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_patient_data" />
 
         <TextView
+            android:id="@+id/tv_weight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/weight_key"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_height" />
+
+        <TextView
             android:id="@+id/tv_airway_pressure"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -211,7 +221,7 @@
             android:text="@string/gender_key"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_height" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_weight" />
 
         <TextView
             android:id="@+id/tv_predicted_vt"
@@ -231,6 +241,15 @@
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toEndOf="@+id/tv_height"
             app:layout_constraintTop_toTopOf="@+id/tv_height" />
+
+        <TextView
+            android:id="@+id/tv_weight_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{ventilatorSettingViewModel.weightWithUnit}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/tv_weight"
+            app:layout_constraintTop_toTopOf="@+id/tv_weight" />
 
         <TextView
             android:id="@+id/tv_gender_value"

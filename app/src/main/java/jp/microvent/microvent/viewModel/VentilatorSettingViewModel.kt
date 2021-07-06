@@ -84,6 +84,7 @@ class VentilatorSettingViewModel(
     }
 
     val heightWithUnit: MutableLiveData<String> = MutableLiveData()
+    val weightWithUnit: MutableLiveData<String> = MutableLiveData()
     val predictedVt: MutableLiveData<String> = MutableLiveData()
     val predictedVtWithUnit: MutableLiveData<String> = MutableLiveData()
 
@@ -121,6 +122,13 @@ class VentilatorSettingViewModel(
                                     heightWithUnit,
                                     it,
                                     context.getString(R.string.height_pref_key)
+                                )
+                            }
+                            patient.weight?.let {
+                                setUnit(
+                                    weightWithUnit,
+                                    it,
+                                    context.getString(R.string.weight_pref_key)
                                 )
                             }
                             predictedVt.postValue(patient.predictedVt)
