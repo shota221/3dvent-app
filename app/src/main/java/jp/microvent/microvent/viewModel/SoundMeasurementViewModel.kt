@@ -89,6 +89,7 @@ class SoundMeasurementViewModel(
                             context.getString(R.string.e_avg_pref_key)
                         )
                         rr.postValue(it.rr)
+                        ieRatio.postValue(it.ieRatio)
                     }
                 } else {
                     showToast.value = Event(context.getString(R.string.bad_sound))

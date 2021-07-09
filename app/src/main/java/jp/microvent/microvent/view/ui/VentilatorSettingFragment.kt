@@ -1,22 +1,27 @@
 package jp.microvent.microvent.view.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import jp.microvent.microvent.R
 import jp.microvent.microvent.databinding.FragmentVentilatorSettingBinding
 import jp.microvent.microvent.view.ui.dialog.DialogConnectionErrorFragment
+import jp.microvent.microvent.view.ui.dialog.DialogNotRecommendedUseFragment
 import jp.microvent.microvent.viewModel.VentilatorSettingViewModel
+import jp.microvent.microvent.viewModel.util.Event
 import jp.microvent.microvent.viewModel.util.EventObserver
+import java.lang.Exception
 
 
-class VentilatorSettingFragment : DrawableFragment() {
+class VentilatorSettingFragment : DrawableFragment(),DialogNotRecommendedUseFragment.DialogNotRecommendedUseListener {
 
     private val ventilatorSettingViewModel by viewModels<VentilatorSettingViewModel>()
 
@@ -72,6 +77,13 @@ class VentilatorSettingFragment : DrawableFragment() {
                 }
             )
 
+            showDialogNotRecommendedUse.observe(
+                viewLifecycleOwner, EventObserver {
+                    val dialog = DialogNotRecommendedUseFragment()
+                    dialog.show(parentFragmentManager,null)
+                }
+            )
+
             transitionToAuth.observe(
                 viewLifecycleOwner, EventObserver {
                     findNavController().navigate(R.id.action_to_auth)
@@ -114,5 +126,12 @@ class VentilatorSettingFragment : DrawableFragment() {
             )
         }
         return binding.root
+    }
+
+    override fun onDialogPositiveClick(dialog: DialogFragment) {
+    }
+
+    override fun onDialogNegativeClick(dialog: DialogFragment) {
+        //TODO:QR画面に戻る
     }
 }

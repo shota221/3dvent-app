@@ -78,6 +78,7 @@ class ManualMeasurementViewModel(
                         averageExhalationTime.postValue(it.eAvg)
                         setUnit(averageExhalationTimeWithUnit, it.eAvg, context.getString(R.string.e_avg_pref_key))
                         rr.postValue(it.rr)
+                        ieRatio.postValue(it.ieRatio)
                     }
                 }else {
                     errorHandling(calcIeManual)

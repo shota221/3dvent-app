@@ -30,6 +30,10 @@ class VentilatorSettingViewModel(
         MutableLiveData()
     }
 
+    val showDialogNotRecommendedUse: MutableLiveData<Event<String>> by lazy {
+        MutableLiveData()
+    }
+
     val o2Flow: MutableLiveData<String> by lazy {
         MutableLiveData()
     }
@@ -109,11 +113,27 @@ class VentilatorSettingViewModel(
             context.getString(R.string.airway_pressure_pref_key)
         )
 
+
+        /**
+         * 使用開始から48時間以上経過していればアラートを表示
+         */
         /**
          * 現在観察中のpatientIdから患者情報を取得
          */
         viewModelScope.launch {
             try {
+                repository.getVentilatorNoAuth(latestGs1Code, appkey).let { res->
+                    if (res.isSuccessful) {
+                        res.body()?.result?.let {
+                            if(it.isRecommendedPeriod == false){
+                                showDialogNotRecommendedUse.value = Event("showDialogNotRecommendedUse")
+                            }
+                        }
+                    } else {
+                        errorHandling(res)
+                    }
+                }
+
                 repository.getPatient(patientId, appkey).let { res ->
                     if (res.isSuccessful) {
                         res.body()?.result?.let { patient ->
@@ -199,7 +219,6 @@ class VentilatorSettingViewModel(
         estimatedPeepWithUnit.addSource(airwayPressure, ventilatorSettingObserver)
         estimatedPeepWithUnit.addSource(airFlow, ventilatorSettingObserver)
         estimatedPeepWithUnit.addSource(o2Flow, ventilatorSettingObserver)
-
     }
 
     fun onClickSoundMeasurementButton() {

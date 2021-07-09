@@ -308,6 +308,10 @@
         android:id="@+id/action_to_help"
         app:destination="@id/help_fragment" />
 
+    <action
+        android:id="@+id/action_to_qr_reading"
+        app:destination="@id/qr_reading_fragment"/>
+
     <fragment
         android:id="@+id/help_fragment"
         android:name="jp.microvent.microvent.view.ui.HelpFragment"

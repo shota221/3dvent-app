@@ -58,6 +58,8 @@ data class VentilatorValue(
     var expiratoryTime: String? = null,
     @Json(name = "inspiratory_time")
     var inspiratoryTime: String? = null,
+    @Json(name = "ie_ratio")
+    var ieRatio: String? = null
 ) : Serializable
 
 @JsonClass(generateAdapter = true)

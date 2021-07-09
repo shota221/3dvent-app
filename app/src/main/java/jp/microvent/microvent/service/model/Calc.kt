@@ -52,5 +52,7 @@ data class Ie(
     val iAvg: String,
     @Json(name = "e_avg")
     val eAvg: String,
-    val rr: String
+    val rr: String,
+    @Json(name = "ie_ratio")
+    val ieRatio:String
 )

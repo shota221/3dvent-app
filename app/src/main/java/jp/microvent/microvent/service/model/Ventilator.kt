@@ -38,6 +38,8 @@ data class Ventilator(
     val serialNumber: String?,
     @Json(name = "start_using_at")
     val startUsingAt: String?,
+    @Json(name = "is_recommended_period")
+    val isRecommendedPeriod: Boolean?,
     val units: Units,
 ):Serializable
 

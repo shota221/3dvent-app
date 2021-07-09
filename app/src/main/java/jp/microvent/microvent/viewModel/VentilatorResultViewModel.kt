@@ -26,8 +26,10 @@ class VentilatorResultViewModel(
     }
 
     val o2Flow: MutableLiveData<String> = MutableLiveData()
-    val fio2: MutableLiveData<String> = MutableLiveData()
     val rr: MutableLiveData<String> = MutableLiveData()
+    val iAvg: MutableLiveData<String> = MutableLiveData()
+    val eAvg: MutableLiveData<String> = MutableLiveData()
+    val fio2: MutableLiveData<String> = MutableLiveData()
     val predictedVt: MutableLiveData<String> = MutableLiveData()
     val estimatedVt: MutableLiveData<String> = MutableLiveData()
     val estimatedMv: MutableLiveData<String> = MutableLiveData()
@@ -44,6 +46,8 @@ class VentilatorResultViewModel(
         ventilatorValue.estimatedMv?.let{setUnit(estimatedMv, it,context.getString(R.string.estimated_mv_pref_key))}
         ventilatorValue.estimatedPeep?.let{setUnit(estimatedPeep, it,context.getString(R.string.estimated_peep_pref_key))}
         ventilatorValue.airwayPressure?.let{setUnit(airwayPressure, it,context.getString(R.string.airway_pressure_pref_key))}
+        ventilatorValue.inspiratoryTime?.let{setUnit(iAvg, it,context.getString(R.string.i_avg_pref_key))}
+        ventilatorValue.expiratoryTime?.let{setUnit(eAvg, it,context.getString(R.string.e_avg_pref_key))}
         ventilatorValue.airFlow?.let{setUnit(airFlow, it,context.getString(R.string.air_flow_pref_key))}
     }
 

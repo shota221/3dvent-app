@@ -37,6 +37,10 @@ abstract class IeMeasurementViewModel(
         MutableLiveData()
     }
 
+    val ieRatio: MutableLiveData<String> by lazy {
+        MutableLiveData()
+    }
+
     val estimatedMv: MutableLiveData<String> by lazy {
         MutableLiveData()
     }
@@ -94,6 +98,7 @@ abstract class IeMeasurementViewModel(
         ventilatorValue.inspiratoryTime = averageInhalationTime.value
         ventilatorValue.expiratoryTime = averageExhalationTime.value
         ventilatorValue.rr = rr.value
+        ventilatorValue.ieRatio = ieRatio.value
         ventilatorValue.estimatedMv = estimatedMv.value
         ventilatorValue.estimatedVt = estimatedVt.value
     }
