@@ -129,6 +129,12 @@ class VentilatorSettingFragment : DrawableFragment(),DialogNotRecommendedUseFrag
     }
 
     override fun onDialogPositiveClick(dialog: DialogFragment) {
+        try{
+            val test = ventilatorSettingViewModel.o2FlowLabel.value
+            Log.i("test",test.toString())
+        } catch (e:Exception) {
+            Log.e("test",e.stackTraceToString())
+        }
     }
 
     override fun onDialogNegativeClick(dialog: DialogFragment) {
