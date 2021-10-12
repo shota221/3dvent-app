@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable
+            name="supportViewModel"
+            type="jp.microvent.microvent.viewModel.SupportViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -54,9 +57,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:enabled="false"
             android:text="@string/bug_report"
             android:textSize="@dimen/bt_text_size"
+            android:onClick="@{()->supportViewModel.onClickBugReportButton()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"

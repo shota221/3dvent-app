@@ -20,9 +20,12 @@ import jp.microvent.microvent.databinding.FragmentSupportBinding
 import jp.microvent.microvent.view.ui.dialog.DialogConnectionErrorFragment
 import jp.microvent.microvent.view.ui.dialog.DialogNoPatientLinkedFragment
 import jp.microvent.microvent.viewModel.PatientInfoViewModel
+import jp.microvent.microvent.viewModel.SupportViewModel
 import jp.microvent.microvent.viewModel.util.EventObserver
 
 class SupportFragment : BaseFragment(),DialogNoPatientLinkedFragment.DialogNoPatientLinkedListener {
+
+    private val viewModel by viewModels<SupportViewModel>()
 
     private lateinit var binding: FragmentSupportBinding
 
@@ -32,6 +35,19 @@ class SupportFragment : BaseFragment(),DialogNoPatientLinkedFragment.DialogNoPat
     ): View? {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_support, container, false)
+
+        binding.apply {
+            supportViewModel = viewModel
+            lifecycleOwner = viewLifecycleOwner
+        }
+
+        viewModel.apply {
+            transactionToBugReport.observe(
+                viewLifecycleOwner, EventObserver {
+                    findNavController().navigate(R.id.action_support_to_bug_report)
+                }
+            )
+        }
 
         return binding.root
     }

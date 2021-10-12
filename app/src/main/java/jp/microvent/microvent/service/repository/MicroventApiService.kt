@@ -260,5 +260,21 @@ interface MicroventApiService {
         @Header("X-User-Token") userToken: String?,
     ):Response<ApiResult<UpdatedUser>>
 
+    /**************
+     * bug_report *
+     **************/
+    @Headers("Content-Type:application/json; charset=UTF-8")
+    @POST("bug_report")
+    suspend fun createBugReport(
+        @Body createBugReportForm: CreateBugReportForm?,
+        @Header("X-App-Key") appkey: String?,
+        @Header("X-User-Token") userToken: String?
+    ):Response<ApiResult<CreatedBugReport>>
 
+    @Headers("Content-Type:application/json; charset=UTF-8")
+    @POST("bug_report/no_auth")
+    suspend fun createBugReportNoAuth(
+        @Body createBugReportForm: CreateBugReportForm?,
+        @Header("X-App-Key") appkey: String?
+    ):Response<ApiResult<CreatedBugReport>>
 }

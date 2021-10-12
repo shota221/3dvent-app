@@ -131,7 +131,12 @@
     <fragment
         android:id="@+id/navi_support"
         android:name="jp.microvent.microvent.view.ui.SupportFragment"
-        android:label="fragment_setting"></fragment>
+        android:label="fragment_setting">
+        <action
+            android:id="@+id/action_support_to_bug_report"
+            app:destination="@id/bug_report_fragment"
+            />
+    </fragment>
 
     <fragment
         android:id="@+id/navi_qr_reading"
@@ -288,6 +293,7 @@
             android:id="@+id/action_user_data_detail_to_update"
             app:destination="@id/user_data_update_fragment"/>
     </fragment>
+
     <fragment
         android:id="@+id/user_data_update_fragment"
         android:name="jp.microvent.microvent.view.ui.UserDataUpdateFragment"
@@ -300,6 +306,10 @@
             app:argType="jp.microvent.microvent.service.model.User" />
     </fragment>
 
+    <fragment
+        android:id="@+id/bug_report_fragment"
+        android:name="jp.microvent.microvent.view.ui.BugReportFragment"
+        android:label="@string/bug_report"/>
 
     <action
         android:id="@+id/action_to_auth"

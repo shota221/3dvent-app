@@ -285,4 +285,24 @@ class MicroventRepository {
     ): Response<ApiResult<UpdatedUser>> =
         microventApiService.updateUser(updateUserForm, appkey, userToken)
 
+    /**************
+     * bug_report *
+     **************/
+    suspend fun createBugReport(
+        createBugReportForm: CreateBugReportForm?,
+        appkey: String?,
+        userToken: String?
+    ): Response<ApiResult<CreatedBugReport>> = microventApiService.createBugReport(
+        createBugReportForm,
+        appkey,
+        userToken
+    )
+
+    suspend fun createBugReportNoAuth(
+        createBugReportForm: CreateBugReportForm?,
+        appkey: String?
+    ): Response<ApiResult<CreatedBugReport>> = microventApiService.createBugReportNoAuth(
+        createBugReportForm,
+        appkey
+    )
 }
