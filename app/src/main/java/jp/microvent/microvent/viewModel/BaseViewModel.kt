@@ -11,6 +11,9 @@ import com.google.firebase.messaging.FirebaseMessaging
 import jp.microvent.microvent.R
 import jp.microvent.microvent.service.model.*
 import jp.microvent.microvent.service.repository.MicroventRepository
+import jp.microvent.microvent.service.repository.SharedAccessTokenRepository
+import jp.microvent.microvent.service.repository.SharedCurrentVentilatorRepository
+import jp.microvent.microvent.service.repository.SharedUnitsRepository
 import jp.microvent.microvent.viewModel.util.Event
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -46,6 +49,20 @@ open class BaseViewModel(
             Context.MODE_PRIVATE
         )
     }
+
+    /**
+     * TODO sharedRepository移行
+     */
+    protected val sharedAccessToken: SharedAccessTokenRepository by lazy {
+        SharedAccessTokenRepository(context)
+    }
+    protected val sharedCurrentVentilator: SharedCurrentVentilatorRepository by lazy {
+        SharedCurrentVentilatorRepository(context)
+    }
+    protected val sharedUnits: SharedUnitsRepository by lazy {
+        SharedUnitsRepository(context)
+    }
+
 
     /**
      * アプリキー取得
@@ -224,6 +241,11 @@ open class BaseViewModel(
     protected fun loggedIn(): Boolean = !userToken.isNullOrEmpty()
 
     /**
+     * ventilator読み込み中かどうか（shardPrefに記録されているか）
+     */
+    protected fun hasReadQr(): Boolean = !(ventilatorId == null)
+
+    /**
      * ログイン画面遷移
      */
     val transitionToAuth: MediatorLiveData<Event<String>> by lazy {
@@ -313,6 +335,9 @@ open class BaseViewModel(
             401 -> {
                 unauthorizedHandling()
             }
+            403 -> {
+                forbiddenHandling()
+            }
 
             500 -> {
                 serverErrorHandling()
@@ -332,6 +357,10 @@ open class BaseViewModel(
             resetUserToken()
             transitionToAuth.value = Event("transitionToAuth")
         }
+    }
+
+    protected fun forbiddenHandling() {
+        showToast.value = Event(context.getString(R.string.forbidden_toast))
     }
 
     protected fun serverErrorHandling() {

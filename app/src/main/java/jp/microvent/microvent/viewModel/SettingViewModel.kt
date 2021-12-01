@@ -19,10 +19,18 @@ class SettingViewModel(
 ) : BaseViewModel(myApplication) {
 
     val loggedIn: MutableLiveData<Boolean> by lazy {
-            MutableLiveData(loggedIn())
+        MutableLiveData(loggedIn())
+    }
+
+    val hasReadQr: MutableLiveData<Boolean> by lazy {
+        MutableLiveData(hasReadQr())
     }
 
     val transitionToUserData: MutableLiveData<Event<String>> by lazy {
+        MutableLiveData()
+    }
+
+    val transitionToVentilatorDeactivation: MutableLiveData<Event<String>> by lazy {
         MutableLiveData()
     }
 
@@ -31,13 +39,17 @@ class SettingViewModel(
             resetUserToken().let {
                 transitionToAuth.value = Event("transitionToAuth")
             }
-        } catch (e:ConnectException){
+        } catch (e: ConnectException) {
             showDialogConnectionError.value = Event("connect_error")
         }
     }
 
-    fun onClickUserDataButton(){
+    fun onClickUserDataButton() {
         transitionToUserData.value = Event("transitionToUserData")
+    }
+
+    fun onClickVentilatorDeactivationButton() {
+        transitionToVentilatorDeactivation.value = Event("transitionToVentilatorDeactivation")
     }
 
 }

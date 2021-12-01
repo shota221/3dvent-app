@@ -125,7 +125,10 @@
         android:label="fragment_setting">
         <action
             android:id="@+id/action_setting_to_user_data_detail"
-            app:destination="@+id/user_data_detail_fragment"/>
+            app:destination="@+id/user_data_detail_fragment" />
+        <action
+            android:id="@+id/action_setting_to_ventilator_deactivation"
+            app:destination="@id/ventilator_deactivation_fragment" />
     </fragment>
 
     <fragment
@@ -134,20 +137,16 @@
         android:label="fragment_setting">
         <action
             android:id="@+id/action_support_to_text_manual"
-            app:destination="@id/text_manual_fragment"
-            />
+            app:destination="@id/text_manual_fragment" />
         <action
             android:id="@+id/action_support_to_video_manual"
-            app:destination="@id/video_manual_fragment"
-            />
+            app:destination="@id/video_manual_fragment" />
         <action
             android:id="@+id/action_support_to_bug_report"
-            app:destination="@id/bug_report_fragment"
-            />
+            app:destination="@id/bug_report_fragment" />
         <action
             android:id="@+id/action_support_to_chat"
-            app:destination="@id/chat_fragment"
-            />
+            app:destination="@id/chat_fragment" />
     </fragment>
 
     <fragment
@@ -189,7 +188,7 @@
         android:label="fragment_patient_basic_info_detail">
         <action
             android:id="@+id/action_patient_basic_info_detail_to_update"
-            app:destination="@id/patient_basic_info_update_fragment"/>
+            app:destination="@id/patient_basic_info_update_fragment" />
 
     </fragment>
 
@@ -199,7 +198,7 @@
         android:label="fragment_patient_basic_info_update">
         <action
             android:id="@+id/action_patient_basic_info_update_to_detail"
-            app:destination="@id/patient_basic_info_detail_fragment"/>
+            app:destination="@id/patient_basic_info_detail_fragment" />
         <argument
             android:name="patient"
             app:argType="jp.microvent.microvent.service.model.Patient" />
@@ -212,7 +211,7 @@
         android:label="fragment_patient_obs_data_detail">
         <action
             android:id="@+id/action_patient_obs_detail_to_update"
-            app:destination="@id/patient_obs_data_update_fragment"/>
+            app:destination="@id/patient_obs_data_update_fragment" />
 
     </fragment>
 
@@ -222,7 +221,7 @@
         android:label="fragment_patient_obs_data_update">
         <action
             android:id="@+id/action_patient_obs_update_to_detail"
-            app:destination="@id/patient_obs_data_detail_fragment"/>
+            app:destination="@id/patient_obs_data_detail_fragment" />
         <argument
             android:name="patientObs"
             app:argType="jp.microvent.microvent.service.model.PatientObs" />
@@ -235,10 +234,10 @@
         android:label="fragment_measurement_data">
         <action
             android:id="@+id/action_measurement_data_to_list"
-            app:destination="@id/measurement_data_list_fragment"/>
+            app:destination="@id/measurement_data_list_fragment" />
         <action
             android:id="@+id/action_measurement_data_to_detail"
-            app:destination="@id/measurement_data_detail_fragment"/>
+            app:destination="@id/measurement_data_detail_fragment" />
     </fragment>
 
     <fragment
@@ -247,7 +246,7 @@
         android:label="fragment_measurement_data">
         <action
             android:id="@+id/action_measurement_data_list_to_detail"
-            app:destination="@id/measurement_data_detail_fragment"/>
+            app:destination="@id/measurement_data_detail_fragment" />
     </fragment>
 
     <fragment
@@ -256,7 +255,7 @@
         android:label="fragment_measurement_data_detail">
         <action
             android:id="@+id/action_measurement_data_detail_to_update"
-            app:destination="@id/measurement_data_update_fragment"/>
+            app:destination="@id/measurement_data_update_fragment" />
         <argument
             android:name="ventilatorValueId"
             app:argType="integer" />
@@ -269,7 +268,7 @@
         android:label="fragment_measurement_data_update">
         <action
             android:id="@+id/action_measurement_data_update_to_detail"
-            app:destination="@id/measurement_data_detail_fragment"/>
+            app:destination="@id/measurement_data_detail_fragment" />
         <argument
             android:name="ventilatorValue"
             app:argType="jp.microvent.microvent.service.model.VentilatorValue" />
@@ -282,7 +281,7 @@
         android:label="fragment_ventilator_data_detail">
         <action
             android:id="@+id/action_ventilator_data_detail_to_update"
-            app:destination="@id/ventilator_data_update_fragment"/>
+            app:destination="@id/ventilator_data_update_fragment" />
     </fragment>
 
     <fragment
@@ -291,10 +290,19 @@
         android:label="fragment_ventilator_data_update">
         <action
             android:id="@+id/action_ventilator_data_update_to_detail"
-            app:destination="@id/ventilator_data_detail_fragment"/>
+            app:destination="@id/ventilator_data_detail_fragment" />
         <argument
             android:name="ventilator"
             app:argType="jp.microvent.microvent.service.model.Ventilator" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ventilator_deactivation_fragment"
+        android:name="jp.microvent.microvent.view.ui.VentilatorDeactivationFragment"
+        android:label="@string/ventilator_deactivation">
+        <action
+            android:id="@+id/action_ventilator_deactivation_to_qr_reading"
+            app:destination="@id/qr_reading_fragment" />
     </fragment>
 
     <fragment
@@ -303,7 +311,7 @@
         android:label="fragment_user_data_detail">
         <action
             android:id="@+id/action_user_data_detail_to_update"
-            app:destination="@id/user_data_update_fragment"/>
+            app:destination="@id/user_data_update_fragment" />
     </fragment>
 
     <fragment
@@ -324,8 +332,8 @@
         android:label="@string/text_manual">
         <argument
             android:name="locale"
-            app:argType="string"
-            android:defaultValue="ja" />
+            android:defaultValue="ja"
+            app:argType="string" />
     </fragment>
 
     <fragment
@@ -334,19 +342,19 @@
         android:label="@string/video_manual">
         <argument
             android:name="locale"
-            app:argType="string"
-            android:defaultValue="ja" />
+            android:defaultValue="ja"
+            app:argType="string" />
     </fragment>
 
     <fragment
         android:id="@+id/bug_report_fragment"
         android:name="jp.microvent.microvent.view.ui.BugReportFragment"
-        android:label="@string/bug_report"/>
+        android:label="@string/bug_report" />
 
     <fragment
         android:id="@+id/chat_fragment"
         android:name="jp.microvent.microvent.view.ui.ChatFragment"
-        android:label="@string/chat"/>
+        android:label="@string/chat" />
 
     <action
         android:id="@+id/action_to_auth"
@@ -357,7 +365,7 @@
 
     <action
         android:id="@+id/action_to_qr_reading"
-        app:destination="@id/qr_reading_fragment"/>
+        app:destination="@id/qr_reading_fragment" />
 
     <fragment
         android:id="@+id/help_fragment"
@@ -366,6 +374,6 @@
         android:tag="handlingBackPressed">
         <argument
             android:name="urlPath"
-            app:argType="string"/>
+            app:argType="string" />
     </fragment>
 </navigation>

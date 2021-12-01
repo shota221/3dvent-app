@@ -40,6 +40,13 @@ class SettingFragment : BaseFragment() {
                 }
             )
 
+            transitionToVentilatorDeactivation.observe(
+                viewLifecycleOwner,
+                EventObserver {
+                    findNavController().navigate(R.id.action_setting_to_ventilator_deactivation)
+                }
+            )
+
             transitionToAuth.observe(
                 viewLifecycleOwner,
                 EventObserver {

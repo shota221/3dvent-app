@@ -214,12 +214,18 @@
     <string name="email_key">メールアドレス: </string>
     <!-- logout -->
 
+    <!-- ventilator_deactivation -->
+    <string name="deactivate">初期化する</string>
+    <string name="ventilator_deactivation_notation">※このmicorventに紐づくデータが全て初期化されます。</string>
+    <string name="ventilator_deactivation_confirmation">本当に初期化してもよろしいですか？</string>
+    <string name="ventilator_deactivated">初期化されました。再度QRコードを読み取って下さい。</string>
 
     <!-- support -->
     <string name="edc_study">EDC研究データ</string>
 
     <!-- setting-->
     <string name="user_data">使用者データ</string>
+    <string name="ventilator_deactivation">Microvent®の初期化</string>
     <string name="logout">ログアウト</string>
 
     <!-- operation_flow-->
@@ -284,6 +290,7 @@
     <string name="measurement_data_not_found">測定データが見つかりません。</string>
     <string name="bad_sound">計測に失敗しました。もう一度録音してください。</string>
     <string name="invalid_appkey">アプリキーが期限切れです。MicroVent®アプリを再起動してください。</string>
+    <string name="forbidden_toast">実行権限がありません。</string>
 
     <!-- manual_url_path -->
     <string name="qr_reading_manual_path">qr/ja</string>
