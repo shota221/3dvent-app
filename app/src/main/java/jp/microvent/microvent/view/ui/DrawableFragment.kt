@@ -21,7 +21,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [BaseFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-open class DrawableFragment : BaseFragment() {
+open abstract class DrawableFragment : BaseFragment() {
 
     protected val drawerLayout: DrawerLayout by lazy {
         requireActivity().findViewById(R.id.drawerLayout)

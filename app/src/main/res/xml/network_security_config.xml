@@ -5,9 +5,15 @@
     <!-- ドメイン毎の設定 -->
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">api.microvent.r102.jp</domain>
+        <domain includeSubdomains="true">api.microvent.jp</domain>
         <domain includeSubdomains="true">api.microvent.local</domain>
         <domain includeSubdomains="true">manual.microvent.r102.jp</domain>
+        <domain includeSubdomains="true">manual.microvent.jp</domain>
         <domain includeSubdomains="true">manual.microvent.local</domain>
+        <domain includeSubdomains="true">chat.microvent.r102.jp</domain>
+        <domain includeSubdomains="true">chat.microvent.jp</domain>
+        <domain includeSubdomains="true">chat.microvent.local</domain>
+
         <domain includeSubdomains="true">fcm.googleapis.com</domain>
     </domain-config>
 </network-security-config>

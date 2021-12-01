@@ -26,7 +26,7 @@ class VentilatorDataUpdateFragment : BaseFragment() {
 
     private val args: VentilatorDataUpdateFragmentArgs by navArgs()
 
-    private val viewModel by lazy {
+    override val viewModel by lazy {
         ViewModelProvider(
             this, VentilatorDataUpdateViewModel.Factory(
                 requireActivity().application, args.ventilator

@@ -24,7 +24,7 @@ import jp.microvent.microvent.viewModel.util.EventObserver
 
 class PatientSettingFragment : DrawableFragment() {
 
-    private val patientSettingViewModel by viewModels<PatientSettingViewModel>()
+    override val viewModel by viewModels<PatientSettingViewModel>()
 
     private lateinit var binding: FragmentPatientSettingBinding
 
@@ -35,8 +35,6 @@ class PatientSettingFragment : DrawableFragment() {
 
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_patient_setting, container, false)
-
-        val viewModel = patientSettingViewModel
 
         binding.apply {
             patientSettingViewModel = viewModel
@@ -66,7 +64,7 @@ class PatientSettingFragment : DrawableFragment() {
             }
         }
 
-        patientSettingViewModel.apply {
+        viewModel.apply {
             transitionToVentilatorSetting.observe(
                 viewLifecycleOwner, Observer {
                     findNavController().navigate(R.id.action_patient_setting_to_ventilator_setting)

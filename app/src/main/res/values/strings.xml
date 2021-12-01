@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">MicroVent®</string>
+    <string name="locale">ja</string>
 
     <!-- 全般 -->
     <string name="prev">前へ</string>
@@ -233,6 +234,8 @@
     <string name="using_another_terminal_message">同じアカウントでログイン中の他の端末は強制的にログアウトされます。</string>
     <string name="connection_error">通信エラー</string>
     <string name="connection_error_message">ネットワーク接続状況を確認してください。</string>
+    <string name="network_error">通信エラー:電波状況を確認して再度お試しください。</string>
+    <string name="unexpected_error">予期せぬエラー</string>
     <string name="no_patient_linked">患者情報なし</string>
     <string name="no_patient_linked_message">呼吸器が読み込まれていないか、患者が登録されていません。二次元コードを読み取り直してください。</string>
     <string name="not_recommended_use"></string>
@@ -283,13 +286,13 @@
     <string name="invalid_appkey">アプリキーが期限切れです。MicroVent®アプリを再起動してください。</string>
 
     <!-- manual_url_path -->
-    <string name="qr_reading_manual_path">qr</string>
-    <string name="auth_manual_path">auth</string>
-    <string name="patient_setting_manual_path">patient_setting</string>
-    <string name="ventilator_setting_manual_path">ventilator_setting</string>
-    <string name="manual_measurement_manual_path">manual_measurement</string>
-    <string name="sound_measurement_manual_path">sound_measurement</string>
-    <string name="ventilator_result_manual_path">ventilator_result</string>
+    <string name="qr_reading_manual_path">qr/ja</string>
+    <string name="auth_manual_path">auth/ja</string>
+    <string name="patient_setting_manual_path">patient_setting/ja</string>
+    <string name="ventilator_setting_manual_path">ventilator_setting/ja</string>
+    <string name="manual_measurement_manual_path">manual_measurement/ja</string>
+    <string name="sound_measurement_manual_path">sound_measurement/ja</string>
+    <string name="ventilator_result_manual_path">ventilator_result/ja</string>
 
     <!-- operation_flow -->
     <string name="operation_flow">利用フロー</string>
@@ -301,13 +304,16 @@
 
     <!-- support -->
     <string name="text_manual">テキストマニュアル</string>
-    <string name="movie_manual">動画マニュアル</string>
+    <string name="video_manual">動画マニュアル</string>
     <string name="chat_support">チャットサポート</string>
     <string name="bug_report">MicroVent®の不具合、改善要望</string>
 
     <!-- bug_report -->
     <string name="bug_name">MicroVent®の不具合名</string>
     <string name="request_improvement">MicroVent®の改善要望</string>
+
+    <!--chat-->
+    <string name="chat">チャット</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

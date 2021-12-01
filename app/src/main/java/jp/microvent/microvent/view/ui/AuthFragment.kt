@@ -28,7 +28,7 @@ import java.lang.Exception
 
 class AuthFragment : BaseFragment(),DialogConfirmLogoutOnAnotherTerminalFragment.DialogconfirmLogoutOnAnotherTerminalListener {
 
-    private val authViewModel by viewModels<AuthViewModel>()
+    override val viewModel by viewModels<AuthViewModel>()
 
     private lateinit var binding: FragmentAuthBinding
 
@@ -40,8 +40,6 @@ class AuthFragment : BaseFragment(),DialogConfirmLogoutOnAnotherTerminalFragment
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_auth, container, false)
 
-        val viewModel = authViewModel
-
         binding.apply {
             authViewModel = viewModel
             //LiveDataの変更をviewに通知するために必要
@@ -49,10 +47,10 @@ class AuthFragment : BaseFragment(),DialogConfirmLogoutOnAnotherTerminalFragment
         }
 
         if (AccessLocationPermission.hasPermission(requireActivity())) {
-            authViewModel.setLocation()
+            viewModel.setLocation()
         }
 
-        authViewModel.apply {
+        viewModel.apply {
 
             transitionToQrReading.observe(
                 viewLifecycleOwner,
@@ -132,11 +130,6 @@ class AuthFragment : BaseFragment(),DialogConfirmLogoutOnAnotherTerminalFragment
 
 
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
     }
 
     override fun onDialogPositiveClick(dialog: DialogFragment) {

@@ -21,7 +21,7 @@ import jp.microvent.microvent.viewModel.util.EventObserver
 
 class MeasurementDataFragment : BaseFragment() {
 
-    private val viewModel by viewModels<MeasurementDataViewModel>()
+    override val viewModel by viewModels<MeasurementDataViewModel>()
 
     private lateinit var binding: FragmentMeasurementDataBinding
 

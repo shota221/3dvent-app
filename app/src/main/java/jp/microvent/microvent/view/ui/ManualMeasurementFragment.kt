@@ -25,7 +25,7 @@ class ManualMeasurementFragment : DrawableFragment() {
 
     private val args: ManualMeasurementFragmentArgs by navArgs()
 
-    private val manualMeasurementViewModel by lazy {
+    override val viewModel by lazy {
         ViewModelProvider(
             this, ManualMeasurementViewModel.Factory(
                 requireActivity().application, args.ventilatorValue
@@ -47,17 +47,15 @@ class ManualMeasurementFragment : DrawableFragment() {
             false
         )
 
-        val viewModel = manualMeasurementViewModel
-
         binding.apply {
             manualMeasurementViewModel = viewModel
             lifecycleOwner = viewLifecycleOwner
         }
 
-        manualMeasurementViewModel.apply {
+        viewModel.apply {
             transitionToVentilatorResult.observe(
                 viewLifecycleOwner, EventObserver {
-                    val ventilatorValue = manualMeasurementViewModel.ventilatorValue
+                    val ventilatorValue = viewModel.ventilatorValue
                     val action =
                         ManualMeasurementFragmentDirections.actionManualMeasurementToVentilatorResult(
                             ventilatorValue

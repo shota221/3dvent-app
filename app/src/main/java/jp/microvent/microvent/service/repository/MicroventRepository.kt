@@ -227,6 +227,19 @@ class MicroventRepository {
     ): Response<ApiResult<UpdatedVentilator>> =
         microventApiService.updateVentilator(ventilatorId, updateVentilatorForm, appkey, userToken)
 
+    suspend fun deactivateVentilator(
+        ventilatorId: Int?,
+        appkey: String?,
+        userToken: String?
+    ): Response<ApiResult<DeactivatedVentilator>> =
+        microventApiService.deactivateVentilator(ventilatorId, appkey, userToken)
+
+    suspend fun deactivateVentilatorNoAuth(
+        ventilatorId: Int?,
+        appkey: String?,
+    ): Response<ApiResult<DeactivatedVentilator>> =
+        microventApiService.deactivateVentilatorNoAuth(ventilatorId, appkey)
+
     /********************
      * ventilator_value *
      ********************/
@@ -303,6 +316,15 @@ class MicroventRepository {
         appkey: String?
     ): Response<ApiResult<CreatedBugReport>> = microventApiService.createBugReportNoAuth(
         createBugReportForm,
+        appkey
+    )
+
+    /*************
+     * chat_room *
+     *************/
+    suspend fun fetchRoomUri(
+        appkey: String?
+    ): Response<ApiResult<CreatedRoom>> = microventApiService.fetchRoomUri(
         appkey
     )
 }

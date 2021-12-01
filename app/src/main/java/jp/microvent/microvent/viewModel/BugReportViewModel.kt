@@ -2,16 +2,12 @@ package jp.microvent.microvent.viewModel
 
 import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import jp.microvent.microvent.R
-import jp.microvent.microvent.service.model.AppkeyFetchForm
 import jp.microvent.microvent.service.model.CreateBugReportForm
-import jp.microvent.microvent.service.model.DialogNotification
-import jp.microvent.microvent.service.repository.MicroventRepository
+import jp.microvent.microvent.service.model.DialogDescription
 import jp.microvent.microvent.viewModel.util.Event
-import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlin.Exception
 
@@ -19,10 +15,6 @@ import kotlin.Exception
 class BugReportViewModel(
     private val myApplication: Application
 ) : BaseViewModel(myApplication) {
-
-    val showDialogNotification: MutableLiveData<Event<DialogNotification>> by lazy {
-        MutableLiveData()
-    }
 
     val bugName: MutableLiveData<String> by lazy {
         MutableLiveData()
@@ -43,7 +35,7 @@ class BugReportViewModel(
                 }.let {
                     if(it.isSuccessful) {
                         val message = context.getString(R.string.sent)
-                        val dialogNotification = DialogNotification(null, message)
+                        val dialogNotification = DialogDescription(null, message)
                         showDialogNotification.value = Event(dialogNotification)
                     } else {
                         errorHandling(it)

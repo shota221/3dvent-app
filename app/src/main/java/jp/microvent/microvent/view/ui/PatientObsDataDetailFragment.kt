@@ -21,7 +21,7 @@ import jp.microvent.microvent.viewModel.util.EventObserver
 
 class PatientObsDataDetailFragment : BaseFragment() {
 
-    private val viewModel by viewModels<PatientObsDataDetailViewModel>()
+    override val viewModel by viewModels<PatientObsDataDetailViewModel>()
 
     private lateinit var binding: FragmentPatientObsDataDetailBinding
 

@@ -23,7 +23,7 @@ class MeasurementDataListFragment : BaseFragment() {
         fun newInstance() = MeasurementDataListFragment()
     }
 
-    private val viewModel by viewModels<MeasurementDataListViewModel>()
+    override val viewModel by viewModels<MeasurementDataListViewModel>()
 
     //    private lateinit var ventilatorValueListAdapter: MeasurementDataAdapter
     private val measurementDataListAdapter: MeasurementDataAdapter by lazy {

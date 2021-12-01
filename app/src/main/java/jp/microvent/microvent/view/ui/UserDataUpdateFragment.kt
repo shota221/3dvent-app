@@ -20,7 +20,7 @@ class UserDataUpdateFragment : BaseFragment() {
 
     private val args: UserDataUpdateFragmentArgs by navArgs()
 
-    private val viewModel by lazy {
+    override val viewModel by lazy {
         ViewModelProvider(
             this, UserDataUpdateViewModel.Factory(
                 requireActivity().application, args.user

@@ -78,21 +78,21 @@ interface MicroventApiService {
     suspend fun calcIeManual(
         @Body ieManualFetchForm: IeManualFetchForm?,
         @Header("X-App-Key") appkey: String?
-    ):Response<ApiResult<Ie>>
+    ): Response<ApiResult<Ie>>
 
     @Headers("Content-Type:application/json; charset=UTF-8")
     @POST("calculate/ie/sound")
     suspend fun calcIeSound(
         @Body ieSoundFetchForm: IeSoundFetchForm?,
         @Header("X-App-Key") appkey: String?
-    ):Response<ApiResult<Ie>>
+    ): Response<ApiResult<Ie>>
 
     @Headers("Content-Type:application/json; charset=UTF-8")
     @POST("calculate/ie/sound_sampling")
     suspend fun soundSampling(
         @Body ieSoundFetchForm: IeSoundFetchForm?,
         @Header("X-Api-Token") appkey: String?
-    ):Response<Test>
+    ): Response<Test>
 
 
     /***********
@@ -115,14 +115,14 @@ interface MicroventApiService {
 
     @GET("patient/{id}")
     suspend fun getPatient(
-        @Path("id") patientId:Int?,
+        @Path("id") patientId: Int?,
         @Header("X-App-Key") appkey: String?
     ): Response<ApiResult<Patient>>
 
     @Headers("Content-Type:application/json; charset=UTF-8")
     @PUT("patient/{id}")
     suspend fun updatePatient(
-        @Path("id") patientId:Int?,
+        @Path("id") patientId: Int?,
         @Body updatePatientForm: UpdatePatientForm?,
         @Header("X-App-Key") appkey: String?,
         @Header("X-User-Token") userToken: String?
@@ -131,12 +131,12 @@ interface MicroventApiService {
     @Headers("Content-Type:application/json; charset=UTF-8")
     @PUT("patient/{id}")
     suspend fun updatePatientNoAuth(
-        @Path("id") patientId:Int?,
+        @Path("id") patientId: Int?,
         @Body updatePatientForm: UpdatePatientForm?,
         @Header("X-App-Key") appkey: String?,
     ): Response<ApiResult<UpdatedPatient>>
 
-    @GET("patient/{id}/detail")
+    @GET("patient/{id}/value")
     suspend fun getPatientObs(
         @Path("id") patientId: Int?,
         @Header("X-App-Key") appkey: String?,
@@ -144,18 +144,18 @@ interface MicroventApiService {
     ): Response<ApiResult<PatientObs>>
 
     @Headers("Content-Type:application/json; charset=UTF-8")
-    @POST("patient/{id}/detail")
+    @POST("patient/{id}/value")
     suspend fun createPatientObs(
-        @Path("id") patientId:Int?,
+        @Path("id") patientId: Int?,
         @Body createPatientObsForm: CreatePatientObsForm?,
         @Header("X-App-Key") appkey: String?,
         @Header("X-User-Token") userToken: String?
     ): Response<ApiResult<CreatedPatientObs>>
 
     @Headers("Content-Type:application/json; charset=UTF-8")
-    @PUT("patient/{id}/detail")
+    @PUT("patient/{id}/value")
     suspend fun updatePatientObs(
-        @Path("id") patientId:Int?,
+        @Path("id") patientId: Int?,
         @Body updatePatientObsForm: UpdatePatientObsForm?,
         @Header("X-App-Key") appkey: String?,
         @Header("X-User-Token") userToken: String?
@@ -169,13 +169,13 @@ interface MicroventApiService {
         @Query("gs1_code") gs1Code: String?,
         @Header("X-App-Key") appkey: String?,
         @Header("X-User-Token") userToken: String?
-    ):Response<ApiResult<Ventilator>>
+    ): Response<ApiResult<Ventilator>>
 
     @GET("ventilator/no_auth")
     suspend fun getVentilatorNoAuth(
         @Query("gs1_code") gs1Code: String?,
         @Header("X-App-Key") appkey: String?,
-    ):Response<ApiResult<Ventilator>>
+    ): Response<ApiResult<Ventilator>>
 
     @Headers("Content-Type:application/json; charset=UTF-8")
     @POST("ventilator")
@@ -183,14 +183,14 @@ interface MicroventApiService {
         @Body createVentilatorForm: CreateVentilatorForm?,
         @Header("X-App-Key") appkey: String?,
         @Header("X-User-Token") userToken: String?
-    ):Response<ApiResult<CreatedVentilator>>
+    ): Response<ApiResult<CreatedVentilator>>
 
     @Headers("Content-Type:application/json; charset=UTF-8")
     @POST("ventilator/no_auth")
     suspend fun createVentilatorNoAuth(
         @Body createVentilatorForm: CreateVentilatorForm?,
         @Header("X-App-Key") appkey: String?
-    ):Response<ApiResult<CreatedVentilator>>
+    ): Response<ApiResult<CreatedVentilator>>
 
     @Headers("Content-Type:application/json; charset=UTF-8")
     @PUT("ventilator/{id}")
@@ -199,7 +199,21 @@ interface MicroventApiService {
         @Body updateVentilatorForm: UpdateVentilatorForm?,
         @Header("X-App-Key") appkey: String?,
         @Header("X-User-Token") userToken: String?
-    ):Response<ApiResult<UpdatedVentilator>>
+    ): Response<ApiResult<UpdatedVentilator>>
+
+    //初期化（スマホ端末から見えなくする）
+    @PUT("ventilator/{id}/deactivation")
+    suspend fun deactivateVentilator(
+        @Path("id") ventilatorId: Int?,
+        @Header("X-App-Key") appkey: String?,
+        @Header("X-User-Token") userToken: String?
+    ): Response<ApiResult<DeactivatedVentilator>>
+
+    @PUT("ventilator/{id}/deactivation/no_auth")
+    suspend fun deactivateVentilatorNoAuth(
+        @Path("id") ventilatorId: Int?,
+        @Header("X-App-Key") appkey: String?,
+    ): Response<ApiResult<DeactivatedVentilator>>
 
     /********************
      * ventilator_value *
@@ -211,13 +225,13 @@ interface MicroventApiService {
         @Query("offset") offset: Int?,
         @Query("fixed_flg") fixedFlg: Int?,
         @Header("X-App-Key") appkey: String?,
-    ):Response<ApiResult<List<VentilatorValueListElm>>>
+    ): Response<ApiResult<List<VentilatorValueListElm>>>
 
     @GET("ventilator_value/{id}")
     suspend fun getVentilatorValue(
         @Path("id") ventilatorValueId: Int?,
         @Header("X-App-Key") appkey: String?,
-    ):Response<ApiResult<VentilatorValue>>
+    ): Response<ApiResult<VentilatorValue>>
 
     @Headers("Content-Type:application/json; charset=UTF-8")
     @POST("ventilator_value")
@@ -225,14 +239,14 @@ interface MicroventApiService {
         @Body createVentilatorValueForm: CreateVentilatorValueForm?,
         @Header("X-App-Key") appkey: String?,
         @Header("X-User-Token") userToken: String?
-    ):Response<ApiResult<CreatedVentilatorValue>>
+    ): Response<ApiResult<CreatedVentilatorValue>>
 
     @Headers("Content-Type:application/json; charset=UTF-8")
     @POST("ventilator_value/no_auth")
     suspend fun createVentilatorValueNoAuth(
         @Body createVentilatorValueForm: CreateVentilatorValueForm?,
         @Header("X-App-Key") appkey: String?
-    ):Response<ApiResult<CreatedVentilatorValue>>
+    ): Response<ApiResult<CreatedVentilatorValue>>
 
     @Headers("Content-Type:application/json; charset=UTF-8")
     @PUT("ventilator_value/{id}")
@@ -241,7 +255,7 @@ interface MicroventApiService {
         @Body updateVentilatorValueForm: UpdateVentilatorValueForm?,
         @Header("X-App-Key") appkey: String?,
         @Header("X-User-Token") userToken: String?
-    ):Response<ApiResult<UpdatedVentilatorValue>>
+    ): Response<ApiResult<UpdatedVentilatorValue>>
 
     /********
      * user *
@@ -250,7 +264,7 @@ interface MicroventApiService {
     suspend fun getUser(
         @Header("X-App-Key") appkey: String?,
         @Header("X-User-Token") userToken: String?,
-    ):Response<ApiResult<User>>
+    ): Response<ApiResult<User>>
 
     @Headers("Content-Type:application/json; charset=UTF-8")
     @PUT("user")
@@ -258,7 +272,7 @@ interface MicroventApiService {
         @Body updateUserForm: UpdateUserForm?,
         @Header("X-App-Key") appkey: String?,
         @Header("X-User-Token") userToken: String?,
-    ):Response<ApiResult<UpdatedUser>>
+    ): Response<ApiResult<UpdatedUser>>
 
     /**************
      * bug_report *
@@ -269,12 +283,20 @@ interface MicroventApiService {
         @Body createBugReportForm: CreateBugReportForm?,
         @Header("X-App-Key") appkey: String?,
         @Header("X-User-Token") userToken: String?
-    ):Response<ApiResult<CreatedBugReport>>
+    ): Response<ApiResult<CreatedBugReport>>
 
     @Headers("Content-Type:application/json; charset=UTF-8")
     @POST("bug_report/no_auth")
     suspend fun createBugReportNoAuth(
         @Body createBugReportForm: CreateBugReportForm?,
         @Header("X-App-Key") appkey: String?
-    ):Response<ApiResult<CreatedBugReport>>
+    ): Response<ApiResult<CreatedBugReport>>
+
+    /*************
+     * chat_room *
+     *************/
+    @GET("room")
+    suspend fun fetchRoomUri(
+        @Header("X-App-Key") appkey: String?
+    ): Response<ApiResult<CreatedRoom>>
 }

@@ -37,7 +37,7 @@ import jp.microvent.microvent.viewModel.util.EventObserver
 
 class QrReadingFragment : DrawableFragment() {
 
-    private val qrReadingViewModel by viewModels<QrReadingViewModel>()
+    override val viewModel by viewModels<QrReadingViewModel>()
 
     private lateinit var binding: FragmentQrReadingBinding
 
@@ -58,8 +58,6 @@ class QrReadingFragment : DrawableFragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_qr_reading, container, false)
 
-        val viewModel = qrReadingViewModel
-
         binding.apply {
             qrReadingViewModel = viewModel
 //            TODO("呼吸器読み取り時点で呼吸器と組織が紐付いている場合はその組織名を表示する")
@@ -74,13 +72,13 @@ class QrReadingFragment : DrawableFragment() {
         }
 
         if (AccessLocationPermission.hasPermission(requireActivity())) {
-            qrReadingViewModel.setLocation()
+            viewModel.setLocation()
         } else {
             accessLocationPermissionLauncher.launch(Unit)
         }
 
         //画面制御用オブザーバーセット
-        qrReadingViewModel.apply {
+        viewModel.apply {
             transitionToPatientSetting.observe(
                 viewLifecycleOwner, EventObserver {
                     findNavController().navigate(R.id.action_qr_reading_to_patient_setting)
@@ -173,13 +171,13 @@ class QrReadingFragment : DrawableFragment() {
             gs1Code = gs1Code.replace("[^0-9a-zA-Z]".toRegex(), "")
             //医療用バーコードとして不適切な桁数(20文字以下)と判断できれば返却(参考：https://www.rolan.co.jp/shouhin/s_sakurabarcode5_medical1.html)
             if (gs1Code.length <= 20) return@forEach
-            qrReadingViewModel.gs1Code.value = gs1Code
+            viewModel.gs1Code.value = gs1Code
         }
     }
 
     private fun onAccessLocationPermissionResult(granted: Boolean) {
         if (granted) {
-            qrReadingViewModel.setLocation()
+            viewModel.setLocation()
         }
     }
 }

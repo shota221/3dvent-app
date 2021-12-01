@@ -16,7 +16,7 @@ import jp.microvent.microvent.viewModel.SettingViewModel
 import jp.microvent.microvent.viewModel.util.EventObserver
 
 class SettingFragment : BaseFragment() {
-    private val settingViewModel by viewModels<SettingViewModel>()
+    override val viewModel by viewModels<SettingViewModel>()
 
     private lateinit var binding: FragmentSettingBinding
 
@@ -27,14 +27,12 @@ class SettingFragment : BaseFragment() {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_setting, container, false)
 
-        val viewModel = settingViewModel
-
         binding.apply {
             settingViewModel = viewModel
             lifecycleOwner = viewLifecycleOwner
         }
 
-        settingViewModel.apply {
+        viewModel.apply {
             transitionToUserData.observe(
                 viewLifecycleOwner,
                 EventObserver {

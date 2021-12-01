@@ -11,16 +11,20 @@ import android.widget.TextView
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import jp.microvent.microvent.R
 import jp.microvent.microvent.view.ui.dialog.DialogConnectionErrorFragment
+import jp.microvent.microvent.viewModel.HelpViewModel
 import java.lang.Exception
 import java.net.ConnectException
 
-private const val BASE_URL = "http://manual.microvent.r102.jp/"
+//private const val BASE_URL = "http://manual.microvent.r102.jp/"
+private const val BASE_URL = "http://manual.microvent.local/text/"
 
-class HelpFragment : BaseFragment(), OnBackKeyPressedListener {
+class HelpFragment : WebViewBaseFragment(), OnBackKeyPressedListener {
+    override val viewModel by viewModels<HelpViewModel>()
 
     private val args: HelpFragmentArgs by navArgs()
 

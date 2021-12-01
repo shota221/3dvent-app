@@ -23,7 +23,7 @@ import jp.microvent.microvent.viewModel.util.EventObserver
 
 class PatientInfoFragment : BaseFragment(),DialogNoPatientLinkedFragment.DialogNoPatientLinkedListener {
 
-    private val viewModel by viewModels<PatientInfoViewModel>()
+    override val viewModel by viewModels<PatientInfoViewModel>()
 
     private lateinit var binding: FragmentPatientInfoBinding
 

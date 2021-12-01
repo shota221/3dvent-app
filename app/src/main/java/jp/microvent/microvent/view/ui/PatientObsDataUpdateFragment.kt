@@ -31,7 +31,7 @@ class PatientObsDataUpdateFragment : BaseFragment() {
 
     private val args: PatientObsDataUpdateFragmentArgs by navArgs()
 
-    private val viewModel by lazy {
+    override val viewModel by lazy {
         ViewModelProvider(
             this, PatientObsDataUpdateViewModel.Factory(
                 requireActivity().application, args.patientObs

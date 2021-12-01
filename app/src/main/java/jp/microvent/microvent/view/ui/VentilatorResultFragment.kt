@@ -22,7 +22,7 @@ class VentilatorResultFragment : DrawableFragment() {
 
     private val args: VentilatorResultFragmentArgs by navArgs()
 
-    private val ventilatorResultViewModel by lazy {
+    override val viewModel by lazy {
         ViewModelProvider(this, VentilatorResultViewModel.Factory(
             requireActivity().application, args.ventilatorValue
         )).get(VentilatorResultViewModel::class.java)
@@ -39,14 +39,12 @@ class VentilatorResultFragment : DrawableFragment() {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_ventilator_result, container, false)
 
-        val viewModel = ventilatorResultViewModel
-
         binding.apply {
             ventilatorResultViewModel = viewModel
             lifecycleOwner = viewLifecycleOwner
         }
 
-        ventilatorResultViewModel.apply {
+        viewModel.apply {
             transitionToVentilatorSetting.observe(
                 viewLifecycleOwner, Observer {
                     findNavController().navigate(R.id.action_ventilator_result_to_ventilator_setting)

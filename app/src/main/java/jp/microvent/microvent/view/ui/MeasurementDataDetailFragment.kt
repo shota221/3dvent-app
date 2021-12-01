@@ -25,7 +25,7 @@ class MeasurementDataDetailFragment : BaseFragment() {
 
     private val args: MeasurementDataDetailFragmentArgs by navArgs()
 
-    private val viewModel by lazy {
+    override val viewModel by lazy {
         ViewModelProvider(
             this, MeasurementDataDetailViewModel.Factory(
                 requireActivity().application, args.ventilatorValueId

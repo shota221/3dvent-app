@@ -133,8 +133,20 @@
         android:name="jp.microvent.microvent.view.ui.SupportFragment"
         android:label="fragment_setting">
         <action
+            android:id="@+id/action_support_to_text_manual"
+            app:destination="@id/text_manual_fragment"
+            />
+        <action
+            android:id="@+id/action_support_to_video_manual"
+            app:destination="@id/video_manual_fragment"
+            />
+        <action
             android:id="@+id/action_support_to_bug_report"
             app:destination="@id/bug_report_fragment"
+            />
+        <action
+            android:id="@+id/action_support_to_chat"
+            app:destination="@id/chat_fragment"
             />
     </fragment>
 
@@ -307,9 +319,34 @@
     </fragment>
 
     <fragment
+        android:id="@+id/text_manual_fragment"
+        android:name="jp.microvent.microvent.view.ui.TextManualFragment"
+        android:label="@string/text_manual">
+        <argument
+            android:name="locale"
+            app:argType="string"
+            android:defaultValue="ja" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/video_manual_fragment"
+        android:name="jp.microvent.microvent.view.ui.VideoManualFragment"
+        android:label="@string/video_manual">
+        <argument
+            android:name="locale"
+            app:argType="string"
+            android:defaultValue="ja" />
+    </fragment>
+
+    <fragment
         android:id="@+id/bug_report_fragment"
         android:name="jp.microvent.microvent.view.ui.BugReportFragment"
         android:label="@string/bug_report"/>
+
+    <fragment
+        android:id="@+id/chat_fragment"
+        android:name="jp.microvent.microvent.view.ui.ChatFragment"
+        android:label="@string/chat"/>
 
     <action
         android:id="@+id/action_to_auth"

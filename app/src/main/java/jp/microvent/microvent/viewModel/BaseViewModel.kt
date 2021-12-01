@@ -5,7 +5,6 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.*
 import com.google.android.gms.location.*
 import com.google.firebase.messaging.FirebaseMessaging
@@ -275,6 +274,20 @@ open class BaseViewModel(
      * ダイアログ表示用イベント
      */
     val showDialogConnectionError: MutableLiveData<Event<String>> by lazy {
+        MutableLiveData()
+    }
+
+    /**
+     * 通知ダイアログ表示用LiveData
+     */
+    val showDialogNotification: MutableLiveData<Event<DialogDescription>> by lazy {
+        MutableLiveData()
+    }
+
+    /**
+     * 通知ダイアログ表示用LiveData
+     */
+    val showDialogConfirmation: MutableLiveData<Event<DialogDescription>> by lazy {
         MutableLiveData()
     }
 

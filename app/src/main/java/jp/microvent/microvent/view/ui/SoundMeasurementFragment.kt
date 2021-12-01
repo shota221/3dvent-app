@@ -26,7 +26,7 @@ class SoundMeasurementFragment : DrawableFragment() {
 
     private val args: SoundMeasurementFragmentArgs by navArgs()
 
-    private val soundMeasurementViewModel by lazy {
+    override val viewModel by lazy {
         ViewModelProvider(
             this, SoundMeasurementViewModel.Factory(
                 requireActivity().application, args.ventilatorValue
@@ -52,17 +52,15 @@ class SoundMeasurementFragment : DrawableFragment() {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_sound_measurement, container, false)
 
-        val viewModel = soundMeasurementViewModel
-
         binding.apply {
             soundMeasurementViewModel = viewModel
             lifecycleOwner = viewLifecycleOwner
         }
 
-        soundMeasurementViewModel.apply {
+        viewModel.apply {
             transitionToManualMeasurement.observe(
                 viewLifecycleOwner, EventObserver {
-                    val ventilatorValue = soundMeasurementViewModel.ventilatorValue
+                    val ventilatorValue = viewModel.ventilatorValue
                     val action =
                         SoundMeasurementFragmentDirections.actionSoundMeasurementToManualMeasurement(
                             ventilatorValue
@@ -73,7 +71,7 @@ class SoundMeasurementFragment : DrawableFragment() {
 
             transitionToVentilatorResult.observe(
                 viewLifecycleOwner, EventObserver {
-                    val ventilatorValue = soundMeasurementViewModel.ventilatorValue
+                    val ventilatorValue = viewModel.ventilatorValue
                     val action =
                         SoundMeasurementFragmentDirections.actionSoundMeasurementToVentilatorResult(
                             ventilatorValue

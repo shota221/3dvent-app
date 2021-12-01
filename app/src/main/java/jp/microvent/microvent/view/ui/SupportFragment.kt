@@ -25,7 +25,7 @@ import jp.microvent.microvent.viewModel.util.EventObserver
 
 class SupportFragment : BaseFragment(),DialogNoPatientLinkedFragment.DialogNoPatientLinkedListener {
 
-    private val viewModel by viewModels<SupportViewModel>()
+    override val viewModel by viewModels<SupportViewModel>()
 
     private lateinit var binding: FragmentSupportBinding
 
@@ -42,9 +42,26 @@ class SupportFragment : BaseFragment(),DialogNoPatientLinkedFragment.DialogNoPat
         }
 
         viewModel.apply {
+            transactionToTextManual.observe(
+                viewLifecycleOwner, EventObserver {
+                    val action = SupportFragmentDirections.actionSupportToTextManual(getString(R.string.locale))
+                    findNavController().navigate(action)
+                }
+            )
+            transactionToVideoManual.observe(
+                viewLifecycleOwner, EventObserver {
+                    val action = SupportFragmentDirections.actionSupportToVideoManual(getString(R.string.locale))
+                    findNavController().navigate(action)
+                }
+            )
             transactionToBugReport.observe(
                 viewLifecycleOwner, EventObserver {
                     findNavController().navigate(R.id.action_support_to_bug_report)
+                }
+            )
+            transactionToChat.observe(
+                viewLifecycleOwner, EventObserver {
+                    findNavController().navigate(R.id.action_support_to_chat)
                 }
             )
         }

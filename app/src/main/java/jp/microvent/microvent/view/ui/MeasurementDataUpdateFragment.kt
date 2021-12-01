@@ -29,7 +29,7 @@ class MeasurementDataUpdateFragment : BaseFragment() {
 
     private val args: MeasurementDataUpdateFragmentArgs by navArgs()
 
-    private val viewModel by lazy {
+    override val viewModel by lazy {
         ViewModelProvider(
             this, MeasurementDataUpdateViewModel.Factory(
                 requireActivity().application, args.ventilatorValue

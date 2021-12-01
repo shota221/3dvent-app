@@ -24,7 +24,7 @@ import jp.microvent.microvent.viewModel.util.EventObserver
 class SoundSamplingFragment : Fragment() {
 
 
-    private val soundSamplingViewModel by viewModels<SoundSamplingViewModel>()
+    private val viewModel by viewModels<SoundSamplingViewModel>()
 
     private lateinit var binding: FragmentSoundMeasurementTestBinding
 
@@ -44,14 +44,12 @@ class SoundSamplingFragment : Fragment() {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_sound_measurement_test, container, false)
 
-        val viewModel = soundSamplingViewModel
-
         binding.apply {
             soundSamplingViewModel = viewModel
             lifecycleOwner = viewLifecycleOwner
         }
 
-        soundSamplingViewModel.apply {
+        viewModel.apply {
             /**
              * 通信エラーダイアログの表示
              */

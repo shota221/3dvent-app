@@ -17,7 +17,7 @@ import jp.microvent.microvent.viewModel.util.EventObserver
 
 class BugReportFragment : BaseFragment(),DialogNotificationFragment.DialogNotificationListener {
 
-    private val viewModel by viewModels<BugReportViewModel>()
+    override val viewModel by viewModels<BugReportViewModel>()
 
     private lateinit var binding: FragmentBugReportBinding
 

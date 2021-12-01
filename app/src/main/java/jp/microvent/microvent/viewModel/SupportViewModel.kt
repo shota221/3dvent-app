@@ -17,11 +17,34 @@ class SupportViewModel(
     private val myApplication: Application
 ) : BaseViewModel(myApplication) {
 
+    val transactionToTextManual: MutableLiveData<Event<String>> by lazy {
+        MutableLiveData()
+    }
+
+    val transactionToVideoManual: MutableLiveData<Event<String>> by lazy {
+        MutableLiveData()
+    }
+
     val transactionToBugReport: MutableLiveData<Event<String>> by lazy {
         MutableLiveData()
+    }
+    val transactionToChat: MutableLiveData<Event<String>> by lazy {
+        MutableLiveData()
+    }
+
+    fun onClickTextManualButton() {
+        transactionToTextManual.value = Event("transactionToTextManual")
+    }
+
+    fun onClickVideoManualButton() {
+        transactionToVideoManual.value = Event("transactionToVideoManual")
     }
 
     fun onClickBugReportButton() {
         transactionToBugReport.value = Event("transactionToBugReport")
+    }
+
+    fun onClickChatButton() {
+        transactionToChat.value = Event("transactionToChat")
     }
 }

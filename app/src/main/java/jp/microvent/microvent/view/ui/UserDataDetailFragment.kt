@@ -18,7 +18,7 @@ import jp.microvent.microvent.viewModel.util.EventObserver
 
 class UserDataDetailFragment : BaseFragment() {
 
-    private val viewModel by viewModels<UserDataDetailViewModel>()
+    override val viewModel by viewModels<UserDataDetailViewModel>()
 
     private lateinit var binding: FragmentUserDataDetailBinding
 

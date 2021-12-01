@@ -54,3 +54,9 @@ data class UpdatedVentilator(
     @Json(name = "start_using_at")
     val startUsingAt: String
 )
+
+@JsonClass(generateAdapter = true)
+data class DeactivatedVentilator(
+    @Json(name = "ventilator_id")
+    val ventilatorId: Int
+)

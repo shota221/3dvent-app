@@ -23,7 +23,7 @@ import java.lang.Exception
 
 class VentilatorSettingFragment : DrawableFragment(),DialogNotRecommendedUseFragment.DialogNotRecommendedUseListener {
 
-    private val ventilatorSettingViewModel by viewModels<VentilatorSettingViewModel>()
+    override val viewModel by viewModels<VentilatorSettingViewModel>()
 
     private lateinit var binding: FragmentVentilatorSettingBinding
 
@@ -34,17 +34,15 @@ class VentilatorSettingFragment : DrawableFragment(),DialogNotRecommendedUseFrag
 
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_ventilator_setting,container,false)
 
-        val viewModel = ventilatorSettingViewModel
-
         binding.apply {
             ventilatorSettingViewModel = viewModel
             lifecycleOwner = viewLifecycleOwner
         }
 
-        ventilatorSettingViewModel.apply {
+        viewModel.apply {
             transitionToManualMeasurement.observe(
                 viewLifecycleOwner, EventObserver {
-                    val ventilatorValue = ventilatorSettingViewModel.ventilatorValue
+                    val ventilatorValue = viewModel.ventilatorValue
                     val action =
                         VentilatorSettingFragmentDirections.actionVentilatorSettingToManualMeasurement(
                             ventilatorValue
@@ -55,7 +53,7 @@ class VentilatorSettingFragment : DrawableFragment(),DialogNotRecommendedUseFrag
 
             transitionToSoundMeasurement.observe(
                 viewLifecycleOwner, EventObserver {
-                    val ventilatorValue = ventilatorSettingViewModel.ventilatorValue
+                    val ventilatorValue = viewModel.ventilatorValue
                     val action =
                         VentilatorSettingFragmentDirections.actionVentilatorSettingToSoundMeasurement(
                             ventilatorValue
@@ -130,7 +128,7 @@ class VentilatorSettingFragment : DrawableFragment(),DialogNotRecommendedUseFrag
 
     override fun onDialogPositiveClick(dialog: DialogFragment) {
         try{
-            val test = ventilatorSettingViewModel.o2FlowLabel.value
+            val test = viewModel.o2FlowLabel.value
             Log.i("test",test.toString())
         } catch (e:Exception) {
             Log.e("test",e.stackTraceToString())

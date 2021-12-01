@@ -1,6 +1,6 @@
 package jp.microvent.microvent.service.model
 
-data class DialogNotification(
+data class DialogDescription(
     val title:String?,
     val message: String?
 )

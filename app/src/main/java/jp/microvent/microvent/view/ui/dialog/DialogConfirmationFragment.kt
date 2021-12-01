@@ -9,19 +9,20 @@ import jp.microvent.microvent.R
 import jp.microvent.microvent.service.model.DialogDescription
 import jp.microvent.microvent.view.ui.BaseFragment
 
-class DialogNotificationFragment(private val targetFragment: BaseFragment, private val dialogDescription: DialogDescription) : DialogFragment(){
+class DialogConfirmationFragment(private val targetFragment: BaseFragment, private val dialogDescription: DialogDescription) : DialogFragment(){
 
-    interface  DialogNotificationListener {
-        fun onDialogClick(dialog:DialogFragment)
+    interface  DialogConfirmationListener {
+        fun onDialogPositiveClick(dialog:DialogFragment)
+        fun onDialogNegativeClick(dialog:DialogFragment)
     }
 
-    lateinit var listener: DialogNotificationListener
+    lateinit var listener: DialogConfirmationListener
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
         try {
-            listener = targetFragment as DialogNotificationListener
+            listener = targetFragment as DialogConfirmationListener
         }catch (e: ClassCastException){
             throw java.lang.ClassCastException("${context.toString()} must implement DialogConnectionErrorListener")
         }
@@ -34,7 +35,10 @@ class DialogNotificationFragment(private val targetFragment: BaseFragment, priva
             .setMessage(dialogDescription.message)
             .setPositiveButton(getString(R.string.ok)){ dialog, id ->
                 println("dialog:$dialog which:$id")
-                listener.onDialogClick(this)
+                listener.onDialogPositiveClick(this)
+            }.setNegativeButton(getString(R.string.cancel)){ dialog, id ->
+                println("dialog:$dialog which:$id")
+                listener.onDialogNegativeClick(this)
             }
 
         return builder.create()
