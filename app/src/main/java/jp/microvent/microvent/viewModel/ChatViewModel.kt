@@ -11,6 +11,7 @@ import jp.microvent.microvent.service.repository.MicroventRepository
 import jp.microvent.microvent.viewModel.util.Event
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.net.ConnectException
 
 class ChatViewModel(
@@ -20,7 +21,7 @@ class ChatViewModel(
     val roomUri: MutableLiveData<String> = MutableLiveData()
 
     init {
-        viewModelScope.launch {
+        runBlocking {
             setProgressBar.value = Event(true)
             try{
                 repository.fetchRoomUri(sharedAccessToken.appkey).let { res ->

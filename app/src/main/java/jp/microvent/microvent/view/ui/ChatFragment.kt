@@ -43,20 +43,27 @@ class ChatFragment : WebViewBaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.apply {
-            roomUri.observe(
-                viewLifecycleOwner, Observer {
-                    binding.chatWebView.apply {
-                        webViewClient = AppWebViewClient(this@ChatFragment)
+//        viewModel.apply {
+//            roomUri.observe(
+//                viewLifecycleOwner, Observer {
+//                    binding.chatWebView.apply {
+//                        webViewClient = AppWebViewClient(this@ChatFragment)
+//
+//                        settings.javaScriptEnabled = true
+//
+//                        loadUrl("https://chat.microvent.local/index.php/call/5b2xm2oe")
+//                    }
+//                }
+//            )
+//        }
 
-                        settings.javaScriptEnabled = true
+        binding.chatWebView.apply {
+            webViewClient = AppWebViewClient(this@ChatFragment)
 
-                        loadUrl(it)
-                    }
-                }
-            )
+            settings.javaScriptEnabled = true
+
+            viewModel.roomUri.value?.let { loadUrl(it) }
         }
-
     }
 
     override fun onReceivedError() {
