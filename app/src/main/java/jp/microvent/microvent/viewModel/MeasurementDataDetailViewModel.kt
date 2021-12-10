@@ -14,6 +14,7 @@ import jp.microvent.microvent.viewModel.util.Event
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import java.net.ConnectException
 
 
 class MeasurementDataDetailViewModel(
@@ -68,33 +69,33 @@ class MeasurementDataDetailViewModel(
     init {
         viewModelScope.launch {
             try {
-                repository.getVentilatorValue(ventilatorValueId, appkey).let { res ->
+                repository.getVentilatorValue(ventilatorValueId, sharedAccessToken.appkey).let { res ->
                     if (res.isSuccessful) {
                         res.body()?.result?.let {
                             ventilatorValue.postValue(it)
-                            if(!it.o2Flow.isNullOrEmpty())it.o2Flow?.run{ setUnit(o2FlowWithUnit, this,context.getString(R.string.o2_flow_pref_key))}
-                            if(!it.fio2.isNullOrEmpty())it.fio2?.run{ setUnit(fio2WithUnit, this,context.getString(R.string.fio2_pref_key))}
-                            if(!it.rr.isNullOrEmpty())it.rr?.run{ setUnit(rrWithUnit, this,context.getString(R.string.rr_pref_key))}
-                            if(!it.estimatedVt.isNullOrEmpty())it.estimatedVt?.run{ setUnit(estimatedVtWithUnit, this,context.getString(R.string.estimated_vt_pref_key))}
-                            if(!it.estimatedMv.isNullOrEmpty())it.estimatedMv?.run{ setUnit(estimatedMvWithUnit, this,context.getString(R.string.estimated_mv_pref_key))}
-                            if(!it.estimatedPeep.isNullOrEmpty())it.estimatedPeep?.run{ setUnit(estimatedPeepWithUnit, this,context.getString(R.string.estimated_peep_pref_key))}
-                            if(!it.height.isNullOrEmpty())it.height?.run{ setUnit(heightWithUnit, this,context.getString(R.string.height_pref_key))}
-                            if(!it.paco2.isNullOrEmpty())it.paco2?.run{ setUnit(paco2WithUnit, this,context.getString(R.string.paco2_pref_key))}
-                            if(!it.spo2.isNullOrEmpty())it.spo2?.run{ setUnit(spo2WithUnit, this,context.getString(R.string.spo2_pref_key))}
-                            if(!it.etco2.isNullOrEmpty())it.etco2?.run{ setUnit(etco2WithUnit, this,context.getString(R.string.etco2_pref_key))}
-                            if(!it.pao2.isNullOrEmpty())it.pao2?.run{ setUnit(pao2WithUnit, this,context.getString(R.string.pao2_pref_key))}
-                            if(!it.weight.isNullOrEmpty())it.weight?.run{ setUnit(weightWithUnit, this,context.getString(R.string.weight_pref_key))}
-                            if(!it.airwayPressure.isNullOrEmpty())it.airwayPressure?.run{ setUnit(airwayPressureWithUnit, this,context.getString(R.string.airway_pressure_pref_key))}
-                            if(!it.airFlow.isNullOrEmpty())it.airFlow?.run{ setUnit(airFlowWithUnit, this,context.getString(R.string.air_flow_pref_key))}
+                            if(!it.o2Flow.isNullOrEmpty())it.o2Flow?.run{ sharedUnits.setUnit(o2FlowWithUnit, this,context.getString(R.string.o2_flow_pref_key))}
+                            if(!it.fio2.isNullOrEmpty())it.fio2?.run{ sharedUnits.setUnit(fio2WithUnit, this,context.getString(R.string.fio2_pref_key))}
+                            if(!it.rr.isNullOrEmpty())it.rr?.run{ sharedUnits.setUnit(rrWithUnit, this,context.getString(R.string.rr_pref_key))}
+                            if(!it.estimatedVt.isNullOrEmpty())it.estimatedVt?.run{ sharedUnits.setUnit(estimatedVtWithUnit, this,context.getString(R.string.estimated_vt_pref_key))}
+                            if(!it.estimatedMv.isNullOrEmpty())it.estimatedMv?.run{ sharedUnits.setUnit(estimatedMvWithUnit, this,context.getString(R.string.estimated_mv_pref_key))}
+                            if(!it.estimatedPeep.isNullOrEmpty())it.estimatedPeep?.run{ sharedUnits.setUnit(estimatedPeepWithUnit, this,context.getString(R.string.estimated_peep_pref_key))}
+                            if(!it.height.isNullOrEmpty())it.height?.run{ sharedUnits.setUnit(heightWithUnit, this,context.getString(R.string.height_pref_key))}
+                            if(!it.paco2.isNullOrEmpty())it.paco2?.run{ sharedUnits.setUnit(paco2WithUnit, this,context.getString(R.string.paco2_pref_key))}
+                            if(!it.spo2.isNullOrEmpty())it.spo2?.run{ sharedUnits.setUnit(spo2WithUnit, this,context.getString(R.string.spo2_pref_key))}
+                            if(!it.etco2.isNullOrEmpty())it.etco2?.run{ sharedUnits.setUnit(etco2WithUnit, this,context.getString(R.string.etco2_pref_key))}
+                            if(!it.pao2.isNullOrEmpty())it.pao2?.run{ sharedUnits.setUnit(pao2WithUnit, this,context.getString(R.string.pao2_pref_key))}
+                            if(!it.weight.isNullOrEmpty())it.weight?.run{ sharedUnits.setUnit(weightWithUnit, this,context.getString(R.string.weight_pref_key))}
+                            if(!it.airwayPressure.isNullOrEmpty())it.airwayPressure?.run{ sharedUnits.setUnit(airwayPressureWithUnit, this,context.getString(R.string.airway_pressure_pref_key))}
+                            if(!it.airFlow.isNullOrEmpty())it.airFlow?.run{ sharedUnits.setUnit(airFlowWithUnit, this,context.getString(R.string.air_flow_pref_key))}
                             genderStr.postValue(Gender.buildGender(it.gender)?.getString(context))
                             statusUseStr.postValue(StatusUse.buildStatusUse(it.statusUse)?.getString(context))
                         }
                     } else {
-                        errorHandling(res)
+                        handleErrorResponse(res)
                     }
                 }
-            } catch (e: Exception) {
-                showDialogConnectionError.value = Event("connect_error")
+            } catch (e: ConnectException) {
+                handleConnectionError()
             }
         }
     }

@@ -3,6 +3,10 @@ package jp.microvent.microvent.service.repository
 import android.content.Context
 import android.content.SharedPreferences
 import jp.microvent.microvent.R
+import jp.microvent.microvent.service.model.ApiResult
+import jp.microvent.microvent.service.model.DeletedUserToken
+import kotlinx.coroutines.runBlocking
+import retrofit2.Response
 
 class SharedAccessTokenRepository(context: Context) {
 
@@ -12,6 +16,8 @@ class SharedAccessTokenRepository(context: Context) {
             Context.MODE_PRIVATE
         )
     }
+
+    private val repository = MicroventRepository.instance
 
     /**
      * appkey
@@ -24,19 +30,33 @@ class SharedAccessTokenRepository(context: Context) {
     /**
      * userToken
      */
-    val userToken: String
+    var userToken: String
         get() {
             return sharedPreferences.getString("X-User-Token", "") ?: ""
         }
-
-    fun resetUserToken() {
-        if (sharedPreferences.contains("X-User-Token")) {
+        set(userToken: String) {
             sharedPreferences.edit().run {
-                remove("X-User-Token")
+                putString("X-User-Token", userToken)
                 commit()
             }
         }
+
+    fun resetUserToken(): Response<ApiResult<DeletedUserToken>> = runBlocking {
+            repository.deleteUserToken(appkey, userToken).also {
+                sharedPreferences.edit().run {
+                    remove("X-User-Token")
+                    commit()
+                }
+            }
     }
+
+    fun installAppkey(appkey: String) {
+        sharedPreferences.edit().run {
+            putString("X-App-Key", appkey)
+            commit()
+        }
+    }
+
 
     //TODO DELETE_ME
     fun resetAll() {

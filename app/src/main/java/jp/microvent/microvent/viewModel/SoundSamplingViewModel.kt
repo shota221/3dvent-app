@@ -82,14 +82,14 @@ class SoundSamplingViewModel(
                 Log.i("recordingtest", encodedData)
                 val ieSoundFetchFormSoundElm = IeSoundFetchFormSoundElm(fileData = encodedData)
                 val ieSoundFetchForm = IeSoundFetchForm(ieSoundFetchFormSoundElm)
-                val calcIeSound = repository.calcIeSound(ieSoundFetchForm, appkey)
+                val calcIeSound = repository.calcIeSound(ieSoundFetchForm, sharedAccessToken.appkey)
                 if (calcIeSound.isSuccessful) {
                     calcIeSound.body()?.result?.let{
                         averageInhalationTime.postValue(it.iAvg)
                         averageExhalationTime.postValue(it.eAvg)
                     }
                 } else {
-                    Log.i("calcIe",appkey)
+                    Log.i("calcIe",sharedAccessToken.appkey)
                     Log.i("calcIe", calcIeSound.errorBody().toString())
                 }
             } catch (e: Exception) {

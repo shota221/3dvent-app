@@ -39,15 +39,6 @@ class BugReportFragment : BaseFragment(),DialogNotificationFragment.DialogNotifi
             lifecycleOwner = viewLifecycleOwner
         }
 
-        viewModel.apply {
-            showDialogNotification.observe(
-                viewLifecycleOwner, EventObserver {
-                    val dialog = DialogNotificationFragment(this@BugReportFragment, it)
-                    dialog.show(requireActivity().supportFragmentManager, it.title)
-                }
-            )
-        }
-
         return binding.root
     }
 

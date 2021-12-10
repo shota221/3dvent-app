@@ -44,12 +44,12 @@ class PatientBasicInfoUpdateViewModel(
     }
 
     init {
-        setUnit(
+        sharedUnits.setUnit(
             heightLabel,
             context.getString(R.string.height_label),
             context.getString(R.string.height_pref_key)
         )
-        setUnit(
+        sharedUnits.setUnit(
             weightLabel,
             context.getString(R.string.weight_label),
             context.getString(R.string.weight_pref_key)
@@ -73,23 +73,20 @@ class PatientBasicInfoUpdateViewModel(
                 val updatePatientForm =
                     UpdatePatientForm(height, weight, gender, patientNumber)
                 if (!loggedIn()) {
-                    repository.updatePatientNoAuth(patientId, updatePatientForm, appkey)
+                    repository.updatePatientNoAuth(sharedCurrentVentilator.patientId, updatePatientForm, sharedAccessToken.appkey)
                 } else {
-                    repository.updatePatient(patientId, updatePatientForm, appkey, userToken)
+                    repository.updatePatient(sharedCurrentVentilator.patientId, updatePatientForm, sharedAccessToken.appkey, sharedAccessToken.userToken)
                 }.let { res ->
                     if (res.isSuccessful) {
                         showToastUpdated()
                         transitionToPatientBasicInfoDetail.value =
                             Event("transitionToBasicInfoDetail")
                     } else {
-                        errorHandling(res)
+                        handleErrorResponse(res)
                     }
                 }
-
-
-
-            } catch (e: Exception) {
-                showDialogConnectionError.value = Event("connection_error")
+            } catch (e: ConnectException) {
+                handleConnectionError()
             }
             setProgressBar.value = Event(false)
         }

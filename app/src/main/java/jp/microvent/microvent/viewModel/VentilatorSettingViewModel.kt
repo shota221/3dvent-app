@@ -9,6 +9,7 @@ import jp.microvent.microvent.service.enum.Gender
 import jp.microvent.microvent.viewModel.util.Event
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import java.net.ConnectException
 
 class VentilatorSettingViewModel(
     private val myApplication: Application,
@@ -97,17 +98,17 @@ class VentilatorSettingViewModel(
         /**
          * 単位設定
          */
-        setUnit(
+        sharedUnits.setUnit(
             o2FlowLabel,
             context.getString(R.string.o2_flow_label),
             context.getString(R.string.o2_flow_pref_key)
         )
-        setUnit(
+        sharedUnits.setUnit(
             airFlowLabel,
             context.getString(R.string.air_flow_label),
             context.getString(R.string.air_flow_pref_key)
         )
-        setUnit(
+        sharedUnits.setUnit(
             airwayPressureLabel,
             context.getString(R.string.airway_pressure_label),
             context.getString(R.string.airway_pressure_pref_key)
@@ -122,7 +123,7 @@ class VentilatorSettingViewModel(
          */
         viewModelScope.launch {
             try {
-                repository.getVentilatorNoAuth(latestGs1Code, appkey).let { res->
+                repository.getVentilatorNoAuth(sharedCurrentVentilator.gs1Code, sharedAccessToken.appkey).let { res->
                     if (res.isSuccessful) {
                         res.body()?.result?.let {
                             if(it.isRecommendedPeriod == false){
@@ -130,24 +131,24 @@ class VentilatorSettingViewModel(
                             }
                         }
                     } else {
-                        errorHandling(res)
+                        handleErrorResponse(res)
                     }
                 }
 
-                repository.getPatient(patientId, appkey).let { res ->
+                repository.getPatient(sharedCurrentVentilator.patientId, sharedAccessToken.appkey).let { res ->
                     if (res.isSuccessful) {
                         res.body()?.result?.let { patient ->
                             patient.height?.let {
-                                setUnit(
+                                sharedUnits.setUnit(
                                     heightWithUnit,
                                     it,
                                     context.getString(R.string.height_pref_key)
                                 )
                             }
-                            if(!patient.weight.isNullOrEmpty())patient.weight?.run{ setUnit(weightWithUnit, this,context.getString(R.string.weight_pref_key))}
+                            if(!patient.weight.isNullOrEmpty())patient.weight?.run{ sharedUnits.setUnit(weightWithUnit, this,context.getString(R.string.weight_pref_key))}
                             predictedVt.postValue(patient.predictedVt)
                             patient.predictedVt?.let {
-                                setUnit(
+                                sharedUnits.setUnit(
                                     predictedVtWithUnit,
                                     it,
                                     context.getString(R.string.predicted_vt_pref_key)
@@ -158,11 +159,11 @@ class VentilatorSettingViewModel(
                             )
                         }
                     } else {
-                        errorHandling(res)
+                        handleErrorResponse(res)
                     }
                 }
             } catch (e: Exception) {
-                showDialogConnectionError.value = Event("connect_error")
+                handleConnectionError()
             }
         }
 
@@ -188,21 +189,21 @@ class VentilatorSettingViewModel(
 
             viewModelScope.launch {
                 try {
-                    repository.calcEstimatedData(airwayPressure, airFlow, o2Flow, appkey)
+                    repository.calcEstimatedData(airwayPressure, airFlow, o2Flow, sharedAccessToken.appkey)
                         .let { res ->
                             if (res.isSuccessful) {
                                 res.body()?.result?.let {
                                     fio2.value = it.fio2
-                                    setUnit(fio2WithUnit, it.fio2, context.getString(R.string.fio2_pref_key))
+                                    sharedUnits.setUnit(fio2WithUnit, it.fio2, context.getString(R.string.fio2_pref_key))
 
                                     estimatedPeep.value = it.estimatedPeep
-                                    setUnit(estimatedPeepWithUnit, it.estimatedPeep, context.getString(R.string.estimated_peep_pref_key))
+                                    sharedUnits.setUnit(estimatedPeepWithUnit, it.estimatedPeep, context.getString(R.string.estimated_peep_pref_key))
                                 }
                             }
                         }
 
-                } catch (e: Exception) {
-                    Log.e("calculate:Failed", e.stackTraceToString())
+                } catch (e: ConnectException) {
+                    handleConnectionError()
                 }
             }
         }

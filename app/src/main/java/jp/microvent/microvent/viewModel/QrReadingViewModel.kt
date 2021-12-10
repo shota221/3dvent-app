@@ -14,6 +14,7 @@ import jp.microvent.microvent.service.model.UpdateVentilatorForm
 import jp.microvent.microvent.view.permission.AccessLocationPermission
 import jp.microvent.microvent.view.permission.CameraPermission
 import jp.microvent.microvent.viewModel.util.Event
+import jp.microvent.microvent.viewModel.util.Location
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -34,27 +35,30 @@ class QrReadingViewModel(
         MutableLiveData()
     }
 
+    /**
+     * gs1CodeをObserveするLiveData
+     */
     val transitionToPatientSetting: MediatorLiveData<Event<String>> by lazy {
         MediatorLiveData()
     }
 
+    /**
+     * gs1CodeをObserveするLiveData
+     */
     val transitionToVentilatorSetting: MediatorLiveData<Event<String>> by lazy {
         MediatorLiveData()
+    }
+
+    val location by lazy {
+        Location(context)
     }
 
     init {
         val gs1CodeObserver = Observer<String> {
             //GS1コードが読み込まれたタイミングで紐付けられていた呼吸器情報をリセット
-            resetCurrentVentilatorPref()
+            sharedCurrentVentilator.resetAll()
+            sharedCurrentVentilator.gs1Code = it
             //新たに読み込まれたgs1codeを書き込む
-            with(currentVentilatorPref.edit()) {
-                putString(
-                    "gs1Code",
-                    it
-                )
-
-                commit()
-            }
 
             if (!loggedIn()) {
                 //未ログインユーザはログイン画面へ
@@ -62,23 +66,21 @@ class QrReadingViewModel(
             } else {
                 viewModelScope.launch {
                     try {
-                        val getVentilator = repository.getVentilator(it, appkey, userToken)
+                        val getVentilator = repository.getVentilator(
+                            it,
+                            sharedAccessToken.appkey,
+                            sharedAccessToken.userToken
+                        )
                         if (getVentilator.isSuccessful) {
                             getVentilator.body()?.result?.let {
                                 //単位更新
-                                putUnits(it.units)
+                                sharedUnits.putUnits(it.units)
 
                                 if (it.ventilatorId == null || it.patientId == null) {
                                     //未登録の呼吸器 or 登録済みかつ患者と紐付いていない呼吸器のgs1コードを読み込んだ場合PatientSetting画面へ
                                     if (it.ventilatorId != null) {
                                         //登録済みである場合はそのventilatorIdを控える
-                                        with(currentVentilatorPref.edit()) {
-                                            putInt(
-                                                context.getString(R.string.current_ventilator_id),
-                                                it.ventilatorId
-                                            )
-                                            commit()
-                                        }
+                                        sharedCurrentVentilator.ventilatorId = it.ventilatorId
                                         if (it.organizationCode == null) {
                                             //組織登録がなされていない場合は呼吸器情報の更新を行う
                                             val updateVentilatorForm =
@@ -86,11 +88,11 @@ class QrReadingViewModel(
                                             val updateVentilator = repository.updateVentilator(
                                                 it.ventilatorId,
                                                 updateVentilatorForm,
-                                                appkey,
-                                                userToken
+                                                sharedAccessToken.appkey,
+                                                sharedAccessToken.userToken
                                             )
                                             if (!updateVentilator.isSuccessful) {
-                                                errorHandling(updateVentilator)
+                                                handleErrorResponse(updateVentilator)
                                             }
                                         }
 
@@ -98,26 +100,24 @@ class QrReadingViewModel(
                                     } else {
                                         //未登録の場合は呼吸器登録
                                         val createVentilatorForm =
-                                            CreateVentilatorForm(latestGs1Code, latitude, longitude)
+                                            CreateVentilatorForm(
+                                                sharedCurrentVentilator.gs1Code,
+                                                location.latitude,
+                                                location.longitude
+                                            )
                                         val createVentilator =
                                             repository.createVentilator(
                                                 createVentilatorForm,
-                                                appkey,
-                                                userToken
+                                                sharedAccessToken.appkey,
+                                                sharedAccessToken.userToken
                                             )
                                         if (createVentilator.isSuccessful) {
-                                            createVentilator.body()?.result?.let {
-                                                with(currentVentilatorPref.edit()) {
-
-                                                    putInt(
-                                                        context.getString(R.string.current_ventilator_id),
-                                                        it.ventilatorId
-                                                    )
-                                                    commit()
-                                                }
+                                            createVentilator.body()?.result?.let { createdVentilator ->
+                                                sharedCurrentVentilator.ventilatorId =
+                                                    createdVentilator.ventilatorId
                                             }
                                         } else {
-                                            errorHandling(createVentilator)
+                                            handleErrorResponse(createVentilator)
                                         }
                                     }
 
@@ -128,17 +128,8 @@ class QrReadingViewModel(
                                 } else {
                                     //ログイン済みで、登録済みかつ患者と紐付いている呼吸器のgs1コードを読み込んだ場合VentilatorSetting画面へ
                                     //画面遷移前に紐付いているvenitlatorId及びpatientdIdを保存
-                                    with(currentVentilatorPref.edit()) {
-                                        putInt(
-                                            context.getString(R.string.current_ventilator_id),
-                                            it.ventilatorId
-                                        )
-                                        putInt(
-                                            context.getString(R.string.current_patient_id),
-                                            it.patientId
-                                        )
-                                        commit()
-                                    }
+                                    sharedCurrentVentilator.ventilatorId = it.ventilatorId
+                                    sharedCurrentVentilator.patientId = it.patientId
                                     if (it.organizationCode == null) {
                                         //組織登録がなされていない場合は呼吸器情報の更新を行う
                                         val updateVentilatorForm =
@@ -146,11 +137,11 @@ class QrReadingViewModel(
                                         val updateVentilator = repository.updateVentilator(
                                             it.ventilatorId,
                                             updateVentilatorForm,
-                                            appkey,
-                                            userToken
+                                            sharedAccessToken.appkey,
+                                            sharedAccessToken.userToken
                                         )
                                         if (!updateVentilator.isSuccessful) {
-                                            errorHandling(updateVentilator)
+                                            handleErrorResponse(updateVentilator)
                                         }
                                     }
 
@@ -161,10 +152,10 @@ class QrReadingViewModel(
 
                             }
                         } else {
-                            errorHandling(getVentilator)
+                            handleErrorResponse(getVentilator)
                         }
                     } catch (e: ConnectException) {
-                        showDialogConnectionError.value = Event("connection_error")
+                        handleConnectionError()
                     }
                 }
 
@@ -175,6 +166,11 @@ class QrReadingViewModel(
     }
 
     fun test() {
-        gs1Code.postValue(gs1CodeForTest.value)
+        val testCode = "0145715100100194172402121021021221" + gs1CodeForTest.value
+        gs1Code.postValue(testCode)
+    }
+
+    fun setLocation() {
+        location.setLocation()
     }
 }

@@ -8,6 +8,7 @@ import jp.microvent.microvent.service.model.*
 import jp.microvent.microvent.viewModel.util.Event
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import java.net.ConnectException
 
 class ManualMeasurementViewModel(
     myApplication: Application,
@@ -52,10 +53,10 @@ class ManualMeasurementViewModel(
     }
 
     init {
-        setUnit(inhalationFirstLabel,context.getString(R.string.inhalation_first),context.getString(R.string.i_pref_key))
-        setUnit(exhalationFirstLabel,context.getString(R.string.exhalation_first),context.getString(R.string.e_pref_key))
-        setUnit(inhalationSecondLabel,context.getString(R.string.inhalation_second),context.getString(R.string.i_pref_key))
-        setUnit(exhalationSecondLabel,context.getString(R.string.exhalation_second),context.getString(R.string.e_pref_key))
+        sharedUnits.setUnit(inhalationFirstLabel,context.getString(R.string.inhalation_first),context.getString(R.string.i_pref_key))
+        sharedUnits.setUnit(exhalationFirstLabel,context.getString(R.string.exhalation_first),context.getString(R.string.e_pref_key))
+        sharedUnits.setUnit(inhalationSecondLabel,context.getString(R.string.inhalation_second),context.getString(R.string.i_pref_key))
+        sharedUnits.setUnit(exhalationSecondLabel,context.getString(R.string.exhalation_second),context.getString(R.string.e_pref_key))
     }
 
 
@@ -70,21 +71,21 @@ class ManualMeasurementViewModel(
                 val ieManualFetchFormDataList: MutableList<IeManualFetchFormDataListElm> =
                     mutableListOf(ieFirst, ieSecond)
                 val ieManualFetchFrom = IeManualFetchForm(ieManualFetchFormDataList)
-                val calcIeManual = repository.calcIeManual(ieManualFetchFrom, appkey)
+                val calcIeManual = repository.calcIeManual(ieManualFetchFrom, sharedAccessToken.appkey)
                 if (calcIeManual.isSuccessful) {
                     calcIeManual.body()?.result?.let{
                         averageInhalationTime.postValue(it.iAvg)
-                        setUnit(averageInhalationTimeWithUnit, it.iAvg, context.getString(R.string.i_avg_pref_key))
+                        sharedUnits.setUnit(averageInhalationTimeWithUnit, it.iAvg, context.getString(R.string.i_avg_pref_key))
                         averageExhalationTime.postValue(it.eAvg)
-                        setUnit(averageExhalationTimeWithUnit, it.eAvg, context.getString(R.string.e_avg_pref_key))
+                        sharedUnits.setUnit(averageExhalationTimeWithUnit, it.eAvg, context.getString(R.string.e_avg_pref_key))
                         rr.postValue(it.rr)
                         ieRatio.postValue(it.ieRatio)
                     }
                 }else {
-                    errorHandling(calcIeManual)
+                    handleErrorResponse(calcIeManual)
                 }
-            } catch (e: Exception) {
-                showDialogConnectionError.value = Event("connection_error")
+            } catch (e: ConnectException) {
+                handleConnectionError()
             }
             setProgressBar.value = Event(false)
         }

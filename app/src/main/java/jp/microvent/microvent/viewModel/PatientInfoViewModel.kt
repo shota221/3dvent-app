@@ -41,6 +41,18 @@ class PatientInfoViewModel(
         MutableLiveData()
     }
 
+    val loggedIn: MutableLiveData<Boolean> by lazy {
+        MutableLiveData(loggedIn())
+    }
+
+    val hasReadQr: MutableLiveData<Boolean> by lazy {
+        MutableLiveData(hasReadQr())
+    }
+
+    val hasPatient: MutableLiveData<Boolean> by lazy {
+        MutableLiveData(hasPatient())
+    }
+
     fun onClickPatientBasicInfoButton() {
         transitionToPatientBasicInfo.value = Event("transitionToPatientBasicInfo")
     }
@@ -52,12 +64,5 @@ class PatientInfoViewModel(
     }
     fun onClickVentilatorDataButton() {
         transitionToVentilatorData.value = Event("transitionToVentilatorData")
-    }
-
-    init {
-        if(patientId == null){
-            showDialogNoPatientLinked.value = Event("showDialogNoPatientLinked")
-            transitionToQrReading.value = Event("transitionToQrReading")
-        }
     }
 }

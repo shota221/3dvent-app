@@ -11,6 +11,7 @@ import jp.microvent.microvent.service.repository.MicroventRepository
 import jp.microvent.microvent.viewModel.util.Event
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import java.net.ConnectException
 
 class ChatViewModel(
     private val myApplication: Application
@@ -22,16 +23,15 @@ class ChatViewModel(
         viewModelScope.launch {
             setProgressBar.value = Event(true)
             try{
-                repository.fetchRoomUri(appkey).let { res ->
+                repository.fetchRoomUri(sharedAccessToken.appkey).let { res ->
                     if (res.isSuccessful) {
                         roomUri.value = res.body()?.result?.uri
                     } else {
-                        errorHandling(res)
+                        handleErrorResponse(res)
                     }
                 }
-            } catch (e: Exception) {
-                Log.e("ConnectionError", e.stackTraceToString())
-                showToast.value = Event(context.getString(R.string.network_error))
+            } catch (e: ConnectException) {
+                handleConnectionError()
             } finally {
                 setProgressBar.value = Event(false)
             }

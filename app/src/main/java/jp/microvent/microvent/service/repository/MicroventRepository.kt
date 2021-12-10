@@ -7,6 +7,7 @@ import jp.microvent.microvent.service.model.*
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -73,6 +74,11 @@ class MicroventRepository {
         appkeyFetchForm: AppkeyFetchForm?,
     ): Response<ApiResult<Appkey>> =
         microventApiService.createAppkey(appkeyFetchForm, API_TOKEN)
+
+    fun syncedCreateAppkey(
+        appkeyFetchForm: AppkeyFetchForm?
+    ): Response<ApiResult<Appkey>> =
+        microventApiService.syncedCreateAppkey(appkeyFetchForm, API_TOKEN).execute()
 
     /********
      * auth *

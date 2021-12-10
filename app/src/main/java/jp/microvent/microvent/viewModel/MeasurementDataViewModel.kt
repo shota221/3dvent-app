@@ -12,6 +12,7 @@ import jp.microvent.microvent.viewModel.util.Event
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import java.net.ConnectException
 
 
 class MeasurementDataViewModel(
@@ -38,11 +39,18 @@ class MeasurementDataViewModel(
         viewModelScope.launch {
             setProgressBar.value = Event(true)
             try {
-                repository.getVentilatorValueList(ventilatorId, 1, 0, null, appkey).let { res ->
+                repository.getVentilatorValueList(
+                    sharedCurrentVentilator.ventilatorId,
+                    1,
+                    0,
+                    null,
+                    sharedAccessToken.appkey
+                ).let { res ->
                     if (res.isSuccessful) {
                         res.body()?.result?.let {
-                            if(it.isEmpty()) {
-                                showToast.value = Event(context.getString(R.string.measurement_data_not_found))
+                            if (it.isEmpty()) {
+                                showToast.value =
+                                    Event(context.getString(R.string.measurement_data_not_found))
                             } else {
                                 ventilatorValueId.value = it.first().id
                                 transitionToLatestMeasurementData.value =
@@ -50,13 +58,14 @@ class MeasurementDataViewModel(
                             }
                         }
                     } else {
-                        errorHandling(res)
+                        handleErrorResponse(res)
                     }
                 }
-            } catch (e: Exception) {
-                showDialogConnectionError.value = Event("connect_error")
+            } catch (e: ConnectException) {
+                handleConnectionError()
+            } finally {
+                setProgressBar.value = Event(false)
             }
-            setProgressBar.value = Event(false)
         }
 
     }

@@ -9,6 +9,7 @@ import jp.microvent.microvent.service.model.CreateBugReportForm
 import jp.microvent.microvent.service.model.DialogDescription
 import jp.microvent.microvent.viewModel.util.Event
 import kotlinx.coroutines.launch
+import java.net.ConnectException
 import kotlin.Exception
 
 
@@ -26,24 +27,26 @@ class BugReportViewModel(
 
     fun onClickSendBugReportButton() {
         viewModelScope.launch {
+            setProgressBar.value = Event(true)
             try {
-                val createBugReportForm = CreateBugReportForm(ventilatorId, bugName.value, requestImprovement.value)
+                val createBugReportForm = CreateBugReportForm(sharedCurrentVentilator.ventilatorId, bugName.value, requestImprovement.value)
                 if (loggedIn()) {
-                    repository.createBugReport(createBugReportForm, appkey, userToken)
+                    repository.createBugReport(createBugReportForm, sharedAccessToken.appkey, sharedAccessToken.userToken)
                 } else {
-                    repository.createBugReportNoAuth(createBugReportForm, appkey)
+                    repository.createBugReportNoAuth(createBugReportForm, sharedAccessToken.appkey)
                 }.let {
                     if(it.isSuccessful) {
                         val message = context.getString(R.string.sent)
                         val dialogNotification = DialogDescription(null, message)
                         showDialogNotification.value = Event(dialogNotification)
                     } else {
-                        errorHandling(it)
+                        handleErrorResponse(it)
                     }
                 }
-            } catch (e: Exception) {
-                showDialogConnectionError.value = Event("connection_error")
-                Log.e("test",e.stackTraceToString())
+            } catch (e: ConnectException) {
+                handleConnectionError()
+            } finally {
+                setProgressBar.value = Event(false)
             }
         }
     }

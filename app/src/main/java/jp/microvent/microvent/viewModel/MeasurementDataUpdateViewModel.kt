@@ -81,81 +81,81 @@ class MeasurementDataUpdateViewModel(
     }
 
     init {
-        setUnit(
+        sharedUnits.setUnit(
             heightLabel,
             context.getString(R.string.height_label),
             context.getString(R.string.height_pref_key)
         )
-        setUnit(
+        sharedUnits.setUnit(
             weightLabel,
             context.getString(R.string.weight_label),
             context.getString(R.string.weight_pref_key)
         )
-        setUnit(
+        sharedUnits.setUnit(
             o2FlowLabel,
             context.getString(R.string.o2_flow_label),
             context.getString(R.string.o2_flow_pref_key)
         )
-        setUnit(
+        sharedUnits.setUnit(
             airFlowLabel,
             context.getString(R.string.air_flow_label),
             context.getString(R.string.air_flow_pref_key)
         )
-        setUnit(
+        sharedUnits.setUnit(
             airwayPressureLabel,
             context.getString(R.string.airway_pressure_label),
             context.getString(R.string.airway_pressure_pref_key)
         )
-        setUnit(
+        sharedUnits.setUnit(
             spo2Label,
             context.getString(R.string.spo2_label),
             context.getString(R.string.spo2_pref_key)
         )
-        setUnit(
+        sharedUnits.setUnit(
             etco2Label,
             context.getString(R.string.etco2_label),
             context.getString(R.string.etco2_pref_key)
         )
-        setUnit(
+        sharedUnits.setUnit(
             pao2Label,
             context.getString(R.string.pao2_label),
             context.getString(R.string.pao2_pref_key)
         )
-        setUnit(
+        sharedUnits.setUnit(
             paco2Label,
             context.getString(R.string.paco2_label),
             context.getString(R.string.paco2_pref_key)
         )
         if (!ventilatorValue.fio2.isNullOrEmpty()) ventilatorValue.fio2?.run {
-            setUnit(
+            sharedUnits.setUnit(
                 rrWithUnit,
                 this,
                 context.getString(R.string.rr_pref_key)
             )
         }
         if (!ventilatorValue.rr.isNullOrEmpty()) ventilatorValue.rr?.run {
-            setUnit(
+            sharedUnits.setUnit(
                 fio2WithUnit,
                 this,
                 context.getString(R.string.fio2_pref_key)
             )
         }
         if (!ventilatorValue.estimatedVt.isNullOrEmpty()) ventilatorValue.estimatedVt?.run {
-            setUnit(
+            sharedUnits.setUnit(
                 estimatedVtWithUnit,
                 this,
                 context.getString(R.string.estimated_vt_pref_key)
             )
         }
         if (!ventilatorValue.estimatedMv.isNullOrEmpty()) ventilatorValue.estimatedMv?.run {
-            setUnit(
+            sharedUnits.setUnit(
                 estimatedMvWithUnit,
                 this,
                 context.getString(R.string.estimated_mv_pref_key)
             )
         }
         if (!ventilatorValue.estimatedPeep.isNullOrEmpty()) ventilatorValue.estimatedPeep?.run {
-            setUnit(
+            sharedUnits.setUnit(
                 estimatedPeepWithUnit,
                 this,
                 context.getString(R.string.estimated_peep_pref_key)
@@ -186,8 +186,8 @@ class MeasurementDataUpdateViewModel(
                 repository.updateVentilatorValue(
                     ventilatorValue.ventilatorValueId,
                     buildUpdateVentilatorValueForm(),
-                    appkey,
-                    userToken
+                    sharedAccessToken.appkey,
+                    sharedAccessToken.userToken
                 ).let { res ->
                     if (res.isSuccessful) {
                         res.body()?.result?.let {
@@ -197,14 +197,15 @@ class MeasurementDataUpdateViewModel(
                                 Event("transitionToMeasurementDataDetail")
                         }
                     } else {
-                        errorHandling(res)
+                        handleErrorResponse(res)
                     }
                 }
 
-            } catch (e: Exception) {
-                showDialogConnectionError.value = Event("connection_error")
+            } catch (e: ConnectException) {
+                handleConnectionError()
+            } finally {
+                setProgressBar.value = Event(false)
             }
-            setProgressBar.value = Event(false)
         }
     }
 

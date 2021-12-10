@@ -12,6 +12,7 @@ import jp.microvent.microvent.viewModel.util.Event
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import java.net.ConnectException
 
 
 class VentilatorDeactivationViewModel(
@@ -51,11 +52,11 @@ class VentilatorDeactivationViewModel(
                         showDialogNotification.value = Event(dialogDescription)
                         transitionToQrReading.value = Event("transitionToQrReading")
                     } else {
-                        errorHandling(res)
+                        handleErrorResponse(res)
                     }
                 }
-            } catch (e: Exception) {
-                showToast.value = Event(context.getString(R.string.connection_error))
+            } catch (e: ConnectException) {
+                handleConnectionError()
             }
         }
     }

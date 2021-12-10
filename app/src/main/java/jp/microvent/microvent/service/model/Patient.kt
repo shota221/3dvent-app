@@ -29,7 +29,7 @@ data class CreatePatientForm(
 @JsonClass(generateAdapter = true)
 data class CreatedPatient(
     @Json(name = "patient_id")
-    val patientId: String,
+    val patientId: Int,
     @Json(name = "predicted_vt")
     val predictedVt: String
 )

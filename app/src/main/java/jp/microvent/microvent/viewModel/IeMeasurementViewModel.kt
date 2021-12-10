@@ -7,6 +7,7 @@ import jp.microvent.microvent.service.model.*
 import jp.microvent.microvent.viewModel.util.Event
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import java.net.ConnectException
 
 abstract class IeMeasurementViewModel(
     private val myApplication: Application,
@@ -56,8 +57,8 @@ abstract class IeMeasurementViewModel(
             setProgressBar.value = Event(true)
             try {
                 val createVentilatorValueForm = CreateVentilatorValueForm(
-                    ventilatorId,
-                    patientId,
+                    sharedCurrentVentilator.ventilatorId,
+                    sharedCurrentVentilator.patientId,
                     ventilatorValue.airwayPressure,
                     ventilatorValue.airFlow,
                     ventilatorValue.o2Flow,
@@ -68,12 +69,12 @@ abstract class IeMeasurementViewModel(
                 )
 
                 if (!loggedIn()) {
-                    repository.createVentilatorValueNoAuth(createVentilatorValueForm, appkey)
+                    repository.createVentilatorValueNoAuth(createVentilatorValueForm, sharedAccessToken.appkey)
                 } else {
                     repository.createVentilatorValue(
                         createVentilatorValueForm,
-                        appkey,
-                        userToken
+                        sharedAccessToken.appkey,
+                        sharedAccessToken.userToken
                     )
                 }.let {
                     if(it.isSuccessful){
@@ -84,13 +85,14 @@ abstract class IeMeasurementViewModel(
                             transitionToVentilatorResult.value = Event("transitionToVentilatorResult")
                         }
                     } else {
-                        errorHandling(it)
+                        handleErrorResponse(it)
                     }
                 }
-            } catch (e: Exception) {
-                showDialogConnectionError.value = Event("connection_error")
+            } catch (e: ConnectException) {
+                handleConnectionError()
+            } finally {
+                setProgressBar.value = Event(false)
             }
-            setProgressBar.value = Event(false)
         }
     }
 

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="bugReportViewModel"
             type="jp.microvent.microvent.viewModel.BugReportViewModel" />
@@ -34,6 +35,25 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_bug_name" />
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:id="@+id/et_bug_name"-->
+<!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent">-->
+
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:id="@+id/edit_bug_name"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:inputType="text"-->
+<!--                android:hint="@string/bug_name"-->
+<!--                android:text="@={bugReportViewModel.bugName}"-->
+<!--                android:textSize="@dimen/et_text_size"/>-->
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
 
         <TextView
             android:id="@+id/tv_request_improvement"
@@ -52,8 +72,8 @@
             android:ems="10"
             android:gravity="start|top"
             android:inputType="textMultiLine"
-            android:textSize="@dimen/et_text_size"
             android:text="@={bugReportViewModel.requestImprovement}"
+            android:textSize="@dimen/et_text_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_request_improvement" />
@@ -63,9 +83,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
+            android:onClick="@{()->bugReportViewModel.onClickSendBugReportButton()}"
             android:text="@string/send"
             android:textSize="@dimen/bt_text_size"
-            android:onClick="@{()->bugReportViewModel.onClickSendBugReportButton()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_request_improvement" />

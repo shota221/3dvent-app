@@ -80,18 +80,6 @@ class AuthFragment : BaseFragment(),DialogConfirmLogoutOnAnotherTerminalFragment
                 }
             )
 
-
-            /**
-             * 通信エラーダイアログの表示
-             */
-            showDialogConnectionError.observe(
-                viewLifecycleOwner,
-                EventObserver {
-                    val dialog = DialogConnectionErrorFragment()
-                    dialog.show(requireActivity().supportFragmentManager, it)
-                }
-            )
-
             /**
              * 別端末ログイン中の場合のダイアログ表示
              */
@@ -100,30 +88,6 @@ class AuthFragment : BaseFragment(),DialogConfirmLogoutOnAnotherTerminalFragment
                 EventObserver {
                     val dialog = DialogConfirmLogoutOnAnotherTerminalFragment()
                     dialog.show(parentFragmentManager, it)
-                }
-            )
-
-            /**
-             * トースト表示
-             */
-            showToast.observe(
-                viewLifecycleOwner,
-                EventObserver {
-                    Toast.makeText(requireActivity(), it, Toast.LENGTH_LONG).show()
-                }
-            )
-
-            /**
-             * プログレスバー制御
-             */
-            setProgressBar.observe(
-                viewLifecycleOwner,
-                EventObserver {
-                    progressBar.visibility = if (it) {
-                        View.VISIBLE
-                    } else {
-                        View.GONE
-                    }
                 }
             )
         }

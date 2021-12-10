@@ -19,8 +19,9 @@
     <string name="exists">あり</string>
     <string name="other">その他</string>
     <string name="sent">送信しました。</string>
+    <string name="help">ヘルプ</string>
 
-    <!-- 単位:TODO(単位をsharedPrefから参照) -->
+    <!-- 単位 -->
     <string name="unit_of_height">cm</string>
     <string name="unit_of_volume">mL</string>
     <string name="unit_of_pressure">cmH2O</string>
@@ -40,6 +41,7 @@
     <string name="scan_waiting">MicroVent®の二次元コードをスキャンしてください。</string>
 
     <!-- auth -->
+    <string name="auth">認証</string>
     <string name="registered_organization">登録組織</string>
     <string name="unregistered">未登録</string>
     <string name="terms_of_use">MicroVent®の使用には、機器の推奨値設定のために、性別、身長、供給器量、動作音、設定圧のデータが必要になります。また、入力されたデータ、GPS情報は個別の機器の品質管理のために製造販売会社に送信されます。（GPS機能をONにして本アプリをご利用ください。）</string>
@@ -50,6 +52,7 @@
     <string name="password">パスワード</string>
 
     <!-- patient_setting -->
+    <string name="patient_setting">患者情報入力</string>
     <string name="height_key">身長: </string>
     <string name="height_label">身長（%1$s）</string>
     <string name="gender_key">性別: </string>
@@ -59,6 +62,7 @@
     <string name="patient_code">患者番号</string>
 
     <!-- ventilator_setting -->
+    <string name="data_input">データ入力</string>
     <string name="predicted_value">予測値</string>
     <string name="predicted_vt_key">Vt: </string>
     <string name="ventilator_setting">Microvent®設定</string>
@@ -103,11 +107,13 @@
     <string name="change_to_manual_measurement">手動測定に切り替える</string>
 
     <!--ventilator_result -->
+    <string name="ventilator_result">登録内容</string>
     <string name="back_to_ventilator_setting">機器の設定をやりなおす</string>
     <string name="ie_ratio_key">IE比: </string>
 
 
     <!-- patient_info -->
+    <string name="patient_info">患者情報</string>
     <string name="patient_basic_info">患者基本情報</string>
     <string name="patient_obs_data">患者観察研究データ</string>
     <string name="measurement_data">患者測定データ</string>
@@ -240,7 +246,6 @@
     <string name="using_another_terminal_message">同じアカウントでログイン中の他の端末は強制的にログアウトされます。</string>
     <string name="connection_error">通信エラー</string>
     <string name="connection_error_message">ネットワーク接続状況を確認してください。</string>
-    <string name="network_error">通信エラー:電波状況を確認して再度お試しください。</string>
     <string name="unexpected_error">予期せぬエラー</string>
     <string name="no_patient_linked">患者情報なし</string>
     <string name="no_patient_linked_message">呼吸器が読み込まれていないか、患者が登録されていません。二次元コードを読み取り直してください。</string>
@@ -291,6 +296,10 @@
     <string name="bad_sound">計測に失敗しました。もう一度録音してください。</string>
     <string name="invalid_appkey">アプリキーが期限切れです。MicroVent®アプリを再起動してください。</string>
     <string name="forbidden_toast">実行権限がありません。</string>
+    <string name="network_error">通信エラー:電波状況を確認して再度お試しください。</string>
+    <string name="connection_error_toast">通信エラー:電波状況を確認して再度お試しください。</string>
+    <string name="login_required_toast">認証エラー:この操作を行うにはログインが必須です。</string>
+    <string name="invalid_user_token_toast">認証エラー:ログインし直してください。</string>
 
     <!-- manual_url_path -->
     <string name="qr_reading_manual_path">qr/ja</string>

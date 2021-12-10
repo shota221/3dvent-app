@@ -12,6 +12,7 @@ import jp.microvent.microvent.viewModel.util.Event
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import java.net.ConnectException
 
 
 class UserDataUpdateViewModel(
@@ -43,18 +44,18 @@ class UserDataUpdateViewModel(
             setProgressBar.value = Event(true)
             try {
                 val updateUserForm = UpdateUserForm(userName.value,email.value)
-                repository.updateUser(updateUserForm, appkey, userToken)
+                repository.updateUser(updateUserForm, sharedAccessToken.appkey, sharedAccessToken.userToken)
                     .let {
                         if (it.isSuccessful) {
                             showToastUpdated()
                             transitionToUserDataDetail.value =
                                 Event("transitionToUserDataDetail")
                         } else {
-                            errorHandling(it)
+                            handleErrorResponse(it)
                         }
                     }
-            } catch (e: Exception) {
-                showDialogConnectionError.value = Event("connection_error")
+            } catch (e: ConnectException) {
+                handleConnectionError()
             }
             setProgressBar.value = Event(false)
         }

@@ -9,13 +9,14 @@ import jp.microvent.microvent.service.model.PatientObs
 import jp.microvent.microvent.viewModel.util.Event
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import java.net.ConnectException
 
 
 class PatientObsDataDetailViewModel(
     private val myApplication: Application
 ) : BaseViewModel(myApplication) {
 
-    val transitionToPatientObsDataUpdate:MutableLiveData<Event<String>> by lazy {
+    val transitionToPatientObsDataUpdate: MutableLiveData<Event<String>> by lazy {
         MutableLiveData()
     }
 
@@ -23,19 +24,19 @@ class PatientObsDataDetailViewModel(
         MutableLiveData()
     }
 
-    val optOutFlgStr : MutableLiveData<String> by lazy {
+    val optOutFlgStr: MutableLiveData<String> by lazy {
         MutableLiveData()
     }
-    val usedPlaceStr : MutableLiveData<String> by lazy {
+    val usedPlaceStr: MutableLiveData<String> by lazy {
         MutableLiveData()
     }
-    val treatmentStr : MutableLiveData<String> by lazy {
+    val treatmentStr: MutableLiveData<String> by lazy {
         MutableLiveData()
     }
-    val outcomeStr : MutableLiveData<String> by lazy {
+    val outcomeStr: MutableLiveData<String> by lazy {
         MutableLiveData()
     }
-    val adverseEventFlgStr : MutableLiveData<String> by lazy {
+    val adverseEventFlgStr: MutableLiveData<String> by lazy {
         MutableLiveData()
     }
 
@@ -46,22 +47,37 @@ class PatientObsDataDetailViewModel(
     init {
         viewModelScope.launch {
             try {
-                repository.getPatientObs(patientId, appkey,userToken).let { res ->
+                repository.getPatientObs(
+                    sharedCurrentVentilator.patientId,
+                    sharedAccessToken.appkey,
+                    sharedAccessToken.userToken
+                ).let { res ->
                     if (res.isSuccessful) {
                         res.body()?.result?.let {
                             patientObs.postValue(it)
-                            optOutFlgStr.postValue(OptOutFlg.buildOptOutFlg(it.optOutFlg)?.getString(context))
-                            usedPlaceStr.postValue(UsedPlace.buildUsedPlace(it.usedPlace)?.getString(context))
-                            treatmentStr.postValue(Treatment.buildTreatment(it.treatment)?.getString(context))
-                            outcomeStr.postValue(Outcome.buildOutcome(it.outcome)?.getString(context))
-                            adverseEventFlgStr.postValue(AdverseEventFlg.buildAdverseEventFlg(it.adverseEventFlg)?.getString(context))
+                            optOutFlgStr.postValue(
+                                OptOutFlg.buildOptOutFlg(it.optOutFlg)?.getString(context)
+                            )
+                            usedPlaceStr.postValue(
+                                UsedPlace.buildUsedPlace(it.usedPlace)?.getString(context)
+                            )
+                            treatmentStr.postValue(
+                                Treatment.buildTreatment(it.treatment)?.getString(context)
+                            )
+                            outcomeStr.postValue(
+                                Outcome.buildOutcome(it.outcome)?.getString(context)
+                            )
+                            adverseEventFlgStr.postValue(
+                                AdverseEventFlg.buildAdverseEventFlg(it.adverseEventFlg)
+                                    ?.getString(context)
+                            )
                         }
                     } else {
-                        errorHandling(res)
+                        handleErrorResponse(res)
                     }
                 }
-            } catch (e: Exception) {
-                showDialogConnectionError.value = Event("connect_error")
+            } catch (e: ConnectException) {
+                handleConnectionError()
             }
         }
     }

@@ -24,6 +24,16 @@ interface MicroventApiService {
         @Header("X-Api-Token") apiToken: String?
     ): Response<ApiResult<Appkey>>
 
+    /**
+     * 同期処理
+     */
+    @Headers("Content-Type:application/json; charset=UTF-8")
+    @POST("appkey")
+    fun syncedCreateAppkey(
+        @Body appkeyFetchForm: AppkeyFetchForm?,
+        @Header("X-Api-Token") apiToken: String?
+    ): Call<ApiResult<Appkey>>
+
     /********
      * auth *
      ********/

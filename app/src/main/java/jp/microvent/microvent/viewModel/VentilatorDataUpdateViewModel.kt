@@ -12,6 +12,7 @@ import jp.microvent.microvent.viewModel.util.Event
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import java.net.ConnectException
 
 
 class VentilatorDataUpdateViewModel(
@@ -35,24 +36,31 @@ class VentilatorDataUpdateViewModel(
 
     val startUsingAt: MutableLiveData<String> = MutableLiveData(ventilator.startUsingAt)
 
+    val showDialogDatePicker: MutableLiveData<Event<String>> by lazy {
+        MutableLiveData()
+    }
+
+    fun onClickEtStartUsingAt(){
+        showDialogDatePicker.value = Event("showDialogDatePicker")
+    }
 
     fun onClickSaveVentilatorDataButton() {
         viewModelScope.launch {
             setProgressBar.value = Event(true)
             try {
                 val updateVentilatorForm = UpdateVentilatorForm(startUsingAt.value)
-                repository.updateVentilator(ventilatorId, updateVentilatorForm, appkey, userToken)
+                repository.updateVentilator(sharedCurrentVentilator.ventilatorId, updateVentilatorForm, sharedAccessToken.appkey, sharedAccessToken.userToken)
                     .let {
                         if (it.isSuccessful) {
                             showToastUpdated()
                             transitionToVentilatorDataDetail.value =
                                 Event("transitionToVentilatorDataDetail")
                         } else {
-                            errorHandling(it)
+                            handleErrorResponse(it)
                         }
                     }
-            } catch (e: Exception) {
-                showDialogConnectionError.value = Event("connection_error")
+            } catch (e: ConnectException) {
+                handleConnectionError()
             }
             setProgressBar.value = Event(false)
         }

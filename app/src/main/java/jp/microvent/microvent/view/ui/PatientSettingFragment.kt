@@ -98,41 +98,6 @@ class PatientSettingFragment : DrawableFragment() {
                     showFlowDrawer(R.id.point_flow_patient_setting)
                 }
             )
-
-            /**
-             * 通信エラーダイアログの表示
-             */
-            showDialogConnectionError.observe(
-                viewLifecycleOwner,
-                EventObserver {
-                    val dialog = DialogConnectionErrorFragment()
-                    dialog.show(requireActivity().supportFragmentManager, it)
-                }
-            )
-
-            /**
-             * トースト表示
-             */
-            showToast.observe(
-                viewLifecycleOwner,
-                EventObserver {
-                    Toast.makeText(requireActivity(), it, Toast.LENGTH_LONG).show()
-                }
-            )
-
-            /**
-             * プログレスバー制御
-             */
-            setProgressBar.observe(
-                viewLifecycleOwner,
-                EventObserver {
-                    progressBar.visibility = if (it) {
-                        View.VISIBLE
-                    } else {
-                        View.GONE
-                    }
-                }
-            )
         }
         return binding.root
     }

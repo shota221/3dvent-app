@@ -12,6 +12,7 @@ import jp.microvent.microvent.viewModel.util.Event
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import java.net.ConnectException
 
 
 class MeasurementDataListViewModel(
@@ -33,17 +34,17 @@ class MeasurementDataListViewModel(
     init {
         viewModelScope.launch {
             try {
-                repository.getVentilatorValueList(ventilatorId, null, null, 1, appkey).let { res ->
+                repository.getVentilatorValueList(sharedCurrentVentilator.ventilatorId, null, null, 1, sharedAccessToken.appkey).let { res ->
                     if(res.isSuccessful) {
                         res.body()?.result?.let {
                             ventilatorValueList.value = it
                         }
                     }else{
-                        errorHandling(res)
+                        handleErrorResponse(res)
                     }
                 }
-            } catch (e: Exception) {
-                showDialogConnectionError.value = Event("connection_error")
+            } catch (e: ConnectException) {
+                handleConnectionError()
             }
         }
     }

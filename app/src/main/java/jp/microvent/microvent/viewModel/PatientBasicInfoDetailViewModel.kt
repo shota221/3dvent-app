@@ -48,27 +48,26 @@ class PatientBasicInfoDetailViewModel(
     init {
         viewModelScope.launch {
             try {
-                repository.getPatient(patientId, appkey).let { res ->
+                repository.getPatient(sharedCurrentVentilator.patientId, sharedAccessToken.appkey).let { res ->
                     if (res.isSuccessful) {
                         res.body()?.result?.let {
                             patient.postValue(it)
                             genderStr.postValue(Gender.buildGender(it.gender)?.getString(context))
                             it.height?.let {
-                                setUnit(
+                                sharedUnits.setUnit(
                                     heightWithUnit,
                                     it,
                                     context.getString(R.string.height_pref_key)
                                 )
                             }
-                            if(!it.weight.isNullOrEmpty())it.weight?.run{ setUnit(weightWithUnit, this,context.getString(R.string.weight_pref_key))}
+                            if(!it.weight.isNullOrEmpty())it.weight?.run{ sharedUnits.setUnit(weightWithUnit, this,context.getString(R.string.weight_pref_key))}
                         }
                     } else {
-                        errorHandling(res)
+                        handleErrorResponse(res)
                     }
                 }
-            } catch (e: Exception) {
-                showDialogConnectionError.value = Event("connect_error")
-                Log.e("test", e.stackTraceToString())
+            } catch (e: ConnectException) {
+                handleConnectionError()
             }
         }
     }

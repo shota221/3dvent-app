@@ -13,6 +13,7 @@ import jp.microvent.microvent.viewModel.util.Event
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import java.net.ConnectException
 
 
 class UserDataDetailViewModel(
@@ -35,17 +36,17 @@ class UserDataDetailViewModel(
         viewModelScope.launch {
             try {
 
-                    repository.getUser(appkey,userToken).let { res ->
+                    repository.getUser(sharedAccessToken.appkey, sharedAccessToken.userToken).let { res ->
                     if (res.isSuccessful) {
                         res.body()?.result?.let {
                             user.postValue(it)
                         }
                     } else {
-                        errorHandling(res)
+                        handleErrorResponse(res)
                     }
                 }
-            } catch (e: Exception) {
-                showDialogConnectionError.value = Event("connect_error")
+            } catch (e: ConnectException) {
+                handleConnectionError()
             }
         }
     }

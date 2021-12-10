@@ -4,8 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.*
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.*
 import jp.microvent.microvent.R
 import jp.microvent.microvent.service.model.CreateUserTokenForm
 import jp.microvent.microvent.service.model.CreateVentilatorForm
@@ -14,6 +13,7 @@ import jp.microvent.microvent.view.permission.AccessLocationPermission
 import jp.microvent.microvent.view.ui.AuthFragment
 import jp.microvent.microvent.view.ui.dialog.DialogConfirmLogoutOnAnotherTerminalFragment
 import jp.microvent.microvent.viewModel.util.Event
+import jp.microvent.microvent.viewModel.util.Location
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -63,6 +63,10 @@ class AuthViewModel(
         MutableLiveData()
     }
 
+    val location by lazy {
+        Location(context)
+    }
+
     init {
         setOrganizationName()
 
@@ -77,13 +81,13 @@ class AuthViewModel(
      * 画面遷移先制御
      */
     private fun transit() {
-        if (latestGs1Code.isNullOrEmpty()) {
+        if (sharedCurrentVentilator.gs1Code.isNullOrEmpty()) {
             //qrコードが読み込まれていない場合
             transitionToQrReading.value = Event("transitionToQrReading")
-        } else if (patientId != null) {
+        } else if (sharedCurrentVentilator.patientId != null) {
             //患者登録済みの場合
             transitionToVentilatorSetting.value = Event("transitionToVentilatorSetting")
-        } else if (ventilatorId != null) {
+        } else if (sharedCurrentVentilator.ventilatorId != null) {
             //患者未登録の場合
             transitionToPatientSetting.value = Event("transitionToPatientSetting")
         }
@@ -95,16 +99,15 @@ class AuthViewModel(
     private fun setOrganizationName() {
         viewModelScope.launch {
             try {
-
-                val getVentilatorNoAuth = repository.getVentilatorNoAuth(latestGs1Code, appkey)
+                val getVentilatorNoAuth = repository.getVentilatorNoAuth(sharedCurrentVentilator.gs1Code, sharedAccessToken.appkey)
                 if (getVentilatorNoAuth.isSuccessful) {
                     getVentilatorNoAuth.body()?.result?.let {
-                        putUnits(it.units)
+                        sharedUnits.putUnits(it.units)
                         organizationName.postValue(it.organizationName)
                     }
                 }
-            } catch (e: Exception) {
-                Log.e("NotLogin:Failed", e.stackTraceToString())
+            } catch (e: ConnectException) {
+                handleConnectionError()
             }
         }
     }
@@ -115,8 +118,8 @@ class AuthViewModel(
             try {
                 saveVentilatorId()
                 transit()
-            } catch (e: Exception) {
-                showDialogConnectionError.value = Event("connection_error")
+            } catch (e: ConnectException) {
+                handleConnectionError()
             }
             setProgressBar.value = Event(false)
         }
@@ -128,7 +131,7 @@ class AuthViewModel(
             try {
 
                 val accountName = accountName.value.toString()
-                val checkUserToken = repository.checkUserToken(accountName, appkey)
+                val checkUserToken = repository.checkUserToken(accountName, sharedAccessToken.appkey)
                 if (checkUserToken.isSuccessful) {
                     val hasToken: Boolean = checkUserToken.body()?.result?.hasToken ?: false
                     if (hasToken) {
@@ -141,31 +144,26 @@ class AuthViewModel(
                     var createUserTokenForm: CreateUserTokenForm =
                         CreateUserTokenForm(accountName, password)
                     val createUserToken =
-                        repository.createUserToken(createUserTokenForm, appkey)
+                        repository.createUserToken(createUserTokenForm, sharedAccessToken.appkey)
                     if (createUserToken.isSuccessful) {
                         val userTokenResult = createUserToken.body()?.result
-                        with(networkPref.edit()) {
-                            putString(
-                                context.getString(R.string.user_token),
-                                userTokenResult?.apiToken.toString()
-                            )
-                            commit()
-                        }
+                        sharedAccessToken.userToken = userTokenResult?.apiToken.toString()
+
 
                         //次にGs1Codeが読まれるまでは直近に読んだventilatorIdを参照する…sharedPrefに保存
                         saveVentilatorId()
                         transit()
 
                     } else {
-                        errorHandling(createUserToken)
+                        handleErrorResponse(createUserToken)
                     }
 
                 } else {
-                    errorHandling(checkUserToken)
+                    handleErrorResponse(checkUserToken)
                 }
 
-            } catch (e: Exception) {
-                showDialogConnectionError.value = Event("connection_error")
+            } catch (e: ConnectException) {
+                handleConnectionError()
             }
             setProgressBar.value = Event(false)
         }
@@ -178,7 +176,7 @@ class AuthViewModel(
      */
     private suspend fun saveVentilatorId() {
         if (loggedIn()) {
-            val getVentilator = repository.getVentilator(latestGs1Code, appkey, userToken)
+            val getVentilator = repository.getVentilator(sharedCurrentVentilator.gs1Code, sharedAccessToken.appkey, sharedAccessToken.userToken)
             if (getVentilator.isSuccessful) {
                 val getVentilatorResult = getVentilator.body()?.result
 
@@ -187,24 +185,11 @@ class AuthViewModel(
                 if (isRegistered) {
                     val ventilatorId = getVentilatorResult?.ventilatorId
 
-                    with(currentVentilatorPref.edit()) {
-
-                        putInt(
-                            context.getString(R.string.current_ventilator_id),
-                            ventilatorId!!.toInt()
-                        )
-                        commit()
-                    }
+                    sharedCurrentVentilator.ventilatorId = ventilatorId
 
                     //紐付いているpatientIdがあれば保存
                     getVentilatorResult?.patientId?.let {
-                        with(currentVentilatorPref.edit()) {
-                            putInt(
-                                context.getString(R.string.current_patient_id),
-                                it.toInt()
-                            )
-                            commit()
-                        }
+                        sharedCurrentVentilator.patientId = it
                     }
 
                     if (getVentilatorResult?.organizationCode.isNullOrEmpty()) {
@@ -214,37 +199,30 @@ class AuthViewModel(
                         val updateVentilator = repository.updateVentilator(
                             ventilatorId,
                             updateVentilatorForm,
-                            appkey,
-                            userToken
+                            sharedAccessToken.appkey,
+                            sharedAccessToken.userToken
                         )
                     }
 
 
                 } else {
                     val createVentilatorForm =
-                        CreateVentilatorForm(latestGs1Code, latitude, longitude)
+                        CreateVentilatorForm(sharedCurrentVentilator.gs1Code, location.latitude, location.longitude)
                     val createVentilator =
-                        repository.createVentilator(createVentilatorForm, appkey, userToken)
+                        repository.createVentilator(createVentilatorForm, sharedAccessToken.appkey, sharedAccessToken.userToken)
                     if (createVentilator.isSuccessful) {
                         val ventilatorId: Int? = createVentilator.body()?.result?.ventilatorId
                         if (ventilatorId != null) {
-                            with(currentVentilatorPref.edit()) {
-
-                                putInt(
-                                    context.getString(R.string.current_ventilator_id),
-                                    ventilatorId.toInt()
-                                )
-                                commit()
-                            }
+                            sharedCurrentVentilator.ventilatorId = ventilatorId
                         }
                     }
                 }//登録済みでない場合
             } else {
-                errorHandling(getVentilator)
+                handleErrorResponse(getVentilator)
             }//ログインする場合
 
         } else {
-            val getVentilatorNoAuth = repository.getVentilatorNoAuth(latestGs1Code, appkey)
+            val getVentilatorNoAuth = repository.getVentilatorNoAuth(sharedCurrentVentilator.gs1Code, sharedAccessToken.appkey)
             if (getVentilatorNoAuth.isSuccessful) {
                 val getVentilatorNoAuthResult = getVentilatorNoAuth.body()?.result
 
@@ -253,50 +231,34 @@ class AuthViewModel(
                 //登録済みであるかどうか
                 if (isRegistered) {
                     getVentilatorNoAuthResult?.ventilatorId?.let {
-                        with(currentVentilatorPref.edit()) {
-                            putInt(
-                                context.getString(R.string.current_ventilator_id),
-                                it.toInt()
-                            )
-                            commit()
-                        }
+                        sharedCurrentVentilator.ventilatorId = it
                     }
 
                     //紐付いているpatientIdがあれば保存
                     getVentilatorNoAuthResult?.patientId?.let {
-                        with(currentVentilatorPref.edit()) {
-                            putInt(
-                                context.getString(R.string.current_patient_id),
-                                it.toInt()
-                            )
-                            commit()
-                        }
+                        sharedCurrentVentilator.patientId = it
                     }
                 } else {
                     val createVentilatorForm =
-                        CreateVentilatorForm(latestGs1Code, latitude, longitude)
+                        CreateVentilatorForm(sharedCurrentVentilator.gs1Code, location.latitude, location.longitude)
                     val createVentilatorNoAuth =
-                        repository.createVentilatorNoAuth(createVentilatorForm, appkey)
+                        repository.createVentilatorNoAuth(createVentilatorForm, sharedAccessToken.appkey)
                     if (createVentilatorNoAuth.isSuccessful) {
                         val ventilatorId: Int? =
                             createVentilatorNoAuth.body()?.result?.ventilatorId
                         if (ventilatorId != null) {
-                            with(currentVentilatorPref.edit()) {
-
-                                putInt(
-                                    context.getString(R.string.current_ventilator_id),
-                                    ventilatorId.toInt()
-                                )
-                                commit()
-                            }
+                            sharedCurrentVentilator.ventilatorId = ventilatorId
                         }
                     }
                 }//登録済みでない場合
             } else {
-                Log.i("appkey_test",appkey)
-                errorHandling(getVentilatorNoAuth)
+                handleErrorResponse(getVentilatorNoAuth)
             }
 
         }//ログインしない場合
+    }
+
+    fun setLocation() {
+        location.setLocation()
     }
 }

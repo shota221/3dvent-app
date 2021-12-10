@@ -1,17 +1,22 @@
 package jp.microvent.microvent.view.ui
 
+import android.icu.util.Calendar
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.DatePicker
+import android.widget.EditText
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -19,6 +24,8 @@ import jp.microvent.microvent.R
 import jp.microvent.microvent.databinding.FragmentTestBinding
 import jp.microvent.microvent.databinding.FragmentVentilatorDataUpdateBinding
 import jp.microvent.microvent.view.ui.dialog.DialogConnectionErrorFragment
+import jp.microvent.microvent.view.ui.dialog.DialogDatePickerFragment
+import jp.microvent.microvent.view.ui.dialog.DialogTimePickerFragment
 import jp.microvent.microvent.viewModel.VentilatorDataUpdateViewModel
 import jp.microvent.microvent.viewModel.util.EventObserver
 
@@ -36,6 +43,14 @@ class VentilatorDataUpdateFragment : BaseFragment() {
 
     private lateinit var binding: FragmentVentilatorDataUpdateBinding
 
+    private val datePickerDialog by lazy {
+        DialogDatePickerFragment()
+    }
+
+    private val timePickerDialog by lazy {
+        DialogTimePickerFragment()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,6 +66,15 @@ class VentilatorDataUpdateFragment : BaseFragment() {
         binding.apply {
             ventilatorDataUpdateViewModel = viewModel
             lifecycleOwner = viewLifecycleOwner
+            /**
+             * フォーカスがあたった時に表示
+             */
+            etStartUsingAt.inputType = InputType.TYPE_NULL
+            etStartUsingAt.setOnFocusChangeListener { v, hasFocus ->
+                if(hasFocus) {
+                    datePickerDialog.show(requireActivity().supportFragmentManager, "datePicker")
+                }
+            }
         }
 
         viewModel.apply {
@@ -60,50 +84,30 @@ class VentilatorDataUpdateFragment : BaseFragment() {
                 }
             )
 
-
-            transitionToAuth.observe(
-                viewLifecycleOwner, EventObserver {
-                    findNavController().navigate(R.id.action_to_auth)
-                }
-            )
-
             /**
-             * 通信エラーダイアログの表示
+             * フォーカスがあたってダイアログがキャンセルされた際、再度クリックで表示
              */
-            showDialogConnectionError.observe(
-                viewLifecycleOwner,
-                EventObserver {
-                    val dialog = DialogConnectionErrorFragment()
-                    dialog.show(requireActivity().supportFragmentManager, it)
-                }
-            )
-
-            /**
-             * トースト表示
-             */
-            showToast.observe(
-                viewLifecycleOwner,
-                EventObserver {
-                    Toast.makeText(requireActivity(), it, Toast.LENGTH_LONG).show()
-                }
-            )
-
-            /**
-             * プログレスバー制御
-             */
-            setProgressBar.observe(
-                viewLifecycleOwner,
-                EventObserver {
-                    progressBar.visibility = if (it) {
-                        View.VISIBLE
-                    } else {
-                        View.GONE
-                    }
+            showDialogDatePicker.observe(
+                viewLifecycleOwner, EventObserver{
+                    datePickerDialog.show(requireActivity().supportFragmentManager, "datePicker")
                 }
             )
         }
 
+        datePickerDialog.dateString.observe(
+            viewLifecycleOwner, Observer{
+                viewModel.startUsingAt.value = it
+                timePickerDialog.show(requireActivity().supportFragmentManager, "timePicker")
+            }
+        )
+
+        timePickerDialog.timeString.observe(
+            viewLifecycleOwner, Observer {
+                val startUsingAtStr = viewModel.startUsingAt.value + " " + it
+                viewModel.startUsingAt.value = startUsingAtStr
+            }
+        )
+
         return binding.root
     }
-
 }

@@ -58,6 +58,14 @@ class PatientObsDataUpdateViewModel(
         MutableLiveData()
     }
 
+    val showDialogDatePicker: MutableLiveData<Event<String>> by lazy {
+        MutableLiveData()
+    }
+
+    fun onClickEtDiscontinuationAt() {
+        showDialogDatePicker.value = Event("showDialogDatePicker")
+    }
+
     fun onOptOutFlgSelected(itemSelected: Int) {
             optOutFlg.postValue(itemSelected)
     }
@@ -89,26 +97,26 @@ class PatientObsDataUpdateViewModel(
             setProgressBar.value = Event(true)
             try{
                 if(!hasObserved){
-                    repository.createPatientObs(patientId, buildCreatePatientObsForm(), appkey, userToken).let { res ->
+                    repository.createPatientObs(sharedCurrentVentilator.patientId, buildCreatePatientObsForm(), sharedAccessToken.appkey, sharedAccessToken.userToken).let { res ->
                         if(res.isSuccessful){
                             showToastCreated()
                             transitionToPatientObsDataDetail.value = Event("transitionToPatientObsDataDetail")
                         } else {
-                            errorHandling(res)
+                            handleErrorResponse(res)
                         }
                     }
                 }else{
-                    repository.updatePatientObs(patientId, buildUpdatePatientObsForm(), appkey, userToken).let { res ->
+                    repository.updatePatientObs(sharedCurrentVentilator.patientId, buildUpdatePatientObsForm(), sharedAccessToken.appkey, sharedAccessToken.userToken).let { res ->
                         if(res.isSuccessful){
                             showToastUpdated()
                             transitionToPatientObsDataDetail.value = Event("transitionToPatientObsDataDetail")
                         } else {
-                            errorHandling(res)
+                            handleErrorResponse(res)
                         }
                     }
                 }
             }catch (e:ConnectException){
-                showDialogConnectionError.value = Event("connection_error")
+                handleConnectionError()
             }
             setProgressBar.value = Event(false)
         }

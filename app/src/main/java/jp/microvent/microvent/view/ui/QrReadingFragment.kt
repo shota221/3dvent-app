@@ -60,7 +60,6 @@ class QrReadingFragment : DrawableFragment() {
 
         binding.apply {
             qrReadingViewModel = viewModel
-//            TODO("呼吸器読み取り時点で呼吸器と組織が紐付いている場合はその組織名を表示する")
             lifecycleOwner = viewLifecycleOwner
         }
 
@@ -90,12 +89,6 @@ class QrReadingFragment : DrawableFragment() {
                 }
             )
 
-            transitionToAuth.observe(
-                viewLifecycleOwner, EventObserver {
-                    findNavController().navigate(R.id.action_to_auth)
-                }
-            )
-
             /**
              * ヘルプボタン監視
              */
@@ -112,41 +105,6 @@ class QrReadingFragment : DrawableFragment() {
             showFlowDrawer.observe(
                 viewLifecycleOwner, EventObserver{
                     showFlowDrawer(R.id.point_flow_qr_reading)
-                }
-            )
-
-            /**
-             * 通信エラーダイアログの表示
-             */
-            showDialogConnectionError.observe(
-                viewLifecycleOwner,
-                EventObserver {
-                    val dialog = DialogConnectionErrorFragment()
-                    dialog.show(requireActivity().supportFragmentManager, it)
-                }
-            )
-
-            /**
-             * トースト表示
-             */
-            showToast.observe(
-                viewLifecycleOwner,
-                EventObserver {
-                    Toast.makeText(requireActivity(), it, Toast.LENGTH_LONG).show()
-                }
-            )
-
-            /**
-             * プログレスバー制御
-             */
-            setProgressBar.observe(
-                viewLifecycleOwner,
-                EventObserver {
-                    progressBar.visibility = if (it) {
-                        View.VISIBLE
-                    } else {
-                        View.GONE
-                    }
                 }
             )
         }

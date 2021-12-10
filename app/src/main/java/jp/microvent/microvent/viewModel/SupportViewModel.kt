@@ -32,6 +32,10 @@ class SupportViewModel(
         MutableLiveData()
     }
 
+    val hasReadQr: MutableLiveData<Boolean> by lazy {
+        MutableLiveData(hasReadQr())
+    }
+
     fun onClickTextManualButton() {
         transactionToTextManual.value = Event("transactionToTextManual")
     }

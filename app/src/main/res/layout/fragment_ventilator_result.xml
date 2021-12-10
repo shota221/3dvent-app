@@ -305,12 +305,13 @@
             android:id="@+id/bt_ventiltor_result_to_ventilator_setting"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:onClick="@{()->ventilatorResultViewModel.onClickButton()}"
             android:text="@string/back_to_ventilator_setting"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="653dp" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_estimated_peep" />
 
         <TextView
             android:id="@+id/tv_airway_pressure_value"

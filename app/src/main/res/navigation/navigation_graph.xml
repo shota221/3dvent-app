@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/qr_reading_fragment"
         android:name="jp.microvent.microvent.view.ui.QrReadingFragment"
-        android:label="fragment_qr_reading">
+        android:label="@string/qr_reading">
         <action
             android:id="@+id/action_qr_reading_to_patient_setting"
             app:destination="@id/patient_setting_fragment" />
@@ -19,11 +19,11 @@
     <fragment
         android:id="@+id/auth_fragment"
         android:name="jp.microvent.microvent.view.ui.AuthFragment"
-        android:label="fragment_auth"
+        android:label="@string/auth"
         tools:layout="@layout/fragment_auth">
         <action
             android:id="@+id/action_auth_to_qr_reading"
-            app:destination="@id/navi_qr_reading" />
+            app:destination="@id/qr_reading_fragment" />
         <action
             android:id="@+id/action_auth_to_patient_setting"
             app:destination="@id/patient_setting_fragment" />
@@ -35,7 +35,7 @@
     <fragment
         android:id="@+id/patient_setting_fragment"
         android:name="jp.microvent.microvent.view.ui.PatientSettingFragment"
-        android:label="fragment_patient_setting"
+        android:label="@string/patient_setting"
         tools:layout="@layout/fragment_patient_setting">
         <action
             android:id="@+id/action_patient_setting_to_ventilator_setting"
@@ -48,7 +48,7 @@
     <fragment
         android:id="@+id/ventilator_setting_fragment"
         android:name="jp.microvent.microvent.view.ui.VentilatorSettingFragment"
-        android:label="fragment_ventilator_setting"
+        android:label="@string/data_input"
         tools:layout="@layout/fragment_ventilator_setting">
         <action
             android:id="@+id/action_ventilator_setting_to_manual_measurement"
@@ -61,7 +61,7 @@
     <fragment
         android:id="@+id/manual_measurement_fragment"
         android:name="jp.microvent.microvent.view.ui.ManualMeasurementFragment"
-        android:label="fragment_manual_measurement"
+        android:label="@string/manual_measurement"
         tools:layout="@layout/fragment_manual_measurement">
         <action
             android:id="@+id/action_manual_measurement_pop"
@@ -77,7 +77,7 @@
     <fragment
         android:id="@+id/sound_measurement_fragment"
         android:name="jp.microvent.microvent.view.ui.SoundMeasurementFragment"
-        android:label="fragment_sound_measurement"
+        android:label="@string/sound_measurement"
         tools:layout="@layout/fragment_sound_measurement">
         <action
             android:id="@+id/action_sound_measurement_pop"
@@ -96,7 +96,7 @@
     <fragment
         android:id="@+id/ventilator_result_fragment"
         android:name="jp.microvent.microvent.view.ui.VentilatorResultFragment"
-        android:label="fragment_ventilator_result"
+        android:label="@string/ventilator_result"
         tools:layout="@layout/fragment_ventilator_result">
         <action
             android:id="@+id/action_ventilator_result_to_ventilator_setting"
@@ -107,22 +107,9 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navi_home"
-        android:name="jp.microvent.microvent.view.ui.PatientSettingFragment"
-        android:label="fragment_patient_setting">
-        <action
-            android:id="@+id/action_patient_setting_to_ventilator_setting"
-            app:destination="@id/ventilator_setting_fragment" />
-        <action
-            android:id="@+id/action_patient_setting_to_qr_reading"
-            app:destination="@id/qr_reading_fragment" />
-    </fragment>
-
-
-    <fragment
-        android:id="@+id/navi_setting"
+        android:id="@+id/setting_fragment"
         android:name="jp.microvent.microvent.view.ui.SettingFragment"
-        android:label="fragment_setting">
+        android:label="@string/setting">
         <action
             android:id="@+id/action_setting_to_user_data_detail"
             app:destination="@+id/user_data_detail_fragment" />
@@ -132,9 +119,9 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navi_support"
+        android:id="@+id/support_fragment"
         android:name="jp.microvent.microvent.view.ui.SupportFragment"
-        android:label="fragment_setting">
+        android:label="@string/support">
         <action
             android:id="@+id/action_support_to_text_manual"
             app:destination="@id/text_manual_fragment" />
@@ -150,21 +137,9 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navi_qr_reading"
-        android:name="jp.microvent.microvent.view.ui.QrReadingFragment"
-        android:label="fragment_qr_reading">
-        <action
-            android:id="@+id/action_qr_reading_to_patient_setting"
-            app:destination="@id/patient_setting_fragment" />
-        <action
-            android:id="@+id/action_qr_reading_to_ventilator_setting"
-            app:destination="@id/ventilator_setting_fragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/navi_patient_info"
+        android:id="@+id/patient_info_fragment"
         android:name="jp.microvent.microvent.view.ui.PatientInfoFragment"
-        android:label="fragment_patient_info">
+        android:label="@string/patient_info">
         <action
             android:id="@+id/action_patient_info_to_patient_basic_info_detail"
             app:destination="@id/patient_basic_info_detail_fragment" />
@@ -185,7 +160,7 @@
     <fragment
         android:id="@+id/patient_basic_info_detail_fragment"
         android:name="jp.microvent.microvent.view.ui.PatientBasicInfoDetailFragment"
-        android:label="fragment_patient_basic_info_detail">
+        android:label="@string/patient_basic_info">
         <action
             android:id="@+id/action_patient_basic_info_detail_to_update"
             app:destination="@id/patient_basic_info_update_fragment" />
@@ -195,7 +170,7 @@
     <fragment
         android:id="@+id/patient_basic_info_update_fragment"
         android:name="jp.microvent.microvent.view.ui.PatientBasicInfoUpdateFragment"
-        android:label="fragment_patient_basic_info_update">
+        android:label="@string/patient_basic_info">
         <action
             android:id="@+id/action_patient_basic_info_update_to_detail"
             app:destination="@id/patient_basic_info_detail_fragment" />
@@ -208,7 +183,7 @@
     <fragment
         android:id="@+id/patient_obs_data_detail_fragment"
         android:name="jp.microvent.microvent.view.ui.PatientObsDataDetailFragment"
-        android:label="fragment_patient_obs_data_detail">
+        android:label="@string/patient_obs_data">
         <action
             android:id="@+id/action_patient_obs_detail_to_update"
             app:destination="@id/patient_obs_data_update_fragment" />
@@ -218,7 +193,7 @@
     <fragment
         android:id="@+id/patient_obs_data_update_fragment"
         android:name="jp.microvent.microvent.view.ui.PatientObsDataUpdateFragment"
-        android:label="fragment_patient_obs_data_update">
+        android:label="@string/patient_obs_data">
         <action
             android:id="@+id/action_patient_obs_update_to_detail"
             app:destination="@id/patient_obs_data_detail_fragment" />
@@ -231,7 +206,7 @@
     <fragment
         android:id="@+id/measurement_data_fragment"
         android:name="jp.microvent.microvent.view.ui.MeasurementDataFragment"
-        android:label="fragment_measurement_data">
+        android:label="@string/measurement_data">
         <action
             android:id="@+id/action_measurement_data_to_list"
             app:destination="@id/measurement_data_list_fragment" />
@@ -243,7 +218,7 @@
     <fragment
         android:id="@+id/measurement_data_list_fragment"
         android:name="jp.microvent.microvent.view.ui.MeasurementDataListFragment"
-        android:label="fragment_measurement_data">
+        android:label="@string/prev_measurement_list">
         <action
             android:id="@+id/action_measurement_data_list_to_detail"
             app:destination="@id/measurement_data_detail_fragment" />
@@ -252,33 +227,31 @@
     <fragment
         android:id="@+id/measurement_data_detail_fragment"
         android:name="jp.microvent.microvent.view.ui.MeasurementDataDetailFragment"
-        android:label="fragment_measurement_data_detail">
+        android:label="@string/measurement_data">
         <action
             android:id="@+id/action_measurement_data_detail_to_update"
             app:destination="@id/measurement_data_update_fragment" />
         <argument
             android:name="ventilatorValueId"
             app:argType="integer" />
-
     </fragment>
 
     <fragment
         android:id="@+id/measurement_data_update_fragment"
         android:name="jp.microvent.microvent.view.ui.MeasurementDataUpdateFragment"
-        android:label="fragment_measurement_data_update">
+        android:label="@string/measurement_data">
         <action
             android:id="@+id/action_measurement_data_update_to_detail"
             app:destination="@id/measurement_data_detail_fragment" />
         <argument
             android:name="ventilatorValue"
             app:argType="jp.microvent.microvent.service.model.VentilatorValue" />
-
     </fragment>
 
     <fragment
         android:id="@+id/ventilator_data_detail_fragment"
         android:name="jp.microvent.microvent.view.ui.VentilatorDataDetailFragment"
-        android:label="fragment_ventilator_data_detail">
+        android:label="@string/ventilator_data">
         <action
             android:id="@+id/action_ventilator_data_detail_to_update"
             app:destination="@id/ventilator_data_update_fragment" />
@@ -287,7 +260,7 @@
     <fragment
         android:id="@+id/ventilator_data_update_fragment"
         android:name="jp.microvent.microvent.view.ui.VentilatorDataUpdateFragment"
-        android:label="fragment_ventilator_data_update">
+        android:label="@string/ventilator_data">
         <action
             android:id="@+id/action_ventilator_data_update_to_detail"
             app:destination="@id/ventilator_data_detail_fragment" />
@@ -308,7 +281,7 @@
     <fragment
         android:id="@+id/user_data_detail_fragment"
         android:name="jp.microvent.microvent.view.ui.UserDataDetailFragment"
-        android:label="fragment_user_data_detail">
+        android:label="@string/user_data">
         <action
             android:id="@+id/action_user_data_detail_to_update"
             app:destination="@id/user_data_update_fragment" />
@@ -317,7 +290,7 @@
     <fragment
         android:id="@+id/user_data_update_fragment"
         android:name="jp.microvent.microvent.view.ui.UserDataUpdateFragment"
-        android:label="fragment_user_data_update">
+        android:label="@string/user_data">
         <action
             android:id="@+id/action_user_data_update_to_detail"
             app:destination="@id/user_data_detail_fragment" />
@@ -370,8 +343,7 @@
     <fragment
         android:id="@+id/help_fragment"
         android:name="jp.microvent.microvent.view.ui.HelpFragment"
-        android:label="fragment_help"
-        android:tag="handlingBackPressed">
+        android:label="@string/help">
         <argument
             android:name="urlPath"
             app:argType="string" />

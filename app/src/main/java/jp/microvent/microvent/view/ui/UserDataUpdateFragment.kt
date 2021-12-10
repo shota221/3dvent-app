@@ -53,48 +53,6 @@ class UserDataUpdateFragment : BaseFragment() {
                     findNavController().navigate(R.id.action_user_data_update_to_detail)
                 }
             )
-
-
-            transitionToAuth.observe(
-                viewLifecycleOwner, EventObserver {
-                    findNavController().navigate(R.id.action_to_auth)
-                }
-            )
-
-            /**
-             * 通信エラーダイアログの表示
-             */
-            showDialogConnectionError.observe(
-                viewLifecycleOwner,
-                EventObserver {
-                    val dialog = DialogConnectionErrorFragment()
-                    dialog.show(requireActivity().supportFragmentManager, it)
-                }
-            )
-
-            /**
-             * トースト表示
-             */
-            showToast.observe(
-                viewLifecycleOwner,
-                EventObserver {
-                    Toast.makeText(requireActivity(), it, Toast.LENGTH_LONG).show()
-                }
-            )
-
-            /**
-             * プログレスバー制御
-             */
-            setProgressBar.observe(
-                viewLifecycleOwner,
-                EventObserver {
-                    progressBar.visibility = if (it) {
-                        View.VISIBLE
-                    } else {
-                        View.GONE
-                    }
-                }
-            )
         }
 
         return binding.root

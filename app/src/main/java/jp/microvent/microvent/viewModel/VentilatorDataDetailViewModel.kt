@@ -13,6 +13,7 @@ import jp.microvent.microvent.viewModel.util.Event
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import java.net.ConnectException
 
 
 class VentilatorDataDetailViewModel(
@@ -35,20 +36,20 @@ class VentilatorDataDetailViewModel(
         viewModelScope.launch {
             try {
                 if(loggedIn()){
-                    repository.getVentilator(latestGs1Code, appkey, userToken)
+                    repository.getVentilator(sharedCurrentVentilator.gs1Code, sharedAccessToken.appkey, sharedAccessToken.userToken)
                 }else{
-                    repository.getVentilatorNoAuth(latestGs1Code, appkey)
+                    repository.getVentilatorNoAuth(sharedCurrentVentilator.gs1Code, sharedAccessToken.appkey)
                 }.let { res ->
                     if (res.isSuccessful) {
                         res.body()?.result?.let {
                             ventilator.postValue(it)
                         }
                     } else {
-                        errorHandling(res)
+                        handleErrorResponse(res)
                     }
                 }
-            } catch (e: Exception) {
-                showDialogConnectionError.value = Event("connect_error")
+            } catch (e: ConnectException) {
+                handleConnectionError()
             }
         }
     }

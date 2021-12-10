@@ -59,15 +59,15 @@ class PatientSettingViewModel(
     }
 
     init {
-        if(ventilatorId == null) {
+        if(sharedCurrentVentilator.ventilatorId == null) {
             transitionToQrReading.value = Event("transitionToQrReading")
         }
         //現在読み込んでいるventilatorにpatientId登録済みである場合はventilator_settingへ移動
-        if(patientId != null) {
+        if(sharedCurrentVentilator.patientId != null) {
             transitionToVentilatorSetting.value = Event("transitionToVentilatorSetting")
         }
-        setUnit(heightLabel,context.getString(R.string.height_label),context.getString(R.string.height_pref_key))
-        setUnit(weightLabel,context.getString(R.string.weight_label),context.getString(R.string.weight_pref_key))
+        sharedUnits.setUnit(heightLabel,context.getString(R.string.height_label),context.getString(R.string.height_pref_key))
+        sharedUnits.setUnit(weightLabel,context.getString(R.string.weight_label),context.getString(R.string.weight_pref_key))
     }
 
     fun onItemSelected(genderSelected: Int) {
@@ -85,36 +85,28 @@ class PatientSettingViewModel(
                 val gender = gender.value?.toInt()
                 val patientNumber = patientNumber.value
                 val createPatientForm =
-                    CreatePatientForm(height, weight, gender, patientNumber, ventilatorId)
+                    CreatePatientForm(height, weight, gender, patientNumber, sharedCurrentVentilator.ventilatorId)
                 if (!loggedIn()) {
-                    repository.createPatientNoAuth(createPatientForm, appkey)
+                    repository.createPatientNoAuth(createPatientForm, sharedAccessToken.appkey)
                 } else {
-                    repository.createPatient(createPatientForm, appkey, userToken)
+                    repository.createPatient(createPatientForm, sharedAccessToken.appkey, sharedAccessToken.userToken)
                 }.let {
                     if (it.isSuccessful) {
                         it.body()?.result?.let {
                             //postValueだと非同期となりセットされる前に画面遷移されるためここはsetValueを使う
                             predictedVt.value = it.predictedVt
-                            with(currentVentilatorPref.edit()) {
-                                putInt(
-                                    "patientId",
-                                    it.patientId.toInt()
-                                )
-
-                                commit()
-                            }
-                            transitionToVentilatorSetting.value =
-                                jp.microvent.microvent.viewModel.util.Event("transitionToVentilatorSetting")
+                            sharedCurrentVentilator.patientId = it.patientId
+                            transitionToVentilatorSetting.value = Event("transitionToVentilatorSetting")
                         }
 
                     } else {
-                        errorHandling(it)
+                        handleErrorResponse(it)
                     }
                 }
 
 
-            } catch (e: Exception) {
-                showDialogConnectionError.value = Event("connection_error")
+            } catch (e: ConnectException) {
+                handleConnectionError()
             }
 
             setProgressBar.value = Event(false)

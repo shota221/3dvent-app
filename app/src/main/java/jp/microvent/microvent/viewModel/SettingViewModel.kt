@@ -36,11 +36,11 @@ class SettingViewModel(
 
     fun onClickLogoutButton() {
         try {
-            resetUserToken().let {
+            sharedAccessToken.resetUserToken().let {
                 transitionToAuth.value = Event("transitionToAuth")
             }
         } catch (e: ConnectException) {
-            showDialogConnectionError.value = Event("connect_error")
+            handleConnectionError()
         }
     }
 
