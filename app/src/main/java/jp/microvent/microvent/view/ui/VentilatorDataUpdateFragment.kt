@@ -21,7 +21,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import jp.microvent.microvent.R
-import jp.microvent.microvent.databinding.FragmentTestBinding
 import jp.microvent.microvent.databinding.FragmentVentilatorDataUpdateBinding
 import jp.microvent.microvent.view.ui.dialog.DialogConnectionErrorFragment
 import jp.microvent.microvent.view.ui.dialog.DialogDatePickerFragment

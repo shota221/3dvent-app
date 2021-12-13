@@ -22,7 +22,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import jp.microvent.microvent.R
 import jp.microvent.microvent.databinding.FragmentPatientObsDataUpdateBinding
-import jp.microvent.microvent.databinding.FragmentTestBinding
 import jp.microvent.microvent.service.enum.*
 import jp.microvent.microvent.view.adapter.SpinnerBinder
 import jp.microvent.microvent.view.ui.dialog.DialogConnectionErrorFragment

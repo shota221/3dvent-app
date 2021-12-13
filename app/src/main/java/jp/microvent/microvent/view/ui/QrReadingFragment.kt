@@ -31,7 +31,6 @@ import jp.microvent.microvent.view.permission.AccessLocationPermission
 import jp.microvent.microvent.view.permission.CameraPermission
 import jp.microvent.microvent.view.ui.dialog.DialogConnectionErrorFragment
 import jp.microvent.microvent.viewModel.QrReadingViewModel
-import jp.microvent.microvent.viewModel.TestViewModel
 import jp.microvent.microvent.viewModel.util.CodeScanner
 import jp.microvent.microvent.viewModel.util.EventObserver
 

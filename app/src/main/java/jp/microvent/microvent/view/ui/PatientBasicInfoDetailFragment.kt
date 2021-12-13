@@ -15,7 +15,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.fragment.findNavController
 import jp.microvent.microvent.R
 import jp.microvent.microvent.databinding.FragmentPatientBasicInfoDetailBinding
-import jp.microvent.microvent.databinding.FragmentTestBinding
 import jp.microvent.microvent.view.ui.dialog.DialogConnectionErrorFragment
 import jp.microvent.microvent.viewModel.PatientBasicInfoDetailViewModel
 import jp.microvent.microvent.viewModel.util.EventObserver

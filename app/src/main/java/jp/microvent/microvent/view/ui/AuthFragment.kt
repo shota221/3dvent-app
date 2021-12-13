@@ -21,7 +21,6 @@ import jp.microvent.microvent.view.permission.AccessLocationPermission
 import jp.microvent.microvent.view.ui.dialog.DialogConfirmLogoutOnAnotherTerminalFragment
 import jp.microvent.microvent.view.ui.dialog.DialogConnectionErrorFragment
 import jp.microvent.microvent.viewModel.AuthViewModel
-import jp.microvent.microvent.viewModel.TestViewModel
 import jp.microvent.microvent.viewModel.util.Event
 import jp.microvent.microvent.viewModel.util.EventObserver
 import java.lang.Exception
