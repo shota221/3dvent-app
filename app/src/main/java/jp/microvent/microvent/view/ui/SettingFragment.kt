@@ -46,6 +46,13 @@ class SettingFragment : BaseFragment() {
                     findNavController().navigate(R.id.action_setting_to_ventilator_deactivation)
                 }
             )
+
+            transitionToLogout.observe(
+                viewLifecycleOwner,
+                EventObserver {
+                    findNavController().navigate(R.id.action_setting_to_logout)
+                }
+            )
         }
         return binding.root
     }

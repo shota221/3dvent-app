@@ -34,14 +34,12 @@ class SettingViewModel(
         MutableLiveData()
     }
 
+    val transitionToLogout: MutableLiveData<Event<String>> by lazy {
+        MutableLiveData()
+    }
+
     fun onClickLogoutButton() {
-        try {
-            sharedAccessToken.resetUserToken().let {
-                transitionToAuth.value = Event("transitionToAuth")
-            }
-        } catch (e: ConnectException) {
-            handleConnectionError()
-        }
+        transitionToLogout.value = Event("transitionToLogout")
     }
 
     fun onClickUserDataButton() {

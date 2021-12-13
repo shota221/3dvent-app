@@ -116,6 +116,9 @@
         <action
             android:id="@+id/action_setting_to_ventilator_deactivation"
             app:destination="@id/ventilator_deactivation_fragment" />
+        <action
+            android:id="@+id/action_setting_to_logout"
+            app:destination="@id/logout_fragment" />
     </fragment>
 
     <fragment
@@ -277,6 +280,11 @@
             android:id="@+id/action_ventilator_deactivation_to_qr_reading"
             app:destination="@id/qr_reading_fragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/logout_fragment"
+        android:name="jp.microvent.microvent.view.ui.LogoutFragment"
+        android:label="@string/logout"/>
 
     <fragment
         android:id="@+id/user_data_detail_fragment"
