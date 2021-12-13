@@ -24,17 +24,16 @@ enum class Gender {
         /**
          * 逆引き用
          */
-        fun buildGender(i :Int?):Gender?{
-            Gender.values().forEach{
-                if(it.ordinal == i) return it
+        fun buildGender(i: Int?): Gender? {
+            return Gender.values().firstOrNull {
+                it.ordinal == i
             }
-            return null
         }
 
         /**
          * スピナーセット用
          */
-        fun getStringList(context: Context):List<String>{
+        fun getStringList(context: Context): List<String> {
             return Gender.values().map {
                 it.getString(context)
             }

@@ -42,11 +42,10 @@ enum class UsedPlace {
         /**
          * 逆引き用
          */
-        fun buildUsedPlace(i :Int?):UsedPlace?{
-            UsedPlace.values().forEach{
-                if(it.ordinal == i) return it
+        fun buildUsedPlace(i: Int?): UsedPlace? {
+            return UsedPlace.values().firstOrNull {
+                it.ordinal == i
             }
-            return null
         }
 
         /**

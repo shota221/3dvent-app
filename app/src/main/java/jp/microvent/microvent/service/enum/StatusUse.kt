@@ -30,11 +30,10 @@ enum class StatusUse {
         /**
          * 逆引き用
          */
-        fun buildStatusUse(i :Int?):StatusUse?{
-            StatusUse.values().forEach{
-                if(it.ordinal == i) return it
+        fun buildStatusUse(i: Int?): StatusUse? {
+            return StatusUse.values().firstOrNull {
+                it.ordinal == i
             }
-            return null
         }
 
         /**

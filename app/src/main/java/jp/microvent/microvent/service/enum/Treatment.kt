@@ -35,11 +35,10 @@ enum class Treatment {
         /**
          * 逆引き用
          */
-        fun buildTreatment(i :Int?):Treatment?{
-            Treatment.values().forEach{
-                if(it.ordinal == i) return it
+        fun buildTreatment(i: Int?): Treatment? {
+            return Treatment.values().firstOrNull {
+                it.ordinal == i
             }
-            return null
         }
 
         /**

@@ -130,13 +130,6 @@ class MicroventRepository {
     ): Response<ApiResult<Ie>> =
         microventApiService.calcIeSound(ieSoundFetchForm, appkey)
 
-    suspend fun soundSampling(
-        ieSoundFetchForm: IeSoundFetchForm?,
-        apiToken: String?
-    ): Response<Test> =
-        microventApiService.soundSampling(ieSoundFetchForm, apiToken)
-
-
     /***********
      * patient *
      ***********/

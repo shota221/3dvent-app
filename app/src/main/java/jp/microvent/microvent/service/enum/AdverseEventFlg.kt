@@ -4,7 +4,7 @@ import android.content.Context
 import jp.microvent.microvent.R
 
 /**
- * 多言語化用Enum
+ * 多言語化用Enum:Todo共通化
  */
 enum class AdverseEventFlg {
     NONE {
@@ -14,24 +14,23 @@ enum class AdverseEventFlg {
         override fun getString(context: Context): String = context.getString(R.string.exists)
     };
 
-    abstract fun getString(context: Context):String
+    abstract fun getString(context: Context): String
 
 
-    companion object{
+    companion object {
         /**
          * 逆引き用
          */
-        fun buildAdverseEventFlg(i :Int?):AdverseEventFlg?{
-            AdverseEventFlg.values().forEach{
-                if(it.ordinal == i) return it
+        fun buildAdverseEventFlg(i: Int?): AdverseEventFlg? {
+            return AdverseEventFlg.values().firstOrNull {
+                it.ordinal == i
             }
-            return null
         }
 
         /**
          * スピナーセット用
          */
-        fun getStringList(context: Context):List<String>{
+        fun getStringList(context: Context): List<String> {
             return AdverseEventFlg.values().map {
                 it.getString(context)
             }

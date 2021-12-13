@@ -30,11 +30,10 @@ enum class Outcome {
         /**
          * 逆引き用
          */
-        fun buildOutcome(i :Int?):Outcome?{
-            Outcome.values().forEach{
-                if(it.ordinal == i) return it
+        fun buildOutcome(i: Int?): Outcome? {
+            return Outcome.values().firstOrNull {
+                it.ordinal == i
             }
-            return null
         }
 
         /**

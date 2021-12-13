@@ -20,11 +20,10 @@ enum class OptOutFlg {
         /**
          * 逆引き用
          */
-        fun buildOptOutFlg(i :Int?):OptOutFlg?{
-            OptOutFlg.values().forEach{
-                if(it.ordinal == i) return it
+        fun buildOptOutFlg(i: Int?): OptOutFlg? {
+            return OptOutFlg.values().firstOrNull {
+                it.ordinal == i
             }
-            return null
         }
 
         /**

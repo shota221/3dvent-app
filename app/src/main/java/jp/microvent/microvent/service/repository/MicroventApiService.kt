@@ -97,14 +97,6 @@ interface MicroventApiService {
         @Header("X-App-Key") appkey: String?
     ): Response<ApiResult<Ie>>
 
-    @Headers("Content-Type:application/json; charset=UTF-8")
-    @POST("calculate/ie/sound_sampling")
-    suspend fun soundSampling(
-        @Body ieSoundFetchForm: IeSoundFetchForm?,
-        @Header("X-Api-Token") appkey: String?
-    ): Response<Test>
-
-
     /***********
      * patient *
      ***********/
