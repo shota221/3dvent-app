@@ -40,9 +40,10 @@ class AppWebViewClient(
         callback.onReceivedHttpError()
     }
 
-    override fun onReceivedSslError(view: WebView?, handler: SslErrorHandler?, error: SslError?) {
-        handler?.proceed()
-    }
+//    //ローカル環境でssl証明がない場合にも表示する用
+//    override fun onReceivedSslError(view: WebView?, handler: SslErrorHandler?, error: SslError?) {
+//        handler?.proceed()
+//    }
 }
 
 interface AppWebViewClientCallBack {

@@ -1,5 +1,7 @@
 package jp.microvent.microvent.view.ui
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -19,6 +21,7 @@ import jp.microvent.microvent.databinding.FragmentPatientInfoBinding
 import jp.microvent.microvent.databinding.FragmentSupportBinding
 import jp.microvent.microvent.view.ui.dialog.DialogConnectionErrorFragment
 import jp.microvent.microvent.view.ui.dialog.DialogNoPatientLinkedFragment
+import jp.microvent.microvent.viewModel.ChatViewModel
 import jp.microvent.microvent.viewModel.PatientInfoViewModel
 import jp.microvent.microvent.viewModel.SupportViewModel
 import jp.microvent.microvent.viewModel.util.EventObserver
@@ -26,6 +29,7 @@ import jp.microvent.microvent.viewModel.util.EventObserver
 class SupportFragment : BaseFragment(),DialogNoPatientLinkedFragment.DialogNoPatientLinkedListener {
 
     override val viewModel by viewModels<SupportViewModel>()
+    val chatViewModel by viewModels<ChatViewModel>()
 
     private lateinit var binding: FragmentSupportBinding
 
@@ -61,7 +65,11 @@ class SupportFragment : BaseFragment(),DialogNoPatientLinkedFragment.DialogNoPat
             )
             transactionToChat.observe(
                 viewLifecycleOwner, EventObserver {
-                    findNavController().navigate(R.id.action_support_to_chat)
+//                    findNavController().navigate(R.id.action_support_to_chat)
+                    chatViewModel.roomUri.value?.let{
+                        val intent: Intent = Intent(Intent.ACTION_VIEW, Uri.parse(it))
+                        startActivity(intent)
+                    }
                 }
             )
         }

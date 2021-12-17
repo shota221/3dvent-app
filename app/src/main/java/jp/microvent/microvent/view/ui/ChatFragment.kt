@@ -1,5 +1,8 @@
 package jp.microvent.microvent.view.ui
 
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -40,6 +43,7 @@ class ChatFragment : WebViewBaseFragment() {
         return binding.root
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -62,7 +66,12 @@ class ChatFragment : WebViewBaseFragment() {
 
             settings.javaScriptEnabled = true
 
-            viewModel.roomUri.value?.let { loadUrl(it) }
+            viewModel.roomUri.value?.let {
+                //todo:webview表示。なぜかレンダリングが途中で止まる
+//                loadUrl(it)
+                val intent: Intent = Intent(Intent.ACTION_VIEW, Uri.parse(it))
+                startActivity(intent)
+            }
         }
     }
 

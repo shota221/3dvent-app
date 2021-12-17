@@ -20,8 +20,8 @@ import jp.microvent.microvent.viewModel.HelpViewModel
 import java.lang.Exception
 import java.net.ConnectException
 
-//private const val BASE_URL = "http://manual.microvent.r102.jp/"
-private const val BASE_URL = "http://manual.microvent.local/text/"
+private const val BASE_URL = "https://manual.microvent.r102.jp/text/"
+//private const val BASE_URL = "http://manual.microvent.local/text/"
 
 class HelpFragment : WebViewBaseFragment(), OnBackKeyPressedListener {
     override val viewModel by viewModels<HelpViewModel>()

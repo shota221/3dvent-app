@@ -13,7 +13,8 @@ import jp.microvent.microvent.databinding.FragmentTextManualBinding
 import jp.microvent.microvent.service.AppWebViewClient
 import jp.microvent.microvent.viewModel.TextManualViewModel
 
-private const val BASE_URL = "http://manual.microvent.local/text/"
+private const val BASE_URL = "https://manual.microvent.r102.jp/text/"
+//private const val BASE_URL = "http://manual.microvent.local/text/"
 
 class TextManualFragment : WebViewBaseFragment(), OnBackKeyPressedListener {
     override val viewModel by viewModels<TextManualViewModel>()

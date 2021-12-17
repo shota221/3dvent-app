@@ -13,7 +13,8 @@ import jp.microvent.microvent.databinding.FragmentVideoManualBinding
 import jp.microvent.microvent.service.AppWebViewClient
 import jp.microvent.microvent.viewModel.VideoManualViewModel
 
-private const val BASE_URL = "http://manual.microvent.local/video/"
+private const val BASE_URL = "https://manual.microvent.r102.jp/video/"
+//private const val BASE_URL = "http://manual.microvent.local/video/"
 
 class VideoManualFragment : WebViewBaseFragment(), OnBackKeyPressedListener {
     override val viewModel by viewModels<VideoManualViewModel>()
