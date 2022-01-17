@@ -11,13 +11,14 @@ import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.util.*
 
 //forLocal
-//const val MICROVENT_URL = "http://api.microvent.local/"
-//const val API_TOKEN = "secret"
+const val MICROVENT_URL = "http://api.microvent.local/"
+const val API_TOKEN = "secret"
 //forDev
-const val MICROVENT_URL = "https://api.microvent.r102.jp/"
-const val API_TOKEN = "secret_for_dev"
+//const val MICROVENT_URL = "https://api.microvent.r102.jp/"
+//const val API_TOKEN = "secret_for_dev"
 
 class MicroventRepository {
     companion object Factory {
@@ -37,10 +38,12 @@ class MicroventRepository {
         //リクエスト内容に対する干渉を記述(header付与)等
         Interceptor { chain ->
             val original = chain.request()
+            val languageCode:String = Locale.getDefault().language
 
             chain.proceed(
                 original.newBuilder()
                     .header("Accept", "application/json")
+                    .header("Accept-Language", languageCode)
                     .build()
             )
         }

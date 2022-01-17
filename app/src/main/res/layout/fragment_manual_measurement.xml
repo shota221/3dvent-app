@@ -52,11 +52,11 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_inhalation_first"
+            android:id="@+id/tv_exhalation_first"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/fragment_vertical_margin_top"
-            android:text="@{manualMeasurementViewModel.inhalationFirstLabel}"
+            android:text="@{manualMeasurementViewModel.exhalationFirstLabel}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -68,8 +68,8 @@
             android:text="@string/required"
             android:textColor="@color/required"
             android:textSize="@dimen/tv_text_size_small"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_inhalation_first"
-            app:layout_constraintStart_toEndOf="@+id/tv_inhalation_first" />
+            app:layout_constraintBottom_toBottomOf="@+id/tv_exhalation_first"
+            app:layout_constraintStart_toEndOf="@+id/tv_exhalation_first" />
 
         <TextView
             android:id="@+id/tv_required6"
@@ -78,21 +78,11 @@
             android:text="@string/required"
             android:textColor="@color/required"
             android:textSize="@dimen/tv_text_size_small"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_exhalation_first"
-            app:layout_constraintStart_toEndOf="@+id/tv_exhalation_first" />
+            app:layout_constraintBottom_toBottomOf="@+id/tv_respirations_per_10sec_first"
+            app:layout_constraintStart_toEndOf="@+id/tv_respirations_per_10sec_first" />
 
         <TextView
             android:id="@+id/tv_required7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/required"
-            android:textColor="@color/required"
-            android:textSize="@dimen/tv_text_size_small"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_inhalation_second"
-            app:layout_constraintStart_toEndOf="@+id/tv_inhalation_second" />
-
-        <TextView
-            android:id="@+id/tv_required8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/required"
@@ -102,21 +92,21 @@
             app:layout_constraintStart_toEndOf="@+id/tv_exhalation_second" />
 
         <TextView
-            android:id="@+id/tv_exhalation_first"
+            android:id="@+id/tv_required8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@{manualMeasurementViewModel.exhalationFirstLabel}"
-            android:textSize="@dimen/tv_text_size"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_inhalation_first" />
+            android:text="@string/required"
+            android:textColor="@color/required"
+            android:textSize="@dimen/tv_text_size_small"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_respirations_per_10sec_second"
+            app:layout_constraintStart_toEndOf="@+id/tv_respirations_per_10sec_second" />
 
         <TextView
-            android:id="@+id/tv_inhalation_second"
+            android:id="@+id/tv_respirations_per_10sec_first"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@{manualMeasurementViewModel.inhalationSecondLabel}"
+            android:text="@string/respirations_per_10sec_first"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_exhalation_first" />
@@ -129,7 +119,17 @@
             android:text="@{manualMeasurementViewModel.exhalationSecondLabel}"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_inhalation_second" />
+            app:layout_constraintTop_toBottomOf="@+id/et_respirations_per_10sec_first" />
+
+        <TextView
+            android:id="@+id/tv_respirations_per_10sec_second"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/respirations_per_10sec_second"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_exhalation_second" />
 
         <TextView
             android:id="@+id/tv_average_inhalation_time"
@@ -170,19 +170,6 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_average_inhalation_time" />
 
         <EditText
-            android:id="@+id/et_inhalation_first"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:ems="10"
-            android:inputType="numberSigned|text"
-            android:textSize="@dimen/et_text_size"
-            android:text="@={manualMeasurementViewModel.inhalationFirst}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_inhalation_first" />
-
-        <EditText
             android:id="@+id/et_exhalation_first"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -192,23 +179,22 @@
             android:textSize="@dimen/et_text_size"
             android:text="@={manualMeasurementViewModel.exhalationFirst}"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_exhalation_first" />
 
         <EditText
-            android:id="@+id/et_inhalation_second"
+            android:id="@+id/et_respirations_per_10sec_first"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:ems="10"
             android:inputType="numberSigned|text"
             android:textSize="@dimen/et_text_size"
-            android:text="@={manualMeasurementViewModel.inhalationSecond}"
+            android:text="@={manualMeasurementViewModel.respirationsPer10secFirst}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_inhalation_second" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_respirations_per_10sec_first" />
 
         <EditText
             android:id="@+id/et_exhalation_second"
@@ -224,6 +210,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_exhalation_second" />
 
+        <EditText
+            android:id="@+id/et_respirations_per_10sec_second"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="numberSigned|text"
+            android:textSize="@dimen/et_text_size"
+            android:text="@={manualMeasurementViewModel.respirationsPer10secSecond}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_respirations_per_10sec_second" />
+
         <Button
             android:id="@+id/bt_calculate_average_manual"
             android:layout_width="0dp"
@@ -234,7 +234,7 @@
             android:onClick="@{()->manualMeasurementViewModel.onClickCalculateAverageButton()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_exhalation_second" />
+            app:layout_constraintTop_toBottomOf="@+id/et_respirations_per_10sec_second" />
 
         <Button
             android:id="@+id/bt_manual_measurement_to_ventilator_result"

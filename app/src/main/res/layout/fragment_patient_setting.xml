@@ -25,6 +25,16 @@
             app:layout_constraintStart_toEndOf="@+id/tv_height_label" />
 
         <TextView
+            android:id="@+id/tv_required11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/required"
+            android:textColor="@color/required"
+            android:textSize="@dimen/tv_text_size_small"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_weight_label"
+            app:layout_constraintStart_toEndOf="@+id/tv_weight_label" />
+
+        <TextView
             android:id="@+id/tv_required9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

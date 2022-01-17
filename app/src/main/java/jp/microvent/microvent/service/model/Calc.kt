@@ -23,9 +23,11 @@ data class EstimatedData(
     val fio2: String
 )
 
+@JsonClass(generateAdapter = true)
 data class IeManualFetchFormDataListElm(
-    var i: String?,
-    var e: String?
+    var e: String?,
+    @Json(name = "respirations_per_10sec")
+    var respirationsPer10sec: String?
 )
 
 data class IeManualFetchForm(

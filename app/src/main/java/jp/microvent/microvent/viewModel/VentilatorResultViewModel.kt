@@ -4,10 +4,12 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
 import jp.microvent.microvent.R
+import jp.microvent.microvent.service.enum.Gender
 import jp.microvent.microvent.service.model.CreatePatientForm
 import jp.microvent.microvent.service.model.CreatedPatient
 import jp.microvent.microvent.service.model.Patient
 import jp.microvent.microvent.service.model.VentilatorValue
+import jp.microvent.microvent.service.repository.SharedCurrentVentilatorRepository
 import jp.microvent.microvent.viewModel.util.Event
 import kotlinx.coroutines.launch
 import java.lang.Exception
@@ -36,6 +38,7 @@ class VentilatorResultViewModel(
     val estimatedPeep: MutableLiveData<String> = MutableLiveData()
     val airwayPressure: MutableLiveData<String> = MutableLiveData()
     val airFlow: MutableLiveData<String> = MutableLiveData()
+    val predictedVtNotation: MutableLiveData<String> = MutableLiveData()
 
     init {
         ventilatorValue.o2Flow?.let{sharedUnits.setUnit(o2Flow, it,context.getString(R.string.o2_flow_pref_key))}
@@ -49,6 +52,10 @@ class VentilatorResultViewModel(
         ventilatorValue.inspiratoryTime?.let{sharedUnits.setUnit(iAvg, it,context.getString(R.string.i_avg_pref_key))}
         ventilatorValue.expiratoryTime?.let{sharedUnits.setUnit(eAvg, it,context.getString(R.string.e_avg_pref_key))}
         ventilatorValue.airFlow?.let{sharedUnits.setUnit(airFlow, it,context.getString(R.string.air_flow_pref_key))}
+        val height = sharedCurrentVentilator.patientHeight
+        val gender = sharedCurrentVentilator.patientGender
+        val predictedVtNotationStr = context.getString(R.string.predicted_vt_notation, height, Gender.buildGender(gender)?.getString(context))
+        predictedVtNotation.postValue(predictedVtNotationStr)
     }
 
     val transitionToVentilatorSetting: MutableLiveData<Event<String>> by lazy {

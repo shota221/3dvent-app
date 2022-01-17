@@ -19,7 +19,7 @@
     <fragment
         android:id="@+id/auth_fragment"
         android:name="jp.microvent.microvent.view.ui.AuthFragment"
-        android:label="@string/auth"
+        android:label="@string/terms_and_conditions"
         tools:layout="@layout/fragment_auth">
         <action
             android:id="@+id/action_auth_to_qr_reading"

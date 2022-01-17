@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MicroVent®</string>
+    <string name="app_name">MicroVent<small><sup>®</sup></small></string>
     <string name="locale">ja</string>
 
     <!-- 全般 -->
@@ -24,7 +24,7 @@
     <!-- 単位 -->
     <string name="unit_of_height">cm</string>
     <string name="unit_of_volume">mL</string>
-    <string name="unit_of_pressure">cmH2O</string>
+    <string name="unit_of_pressure">cmH₂O</string>
     <string name="percent">%</string>
     <string name="unit_of_flow">L/min</string>
     <string name="unit_of_time">s</string>
@@ -33,20 +33,21 @@
     <!-- タブメニュー -->
     <string name="home">ホーム</string>
     <string name="patient_data">患者情報</string>
-    <string name="qr_reading">二次元コード読込</string>
+    <string name="qr_reading">GS1コード読込</string>
     <string name="support">サポート</string>
     <string name="setting">設定</string>
 
     <!-- qr_reading -->
-    <string name="scan_waiting">MicroVent®の二次元コードをスキャンしてください。</string>
+    <string name="scan_waiting">MicroVent<small><sup>®</sup></small>V3のGS1コードをスキャンしてください。</string>
 
     <!-- auth -->
     <string name="auth">認証</string>
-    <string name="registered_organization">登録組織</string>
+    <string name="terms_and_conditions">利用規約</string>
+    <string name="registered_organization">あなたの臨床チーム</string>
     <string name="unregistered">未登録</string>
-    <string name="terms_of_use">MicroVent®の使用には、機器の推奨値設定のために、性別、身長、供給器量、動作音、設定圧のデータが必要になります。また、入力されたデータ、GPS情報は個別の機器の品質管理のために製造販売会社に送信されます。（GPS機能をONにして本アプリをご利用ください。）</string>
+    <string name="terms_of_use">MicroVent<small><sup>®</sup></small>V3の使用時に、本アプリケーションを使うことで、患者の性別、身長から推奨の1回換気量を計算でき、さらに、機器への供給気量、機器の動作音と設定圧を入力することで、動作中の分時換気量（推測値）、呼吸回数（計測値）が表示可能となります。本アプリケーションを介して、あなたの臨床チームにログインすることで臨床チームはMicroVent<small><sup>®</sup></small>V3の設定データを臨床記録として残し参照および管理が可能となります。臨床チームの管理者とあなたおよび製造販売会社があなたが入力したデータおよび動作音情報にアクセスできます。GPSによる位置情報は機器の品質管理のために製造販売会社に送信されますが、その他のプライバシーデータは一切収集されません。（本アプリケーションはGPS機能をONにして使用して下さい）</string>
     <string name="agree">利用規約に同意する</string>
-    <string name="not_login">ログインせずに利用する</string>
+    <string name="not_login">ログインせずに使用</string>
     <string name="login">ログイン</string>
     <string name="account_name">アカウント名</string>
     <string name="password">パスワード</string>
@@ -62,38 +63,40 @@
     <string name="patient_code">患者番号</string>
 
     <!-- ventilator_setting -->
-    <string name="data_input">データ入力</string>
+    <string name="data_input">機器設定データ入力</string>
     <string name="predicted_value">予測値</string>
-    <string name="predicted_vt_key">Vt: </string>
-    <string name="ventilator_setting">Microvent®設定</string>
-    <string name="airway_pressure_key">設定圧: </string>
-    <string name="airway_pressure_label">設定圧（%1$s）</string>
+    <string name="predicted_vt_key">VTi: </string>
+    <string name="ventilator_setting">MicroVent<small><sup>®</sup></small>V3設定</string>
+    <string name="airway_pressure_key">設定ダイヤル圧: </string>
+    <string name="airway_pressure_label">設定ダイヤル圧（%1$s）</string>
     <string name="air_flow_key">空気流量: </string>
     <string name="air_flow_label">空気流量（%1$s）</string>
     <string name="o2_flow_key">酸素流量: </string>
     <string name="o2_flow_label">酸素流量（%1$s）</string>
     <string name="calculated_value">計算値</string>
-    <string name="fio2_key">FiO2: </string>
-    <string name="rr_key">呼吸回数: </string>
+    <string name="fio2_key">FiO₂: </string>
+    <string name="rr_key">呼吸数: </string>
     <string name="estimated_value">推定値</string>
     <string name="estimated_peep_key">PEEP: </string>
     <string name="estimated_mv_key">MV: </string>
-    <string name="estimated_vt_key">Vt: </string>
-    <string name="condition_check">状態チェック</string>
-    <string name="valid_rr">呼吸数が正常である</string>
-    <string name="valid_spo2">SpO2が92％以上である</string>
-    <string name="sound_measurement">音声測定</string>
+    <string name="estimated_vt_key">VTi: </string>
+    <string name="condition_check">患者状態の確認</string>
+    <string name="valid_rr">呼吸回数が臨床的に妥当である</string>
+    <string name="valid_spo2">SpO₂が臨床的に妥当である。（健康成人96%以上。一般的な肺炎の治療での初期値をとりあえず92％以上とする）</string>
+    <string name="sound_measurement">動作音の収集と分析</string>
     <string name="manual_measurement">手動測定</string>
 
     <!-- manual_measurement -->
-    <string name="exhalation_first">呼気1回目（%1$s）</string>
-    <string name="inhalation_first">吸気1回目（%1$s）</string>
-    <string name="exhalation_second">呼気2回目（%1$s）</string>
-    <string name="inhalation_second">吸気2回目（%1$s）</string>
-    <string name="calculate_average">平均吸気呼気時間計算</string>
-    <string name="average_exhalation_time">平均呼気時間: </string>
-    <string name="average_inhalation_time">平均吸気時間: </string>
-    <string name="register_to_calculate">登録して計算する</string>
+    <string name="exhalation_first">呼気時間 1回目（%1$s）</string>
+    <string name="inhalation_first">吸気時間 1回目（%1$s）</string>
+    <string name="exhalation_second">呼気時間 2回目（%1$s）</string>
+    <string name="inhalation_second">吸気時間 2回目（%1$s）</string>
+    <string name="respirations_per_10sec_first">呼吸回数/10秒 1回目</string>
+    <string name="respirations_per_10sec_second">呼吸回数/10秒 2回目</string>
+    <string name="calculate_average">呼気/吸気時間計測</string>
+    <string name="average_exhalation_time">呼気時間: </string>
+    <string name="average_inhalation_time">吸気時間: </string>
+    <string name="register_to_calculate">1回換気量推定&amp;登録</string>
 
     <!-- sound_measurement -->
     <string name="waiting">待機中</string>
@@ -107,17 +110,20 @@
     <string name="change_to_manual_measurement">手動測定に切り替える</string>
 
     <!--ventilator_result -->
+    <string name="predicted_vt_healthy_adult">予測1回換気量 (%1$s) (健康成人)</string>
+    <string name="predicted_vt_notation">入力された身長:%1$s cm、性別:%2$s から計算 = Ideal Body Weight kg x 6mL (Handbook of clinical drug data: Appleton &amp; Lange, 1999. p. 1014, New England Journal of Medicine 2000; 342(18): 1301-8.)</string>
     <string name="ventilator_result">登録内容</string>
-    <string name="back_to_ventilator_setting">機器の設定をやりなおす</string>
+    <string name="back_to_ventilator_setting">MicroVent<small><sup>®</sup></small>V3の再設定</string>
     <string name="ie_ratio_key">IE比: </string>
-
+    <string name="estimate_value">推測値</string>
+    <string name="estimate_value_notation">(動作音解析からTTL/PF-300データを参照し推測)</string>
 
     <!-- patient_info -->
-    <string name="patient_info">患者情報</string>
+    <string name="patient_info">患者 &amp; 機器の情報</string>
     <string name="patient_basic_info">患者基本情報</string>
-    <string name="patient_obs_data">患者観察研究データ</string>
-    <string name="measurement_data">患者測定データ</string>
-    <string name="ventilator_data">利用機器データ</string>
+    <string name="patient_obs_data">観察研究用患者データ</string>
+    <string name="measurement_data">機器設定・測定データ</string>
+    <string name="ventilator_data">使用機器情報</string>
 
     <!-- patient_basic_info-->
     <string name="height">身長</string>
@@ -189,19 +195,19 @@
     <string name="status_use_other">使用状況（その他の場合）</string>
     <string name="spo2">経皮酸素飽和度</string>
     <string name="etco2">呼気終末二酸化炭素分圧</string>
-    <string name="pao2">PaO2</string>
-    <string name="paco2">PaCO2</string>
+    <string name="pao2">PaO₂</string>
+    <string name="paco2">PaCO₂</string>
     <string name="measurement_date_key">測定日: </string>
     <string name="status_use_key">使用状況: </string>
     <string name="status_use_other_key">使用状況（その他の場合）: </string>
     <string name="spo2_key">経皮酸素飽和度: </string>
     <string name="etco2_key">呼気終末二酸化炭素分圧: </string>
-    <string name="pao2_key">PaO2: </string>
-    <string name="paco2_key">PaCO2: </string>
+    <string name="pao2_key">PaO₂: </string>
+    <string name="paco2_key">PaCO₂: </string>
     <string name="spo2_label">経皮酸素飽和度（%1$s）</string>
     <string name="etco2_label">呼気終末二酸化炭素分圧（%1$s）</string>
-    <string name="pao2_label">PaO2（%1$s）</string>
-    <string name="paco2_label">PaCO2（%1$s）</string>
+    <string name="pao2_label">PaO₂（%1$s）</string>
+    <string name="paco2_label">PaCO₂（%1$s）</string>
     <string name="respiratory_failure">呼吸不全</string>
     <string name="surgery">手術</string>
     <string name="inspection_procedure">検査処置</string>
@@ -222,7 +228,7 @@
 
     <!-- ventilator_deactivation -->
     <string name="deactivate">初期化する</string>
-    <string name="ventilator_deactivation_notation">※このmicorventに紐づくデータが全て初期化されます。</string>
+    <string name="ventilator_deactivation_notation">※このMicroVent<small><sup>®</sup></small>V3に紐づくデータが全て初期化されます。</string>
     <string name="ventilator_deactivation_confirmation">本当に初期化してもよろしいですか？</string>
     <string name="ventilator_deactivated">初期化されました。再度QRコードを読み取って下さい。</string>
 
@@ -231,7 +237,7 @@
 
     <!-- setting-->
     <string name="user_data">使用者データ</string>
-    <string name="ventilator_deactivation">Microvent®の初期化</string>
+    <string name="ventilator_deactivation">Microvent<small><sup>®</sup></small>V3の初期化</string>
     <string name="logout">ログアウト</string>
 
     <!-- operation_flow-->
@@ -248,7 +254,7 @@
     <string name="connection_error_message">ネットワーク接続状況を確認してください。</string>
     <string name="unexpected_error">予期せぬエラー</string>
     <string name="no_patient_linked">患者情報なし</string>
-    <string name="no_patient_linked_message">呼吸器が読み込まれていないか、患者が登録されていません。二次元コードを読み取り直してください。</string>
+    <string name="no_patient_linked_message">呼吸器が読み込まれていないか、患者が登録されていません。GS1コードを読み取り直してください。</string>
     <string name="not_recommended_use"></string>
     <string name="not_recommended_use_message">このデバイスは使用期間が2日間を超えています。</string>
 
@@ -295,7 +301,7 @@
     <string name="logout_success">ログアウトしました。</string>
     <string name="measurement_data_not_found">測定データが見つかりません。</string>
     <string name="bad_sound">計測に失敗しました。もう一度録音してください。</string>
-    <string name="invalid_appkey">アプリキーが期限切れです。MicroVent®アプリを再起動してください。</string>
+    <string name="invalid_appkey">アプリキーが期限切れです。MicroVent<small><sup>®</sup></small>アプリを再起動してください。</string>
     <string name="forbidden_toast">実行権限がありません。</string>
     <string name="network_error">通信エラー:電波状況を確認して再度お試しください。</string>
     <string name="connection_error_toast">通信エラー:電波状況を確認して再度お試しください。</string>
@@ -313,7 +319,7 @@
 
     <!-- operation_flow -->
     <string name="operation_flow">利用フロー</string>
-    <string name="flow_qr_reading">二次元コード読み取り</string>
+    <string name="flow_qr_reading">GS1コード読み取り</string>
     <string name="flow_patient_setting">患者情報入力</string>
     <string name="flow_ventilator_setting">データ入力</string>
     <string name="flow_ie_measurement">呼吸時間測定</string>
@@ -323,11 +329,11 @@
     <string name="text_manual">テキストマニュアル</string>
     <string name="video_manual">動画マニュアル</string>
     <string name="chat_support">チャットサポート</string>
-    <string name="bug_report">MicroVent®の不具合、改善要望</string>
+    <string name="bug_report">MicroVent<small><sup>®</sup></small>V3の不具合、改善要望</string>
 
     <!-- bug_report -->
-    <string name="bug_name">MicroVent®の不具合名</string>
-    <string name="request_improvement">MicroVent®の改善要望</string>
+    <string name="bug_name">MicroVent<small><sup>®</sup></small>V3の不具合名</string>
+    <string name="request_improvement">MicroVent<small><sup>®</sup></small>V3の改善要望</string>
 
     <!--chat-->
     <string name="chat">チャット</string>

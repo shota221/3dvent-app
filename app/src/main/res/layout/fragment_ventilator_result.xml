@@ -159,7 +159,7 @@
             android:text="@string/fio2_key"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_predicted_value" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_air_flow2" />
 
         <TextView
             android:id="@+id/tv_rr"
@@ -199,7 +199,7 @@
             android:text="@string/average_inhalation_time"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_calculated_value" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_estimate_value" />
 
         <TextView
             android:id="@+id/tv_predicted_vt"
@@ -209,7 +209,7 @@
             android:text="@string/predicted_vt_key"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_fio2" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_predicted_vt_notation" />
 
         <TextView
             android:id="@+id/tv_estimated_vt"
@@ -219,7 +219,7 @@
             android:text="@string/estimated_vt_key"
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_estimated_value" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_estimate_value_notation" />
 
         <TextView
             android:id="@+id/tv_estimated_mv"
@@ -255,41 +255,40 @@
             android:id="@+id/tv_ventilator_setting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/fragment_vertical_margin_top"
+            android:layout_marginTop="16dp"
             android:text="@string/ventilator_setting"
             android:textSize="@dimen/tv_text_size_large"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_predicted_vt" />
 
         <TextView
-            android:id="@+id/tv_calculated_value"
+            android:id="@+id/tv_estimate_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/calculated_value"
+            android:text="@string/estimate_value"
             android:textSize="@dimen/tv_text_size_large"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_air_flow2" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_fio2" />
 
         <TextView
             android:id="@+id/tv_estimated_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/estimated_value"
+            android:text="@string/estimate_value"
             android:textSize="@dimen/tv_text_size_large"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_predicted_vt" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_rr" />
 
         <TextView
             android:id="@+id/tv_predicted_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/predicted_value"
+            android:layout_marginTop="@dimen/fragment_vertical_margin_top"
             android:textSize="@dimen/tv_text_size_large"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_rr" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_air_flow"
@@ -330,6 +329,22 @@
             android:textSize="@dimen/tv_text_size"
             app:layout_constraintStart_toEndOf="@+id/tv_air_flow"
             app:layout_constraintTop_toTopOf="@+id/tv_air_flow" />
+
+        <TextView
+            android:id="@+id/tv_predicted_vt_notation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{ventilatorResultViewModel.predictedVtNotation}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_predicted_value" />
+
+        <TextView
+            android:id="@+id/tv_estimate_value_notation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/estimate_value_notation"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_estimated_value" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

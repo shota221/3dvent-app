@@ -23,11 +23,11 @@ class ManualMeasurementViewModel(
         }
     }
 
-    val inhalationFirst: MutableLiveData<String> by lazy {
+    val respirationsPer10secFirst: MutableLiveData<String> by lazy {
         MutableLiveData()
     }
 
-    val inhalationSecond: MutableLiveData<String> by lazy {
+    val respirationsPer10secSecond: MutableLiveData<String> by lazy {
         MutableLiveData()
     }
 
@@ -39,12 +39,6 @@ class ManualMeasurementViewModel(
         MutableLiveData()
     }
 
-    val inhalationFirstLabel: MutableLiveData<String> by lazy {
-        MutableLiveData()
-    }
-    val inhalationSecondLabel: MutableLiveData<String> by lazy {
-        MutableLiveData()
-    }
     val exhalationFirstLabel: MutableLiveData<String> by lazy {
         MutableLiveData()
     }
@@ -53,9 +47,7 @@ class ManualMeasurementViewModel(
     }
 
     init {
-        sharedUnits.setUnit(inhalationFirstLabel,context.getString(R.string.inhalation_first),context.getString(R.string.i_pref_key))
         sharedUnits.setUnit(exhalationFirstLabel,context.getString(R.string.exhalation_first),context.getString(R.string.e_pref_key))
-        sharedUnits.setUnit(inhalationSecondLabel,context.getString(R.string.inhalation_second),context.getString(R.string.i_pref_key))
         sharedUnits.setUnit(exhalationSecondLabel,context.getString(R.string.exhalation_second),context.getString(R.string.e_pref_key))
     }
 
@@ -65,9 +57,9 @@ class ManualMeasurementViewModel(
             setProgressBar.value = Event(true)
             try {
                 val ieFirst =
-                    IeManualFetchFormDataListElm(inhalationFirst.value, exhalationFirst.value)
+                    IeManualFetchFormDataListElm(exhalationFirst.value, respirationsPer10secFirst.value)
                 val ieSecond =
-                    IeManualFetchFormDataListElm(inhalationSecond.value, exhalationSecond.value)
+                    IeManualFetchFormDataListElm(exhalationSecond.value, respirationsPer10secSecond.value)
                 val ieManualFetchFormDataList: MutableList<IeManualFetchFormDataListElm> =
                     mutableListOf(ieFirst, ieSecond)
                 val ieManualFetchFrom = IeManualFetchForm(ieManualFetchFormDataList)

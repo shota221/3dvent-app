@@ -96,6 +96,8 @@ class PatientSettingViewModel(
                             //postValueだと非同期となりセットされる前に画面遷移されるためここはsetValueを使う
                             predictedVt.value = it.predictedVt
                             sharedCurrentVentilator.patientId = it.patientId
+                            sharedCurrentVentilator.patientHeight = height
+                            sharedCurrentVentilator.patientGender = gender
                             transitionToVentilatorSetting.value = Event("transitionToVentilatorSetting")
                         }
 

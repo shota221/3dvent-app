@@ -78,6 +78,8 @@ class PatientBasicInfoUpdateViewModel(
                     repository.updatePatient(sharedCurrentVentilator.patientId, updatePatientForm, sharedAccessToken.appkey, sharedAccessToken.userToken)
                 }.let { res ->
                     if (res.isSuccessful) {
+                        sharedCurrentVentilator.patientHeight = height
+                        sharedCurrentVentilator.patientGender = gender
                         showToastUpdated()
                         transitionToPatientBasicInfoDetail.value =
                             Event("transitionToBasicInfoDetail")
