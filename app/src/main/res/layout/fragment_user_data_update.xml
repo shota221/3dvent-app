@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="userDataUpdateViewModel"
+            type="jp.microvent.microvent.viewModel.UserDataUpdateViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.ui.UserDataUpdateFragment">
+
+        <Button
+            android:id="@+id/bt_save_user_data"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:onClick="@{()->userDataUpdateViewModel.onClickSaveUserDataButton()}"
+            android:text="@string/save"
+            android:textSize="@dimen/bt_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_email" />
+
+        <EditText
+            android:id="@+id/et_user_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="datetime|text"
+            android:text="@={userDataUpdateViewModel.userName}"
+            android:textSize="@dimen/et_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_user_name" />
+
+        <EditText
+            android:id="@+id/et_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="datetime|text"
+            android:text="@={userDataUpdateViewModel.email}"
+            android:textSize="@dimen/et_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_email" />
+
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/user_name"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_organization_name_key" />
+
+        <TextView
+            android:id="@+id/tv_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/email"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_user_name" />
+
+        <TextView
+            android:id="@+id/tv_organization_name_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{userDataUpdateViewModel.organizationName}"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toEndOf="@+id/tv_organization_name_key"
+            app:layout_constraintTop_toTopOf="@+id/tv_organization_name_key" />
+
+        <TextView
+            android:id="@+id/tv_organization_name_key"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/fragment_vertical_margin_top"
+            android:text="@string/organization_name_key"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

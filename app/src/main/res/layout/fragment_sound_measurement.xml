@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="soundMeasurementViewModel"
+            type="jp.microvent.microvent.viewModel.SoundMeasurementViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.ui.SoundMeasurementFragment">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glFloatAreaVertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="60dp" />
+
+        <ImageButton
+            android:id="@+id/bt_flow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:background="#00FFFFFF"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:src="@drawable/ic_flow_button"
+            android:onClick="@{()->soundMeasurementViewModel.onClickFlowButton()}"
+            app:layout_constraintBottom_toTopOf="@+id/glFloatAreaVertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/bt_help"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:background="#00FFFFFF"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:src="@drawable/ic_baseline_help_outline_24_blue"
+            android:onClick="@{()->soundMeasurementViewModel.onClickHelpButton()}"
+            app:layout_constraintBottom_toTopOf="@+id/glFloatAreaVertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_waiting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="75dp"
+            android:text="@{soundMeasurementViewModel.recordStatusStr}"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/bt_rec"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@{soundMeasurementViewModel.recordButtonStr}"
+            android:onClick="@{()->soundMeasurementViewModel.onClickRecordButton()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_waiting" />
+
+        <Button
+            android:id="@+id/bt_calculate_average_sound"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/calculate_average"
+            android:onClick="@{()->soundMeasurementViewModel.onClickCalculateAverageButton()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bt_rec" />
+
+        <Button
+            android:id="@+id/bt_sound_measurement_to_ventilator_result"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/register_to_calculate"
+            android:onClick="@{()->soundMeasurementViewModel.onClickRegisterButton()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bt_sound_measurement_to_manual_measurement" />
+
+        <Button
+            android:id="@+id/bt_sound_measurement_to_manual_measurement"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/change_to_manual_measurement"
+            android:onClick="@{()->soundMeasurementViewModel.onClickManualMeasurementButton()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_average_exhalation_time" />
+
+        <TextView
+            android:id="@+id/tv_average_inhalation_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/average_inhalation_time"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bt_calculate_average_sound" />
+
+        <TextView
+            android:id="@+id/tv_average_inhalation_time_value_sound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{soundMeasurementViewModel.averageInhalationTimeWithUnit}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/tv_average_inhalation_time"
+            app:layout_constraintTop_toTopOf="@+id/tv_average_inhalation_time" />
+
+        <TextView
+            android:id="@+id/tv_average_exhalation_time_value_sound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{soundMeasurementViewModel.averageExhalationTimeWithUnit}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/tv_average_exhalation_time"
+            app:layout_constraintTop_toTopOf="@+id/tv_average_exhalation_time" />
+
+        <TextView
+            android:id="@+id/tv_average_exhalation_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/average_exhalation_time"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_average_inhalation_time" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

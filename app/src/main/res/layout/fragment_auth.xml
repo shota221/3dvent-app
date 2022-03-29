@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="authViewModel"
+            type="jp.microvent.microvent.viewModel.AuthViewModel" />
+<!--        <variable-->
+<!--            name="isChecked"-->
+<!--            type="Boolean" />-->
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.ui.AuthFragment">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glFloatAreaVertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="60dp" />
+
+        <ImageButton
+            android:id="@+id/bt_flow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:background="#00FFFFFF"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:src="@drawable/ic_flow_button"
+            app:layout_constraintBottom_toTopOf="@+id/glFloatAreaVertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/bt_help"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:background="#00FFFFFF"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:src="@drawable/ic_baseline_help_outline_24_blue"
+            android:onClick="@{()->authViewModel.onClickHelpButton()}"
+            app:layout_constraintBottom_toTopOf="@+id/glFloatAreaVertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/bt_login"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:enabled="@{authViewModel.isButtonEnabled}"
+            android:insetTop="6dp"
+            android:insetBottom="6dp"
+            android:onClick="@{()->authViewModel.onClickLoginButton()}"
+            android:text="@string/login"
+            android:textSize="@dimen/bt_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_password" />
+
+        <TextView
+            android:id="@+id/text_view3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/fragment_vertical_margin_top"
+            android:text="@string/registered_organization"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_organization_registered"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:textSize="@dimen/tv_text_size_large"
+            android:text="@{authViewModel.organizationName.isEmpty() ? @string/unregistered : authViewModel.organizationName ?? @string/unregistered}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view3" />
+
+        <TextView
+            android:id="@+id/text_view5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:singleLine="false"
+            android:text="@string/terms_of_use"
+            android:textSize="@dimen/tv_text_size_small"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_organization_registered" />
+
+        <CheckBox
+            android:id="@+id/cb_agree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/agree"
+            android:textSize="@dimen/cb_text_size"
+            android:checked="@={authViewModel.isCheckedTermsOfUse}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view5"
+            />
+
+        <Button
+            android:id="@+id/bt_not_login"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:enabled="@{authViewModel.isButtonEnabled}"
+            android:insetTop="6dp"
+            android:insetBottom="6dp"
+            android:text="@string/not_login"
+            android:textSize="@dimen/bt_text_size"
+            android:onClick="@{()->authViewModel.onClickNotLoginButton()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cb_agree" />
+
+        <TextView
+            android:id="@+id/text_view6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/login"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bt_not_login" />
+
+        <TextView
+            android:id="@+id/text_view7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/account_name"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view6" />
+
+        <EditText
+            android:id="@+id/et_account_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="text"
+            android:textSize="@dimen/et_text_size"
+            android:text="@={authViewModel.accountName}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view7" />
+
+        <TextView
+            android:id="@+id/text_view8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/password"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_account_name" />
+
+        <EditText
+            android:id="@+id/et_password"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:textSize="@dimen/et_text_size"
+            android:text="@={authViewModel.password}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view8" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

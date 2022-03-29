@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="ventilatorResultViewModel"
+            type="jp.microvent.microvent.viewModel.VentilatorResultViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.ui.VentilatorResultFragment">
+
+        <TextView
+            android:id="@+id/tv_ie_ratio_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{ventilatorResultViewModel.ventilatorValue.ieRatio}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/tv_ie_ratio"
+            app:layout_constraintTop_toTopOf="@+id/tv_ie_ratio" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glFloatAreaVertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="60dp" />
+
+        <ImageButton
+            android:id="@+id/bt_flow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:background="#00FFFFFF"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:src="@drawable/ic_flow_button"
+            android:onClick="@{()->ventilatorResultViewModel.onClickFlowButton()}"
+            app:layout_constraintBottom_toTopOf="@+id/glFloatAreaVertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/bt_help"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:background="#00FFFFFF"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:src="@drawable/ic_baseline_help_outline_24_blue"
+            android:onClick="@{()->ventilatorResultViewModel.onClickHelpButton()}"
+            app:layout_constraintBottom_toTopOf="@+id/glFloatAreaVertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_o2_flow_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{ventilatorResultViewModel.o2Flow}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/tv_air_flow2"
+            app:layout_constraintTop_toTopOf="@+id/tv_air_flow2" />
+
+        <TextView
+            android:id="@+id/tv_fio2_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{ventilatorResultViewModel.fio2}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/tv_fio2"
+            app:layout_constraintTop_toTopOf="@+id/tv_fio2" />
+
+        <TextView
+            android:id="@+id/tv_rr_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{ventilatorResultViewModel.rr}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/tv_rr"
+            app:layout_constraintTop_toTopOf="@+id/tv_rr" />
+
+        <TextView
+            android:id="@+id/tv_i_avg_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{ventilatorResultViewModel.iAvg}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/tv_i_avg"
+            app:layout_constraintTop_toTopOf="@+id/tv_i_avg" />
+
+        <TextView
+            android:id="@+id/tv_e_avg_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{ventilatorResultViewModel.eAvg}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/tv_e_avg"
+            app:layout_constraintTop_toTopOf="@+id/tv_e_avg" />
+
+        <TextView
+            android:id="@+id/tv_predicted_vt_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{ventilatorResultViewModel.predictedVt}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/tv_predicted_vt"
+            app:layout_constraintTop_toTopOf="@+id/tv_predicted_vt" />
+
+        <TextView
+            android:id="@+id/tv_estimated_vt_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{ventilatorResultViewModel.estimatedVt}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/tv_estimated_vt"
+            app:layout_constraintTop_toTopOf="@+id/tv_estimated_vt" />
+
+        <TextView
+            android:id="@+id/tv_estimated_mv_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{ventilatorResultViewModel.estimatedMv}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/tv_estimated_mv"
+            app:layout_constraintTop_toTopOf="@+id/tv_estimated_mv" />
+
+        <TextView
+            android:id="@+id/tv_estimated_peep_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{ventilatorResultViewModel.estimatedPeep}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/tv_estimated_peep"
+            app:layout_constraintTop_toTopOf="@+id/tv_estimated_peep" />
+
+        <TextView
+            android:id="@+id/tv_airway_pressure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/airway_pressure_key"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_ventilator_setting" />
+
+        <TextView
+            android:id="@+id/tv_fio2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/fio2_key"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_air_flow2" />
+
+        <TextView
+            android:id="@+id/tv_rr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/rr_key"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_ie_ratio" />
+
+        <TextView
+            android:id="@+id/tv_e_avg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/average_exhalation_time"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_i_avg" />
+
+        <TextView
+            android:id="@+id/tv_ie_ratio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/ie_ratio_key"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_e_avg" />
+
+        <TextView
+            android:id="@+id/tv_i_avg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/average_inhalation_time"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_estimate_value" />
+
+        <TextView
+            android:id="@+id/tv_predicted_vt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/predicted_vt_key"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_predicted_vt_notation" />
+
+        <TextView
+            android:id="@+id/tv_estimated_vt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/estimated_vt_key"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_estimate_value_notation" />
+
+        <TextView
+            android:id="@+id/tv_estimated_mv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/estimated_mv_key"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_estimated_vt" />
+
+        <TextView
+            android:id="@+id/tv_estimated_peep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/estimated_peep_key"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_estimated_mv" />
+
+        <TextView
+            android:id="@+id/tv_air_flow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/o2_flow_key"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_air_flow" />
+
+        <TextView
+            android:id="@+id/tv_ventilator_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/ventilator_setting"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_predicted_vt" />
+
+        <TextView
+            android:id="@+id/tv_estimate_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/estimate_value"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_fio2" />
+
+        <TextView
+            android:id="@+id/tv_estimated_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/estimate_value"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_rr" />
+
+        <TextView
+            android:id="@+id/tv_predicted_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/fragment_vertical_margin_top"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_air_flow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/air_flow_key"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_airway_pressure" />
+
+        <Button
+            android:id="@+id/bt_ventiltor_result_to_ventilator_setting"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:onClick="@{()->ventilatorResultViewModel.onClickButton()}"
+            android:text="@string/back_to_ventilator_setting"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_estimated_peep" />
+
+        <TextView
+            android:id="@+id/tv_airway_pressure_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{ventilatorResultViewModel.airwayPressure}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/tv_airway_pressure"
+            app:layout_constraintTop_toTopOf="@+id/tv_airway_pressure" />
+
+        <TextView
+            android:id="@+id/tv_air_flow_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{ventilatorResultViewModel.airFlow}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/tv_air_flow"
+            app:layout_constraintTop_toTopOf="@+id/tv_air_flow" />
+
+        <TextView
+            android:id="@+id/tv_predicted_vt_notation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{ventilatorResultViewModel.predictedVtNotation}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_predicted_value" />
+
+        <TextView
+            android:id="@+id/tv_estimate_value_notation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/estimate_value_notation"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_estimated_value" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

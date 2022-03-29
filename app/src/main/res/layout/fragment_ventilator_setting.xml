@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="ventilatorSettingViewModel"
+            type="jp.microvent.microvent.viewModel.VentilatorSettingViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.ui.VentilatorSettingFragment">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glFloatAreaVertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="60dp" />
+
+        <ImageButton
+            android:id="@+id/bt_flow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:background="#00FFFFFF"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:src="@drawable/ic_flow_button"
+            android:onClick="@{()->ventilatorSettingViewModel.onClickFlowButton()}"
+            app:layout_constraintBottom_toTopOf="@+id/glFloatAreaVertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/bt_help"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:background="#00FFFFFF"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:src="@drawable/ic_baseline_help_outline_24_blue"
+            android:onClick="@{()->ventilatorSettingViewModel.onClickHelpButton()}"
+            app:layout_constraintBottom_toTopOf="@+id/glFloatAreaVertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/et_o2_flow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="numberSigned|text"
+            android:text="@={ventilatorSettingViewModel.o2Flow}"
+            android:textSize="@dimen/et_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_o2_flow" />
+
+        <TextView
+            android:id="@+id/tv_required3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/required"
+            android:textColor="@color/required"
+            android:textSize="@dimen/tv_text_size_small"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_o2_flow"
+            app:layout_constraintStart_toEndOf="@+id/tv_o2_flow" />
+
+        <TextView
+            android:id="@+id/tv_required4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/required"
+            android:textColor="@color/required"
+            android:textSize="@dimen/tv_text_size_small"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_condition_check"
+            app:layout_constraintStart_toEndOf="@+id/tv_condition_check" />
+
+        <TextView
+            android:id="@+id/tv_o2_flow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{ventilatorSettingViewModel.o2FlowLabel}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_air_flow" />
+
+        <TextView
+            android:id="@+id/tv_patient_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/fragment_vertical_margin_top"
+            android:text="@string/patient_data"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_ventilator_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/ventilator_setting"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_predicted_vt" />
+
+        <TextView
+            android:id="@+id/tv_calculated_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/calculated_value"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_o2_flow" />
+
+        <TextView
+            android:id="@+id/tv_condition_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/condition_check"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_estimated_peep" />
+
+        <TextView
+            android:id="@+id/tv_height"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/height_key"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_patient_data" />
+
+        <TextView
+            android:id="@+id/tv_weight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/weight_key"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_height" />
+
+        <TextView
+            android:id="@+id/tv_airway_pressure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@{ventilatorSettingViewModel.airwayPressureLabel}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_ventilator_setting" />
+
+        <TextView
+            android:id="@+id/tv_fio2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/fio2_key"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_calculated_value" />
+
+        <TextView
+            android:id="@+id/tv_fio2_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{ventilatorSettingViewModel.fio2WithUnit}"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toEndOf="@+id/tv_fio2"
+            app:layout_constraintTop_toTopOf="@+id/tv_fio2" />
+
+        <TextView
+            android:id="@+id/tv_estimated_peep_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{ventilatorSettingViewModel.estimatedPeepWithUnit}"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toEndOf="@+id/tv_estimated_peep"
+            app:layout_constraintTop_toTopOf="@+id/tv_estimated_peep" />
+
+        <TextView
+            android:id="@+id/tv_estimated_peep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/estimated_peep_key"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_fio2" />
+
+        <TextView
+            android:id="@+id/tv_air_flow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{ventilatorSettingViewModel.airFlowLabel}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_airway_pressure" />
+
+        <TextView
+            android:id="@+id/tv_gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/gender_key"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_weight" />
+
+        <TextView
+            android:id="@+id/tv_predicted_vt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/predicted_vt_key"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_gender" />
+
+        <TextView
+            android:id="@+id/tv_height_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{ventilatorSettingViewModel.heightWithUnit}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/tv_height"
+            app:layout_constraintTop_toTopOf="@+id/tv_height" />
+
+        <TextView
+            android:id="@+id/tv_weight_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{ventilatorSettingViewModel.weightWithUnit.isEmpty() ? @string/unregistered : ventilatorSettingViewModel.weightWithUnit ?? @string/unregistered}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/tv_weight"
+            app:layout_constraintTop_toTopOf="@+id/tv_weight" />
+
+        <TextView
+            android:id="@+id/tv_gender_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{ventilatorSettingViewModel.genderStr}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/tv_gender"
+            app:layout_constraintTop_toTopOf="@+id/tv_gender" />
+
+        <TextView
+            android:id="@+id/tv_predicted_vt_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{ventilatorSettingViewModel.predictedVtWithUnit}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/tv_predicted_vt"
+            app:layout_constraintTop_toTopOf="@+id/tv_predicted_vt" />
+
+        <EditText
+            android:id="@+id/et_airway_pressure"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="numberSigned|text"
+            android:text="@={ventilatorSettingViewModel.airwayPressure}"
+            android:textSize="@dimen/et_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_airway_pressure" />
+
+        <EditText
+            android:id="@+id/et_air_flow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="numberSigned|text"
+            android:text="@={ventilatorSettingViewModel.airFlow}"
+            android:textSize="@dimen/et_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_air_flow" />
+
+        <TextView
+            android:id="@+id/tv_required"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/required"
+            android:textColor="@color/required"
+            android:textSize="@dimen/tv_text_size_small"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_airway_pressure"
+            app:layout_constraintStart_toEndOf="@+id/tv_airway_pressure" />
+
+        <TextView
+            android:id="@+id/tv_required2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/required"
+            android:textColor="@color/required"
+            android:textSize="@dimen/tv_text_size_small"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_air_flow"
+            app:layout_constraintStart_toEndOf="@+id/tv_air_flow" />
+
+        <CheckBox
+            android:id="@+id/cb_valid_spo2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="@={ventilatorSettingViewModel.isValidSpo2}"
+            android:text="@string/valid_spo2"
+            android:textSize="@dimen/cb_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cb_valid_rr" />
+
+        <CheckBox
+            android:id="@+id/cb_valid_rr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="@={ventilatorSettingViewModel.isValidRr}"
+            android:text="@string/valid_rr"
+            android:textSize="@dimen/cb_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_condition_check" />
+
+        <Button
+            android:id="@+id/bt_ventilator_setting_to_sound_measurement"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:enabled="@{ventilatorSettingViewModel.isButtonEnabled}"
+            android:onClick="@{()->ventilatorSettingViewModel.onClickSoundMeasurementButton()}"
+            android:text="@string/sound_measurement"
+            android:textSize="@dimen/bt_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cb_valid_spo2" />
+
+        <Button
+            android:id="@+id/bt_save_measuremnt_data"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:enabled="@{ventilatorSettingViewModel.isButtonEnabled}"
+            android:onClick="@{()->ventilatorSettingViewModel.onClickManualMeasurementButton()}"
+            android:text="@string/manual_measurement"
+            android:textSize="@dimen/bt_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bt_ventilator_setting_to_sound_measurement" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

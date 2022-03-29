@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="measurementDataDetailViewModel"
+            type="jp.microvent.microvent.viewModel.MeasurementDataDetailViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.ui.VentilatorResultFragment">
+
+        <TextView
+            android:id="@+id/tv_pao2_key"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/pao2_key"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_etco2_key" />
+
+        <TextView
+            android:id="@+id/tv_paco2_key"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/paco2_key"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_pao2_key" />
+
+        <TextView
+            android:id="@+id/tv_spo2_key"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/spo2_key"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_status_use_other_key" />
+
+        <TextView
+            android:id="@+id/tv_etco2_key"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/etco2_key"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_spo2_key" />
+
+        <TextView
+            android:id="@+id/tv_o2_flow_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{measurementDataDetailViewModel.o2FlowWithUnit.isEmpty() ? @string/unregistered : measurementDataDetailViewModel.o2FlowWithUnit ?? @string/unregistered}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/tv_air_flow2"
+            app:layout_constraintTop_toTopOf="@+id/tv_air_flow2" />
+
+        <TextView
+            android:id="@+id/tv_fio2_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{measurementDataDetailViewModel.fio2WithUnit.isEmpty() ? @string/unregistered : measurementDataDetailViewModel.fio2WithUnit ?? @string/unregistered}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/tv_fio2"
+            app:layout_constraintTop_toTopOf="@+id/tv_fio2" />
+
+        <TextView
+            android:id="@+id/tv_rr_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{measurementDataDetailViewModel.rrWithUnit.isEmpty() ? @string/unregistered : measurementDataDetailViewModel.rrWithUnit ?? @string/unregistered}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/tv_rr"
+            app:layout_constraintTop_toTopOf="@+id/tv_rr" />
+
+        <TextView
+            android:id="@+id/tv_estimated_vt_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{measurementDataDetailViewModel.estimatedVtWithUnit.isEmpty() ? @string/unregistered : measurementDataDetailViewModel.estimatedVtWithUnit ?? @string/unregistered}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/tv_estimated_vt"
+            app:layout_constraintTop_toTopOf="@+id/tv_estimated_vt" />
+
+        <TextView
+            android:id="@+id/tv_estimated_mv_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{measurementDataDetailViewModel.estimatedMvWithUnit.isEmpty() ? @string/unregistered : measurementDataDetailViewModel.estimatedMvWithUnit ?? @string/unregistered}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/tv_estimated_mv"
+            app:layout_constraintTop_toTopOf="@+id/tv_estimated_mv" />
+
+        <TextView
+            android:id="@+id/tv_estimated_peep_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{measurementDataDetailViewModel.estimatedPeepWithUnit.isEmpty() ? @string/unregistered : measurementDataDetailViewModel.estimatedPeepWithUnit ?? @string/unregistered}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/tv_estimated_peep"
+            app:layout_constraintTop_toTopOf="@+id/tv_estimated_peep" />
+
+        <TextView
+            android:id="@+id/tv_airway_pressure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/airway_pressure_key"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_ventilator_setting" />
+
+        <TextView
+            android:id="@+id/tv_height_key"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/height_key"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_patient_data_at_that_time" />
+
+        <TextView
+            android:id="@+id/tv_measurement_date_key"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/fragment_vertical_margin_top"
+            android:text="@string/measurement_date_key"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_measurement_date_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{measurementDataDetailViewModel.ventilatorValue.registeredAt.isEmpty() ? @string/unregistered : measurementDataDetailViewModel.ventilatorValue.registeredAt ?? @string/unregistered}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/tv_measurement_date_key"
+            app:layout_constraintTop_toTopOf="@+id/tv_measurement_date_key" />
+
+        <TextView
+            android:id="@+id/tv_height_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{measurementDataDetailViewModel.heightWithUnit.isEmpty() ? @string/unregistered : measurementDataDetailViewModel.heightWithUnit ?? @string/unregistered}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/tv_height_key"
+            app:layout_constraintTop_toTopOf="@+id/tv_height_key" />
+
+        <TextView
+            android:id="@+id/tv_gender_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{measurementDataDetailViewModel.genderStr.isEmpty() ? @string/unregistered : measurementDataDetailViewModel.genderStr ?? @string/unregistered}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/tv_gender_key"
+            app:layout_constraintTop_toTopOf="@+id/tv_gender_key" />
+
+        <TextView
+            android:id="@+id/tv_paco2_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{measurementDataDetailViewModel.paco2WithUnit.isEmpty() ? @string/unregistered : measurementDataDetailViewModel.paco2WithUnit ?? @string/unregistered}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/tv_paco2_key"
+            app:layout_constraintTop_toTopOf="@+id/tv_paco2_key" />
+
+        <TextView
+            android:id="@+id/tv_status_use_other_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{measurementDataDetailViewModel.ventilatorValue.statusUseOther.isEmpty() ? @string/unregistered : measurementDataDetailViewModel.ventilatorValue.statusUseOther ?? @string/unregistered}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/tv_status_use_other_key"
+            app:layout_constraintTop_toTopOf="@+id/tv_status_use_other_key" />
+
+        <TextView
+            android:id="@+id/tv_spo2_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{measurementDataDetailViewModel.spo2WithUnit.isEmpty() ? @string/unregistered : measurementDataDetailViewModel.spo2WithUnit ?? @string/unregistered}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/tv_spo2_key"
+            app:layout_constraintTop_toTopOf="@+id/tv_spo2_key" />
+
+        <TextView
+            android:id="@+id/tv_etco2_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{measurementDataDetailViewModel.etco2WithUnit.isEmpty() ? @string/unregistered : measurementDataDetailViewModel.etco2WithUnit ?? @string/unregistered}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/tv_etco2_key"
+            app:layout_constraintTop_toTopOf="@+id/tv_etco2_key" />
+
+        <TextView
+            android:id="@+id/tv_pao2_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{measurementDataDetailViewModel.pao2WithUnit.isEmpty() ? @string/unregistered : measurementDataDetailViewModel.pao2WithUnit ?? @string/unregistered}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/tv_pao2_key"
+            app:layout_constraintTop_toTopOf="@+id/tv_pao2_key" />
+
+        <TextView
+            android:id="@+id/tv_status_use_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{measurementDataDetailViewModel.statusUseStr ?? @string/unregistered}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/tv_status_use_key"
+            app:layout_constraintTop_toTopOf="@+id/tv_status_use_key" />
+
+        <TextView
+            android:id="@+id/tv_weight_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{measurementDataDetailViewModel.weightWithUnit.isEmpty() ? @string/unregistered : measurementDataDetailViewModel.weightWithUnit ?? @string/unregistered}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/tv_weight_key"
+            app:layout_constraintTop_toTopOf="@+id/tv_weight_key" />
+
+        <TextView
+            android:id="@+id/tv_gender_key"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/gender_key"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_weight_key" />
+
+        <TextView
+            android:id="@+id/tv_weight_key"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/weight_key"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_height_key" />
+
+        <TextView
+            android:id="@+id/tv_fio2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/fio2_key"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_calculated_value" />
+
+        <TextView
+            android:id="@+id/tv_status_use_key"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/status_use_key"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_other" />
+
+        <TextView
+            android:id="@+id/tv_status_use_other_key"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/status_use_other_key"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_status_use_key" />
+
+        <TextView
+            android:id="@+id/tv_rr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/rr_key"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_fio2" />
+
+        <TextView
+            android:id="@+id/tv_estimated_vt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/estimated_vt_key"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_rr" />
+
+        <TextView
+            android:id="@+id/tv_estimated_mv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/estimated_mv_key"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_estimated_vt" />
+
+        <TextView
+            android:id="@+id/tv_estimated_peep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/estimated_peep_key"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_estimated_mv" />
+
+        <TextView
+            android:id="@+id/tv_air_flow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/o2_flow_key"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_air_flow" />
+
+        <TextView
+            android:id="@+id/tv_ventilator_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/ventilator_setting"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_gender_key" />
+
+        <TextView
+            android:id="@+id/tv_patient_data_at_that_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/patient_data_at_that_time"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_measurement_date_key" />
+
+        <TextView
+            android:id="@+id/tv_calculated_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/calculated_value"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_air_flow2" />
+
+        <TextView
+            android:id="@+id/tv_other"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/other"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_estimated_peep" />
+
+        <TextView
+            android:id="@+id/tv_air_flow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/air_flow_key"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_airway_pressure" />
+
+        <Button
+            android:id="@+id/bt_edit_measurement_data"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:onClick="@{()->measurementDataDetailViewModel.onClickEditMeasurementDataButton()}"
+            android:text="@string/edit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_paco2_key" />
+
+        <TextView
+            android:id="@+id/tv_airway_pressure_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{measurementDataDetailViewModel.airwayPressureWithUnit.isEmpty() ? @string/unregistered : measurementDataDetailViewModel.airwayPressureWithUnit ?? @string/unregistered}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/tv_airway_pressure"
+            app:layout_constraintTop_toTopOf="@+id/tv_airway_pressure" />
+
+        <TextView
+            android:id="@+id/tv_air_flow_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{measurementDataDetailViewModel.airFlowWithUnit.isEmpty() ? @string/unregistered : measurementDataDetailViewModel.airFlowWithUnit ?? @string/unregistered}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/tv_air_flow"
+            app:layout_constraintTop_toTopOf="@+id/tv_air_flow" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="patientSettingViewModel"
+            type="jp.microvent.microvent.viewModel.PatientSettingViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.ui.PatientRegistrationFragment">
+
+        <TextView
+            android:id="@+id/tv_required10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/required"
+            android:textColor="@color/required"
+            android:textSize="@dimen/tv_text_size_small"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_height_label"
+            app:layout_constraintStart_toEndOf="@+id/tv_height_label" />
+
+        <TextView
+            android:id="@+id/tv_required11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/required"
+            android:textColor="@color/required"
+            android:textSize="@dimen/tv_text_size_small"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_weight_label"
+            app:layout_constraintStart_toEndOf="@+id/tv_weight_label" />
+
+        <TextView
+            android:id="@+id/tv_required9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/required"
+            android:textColor="@color/required"
+            android:textSize="@dimen/tv_text_size_small"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_gender_label"
+            app:layout_constraintStart_toEndOf="@+id/tv_gender_label" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glFloatAreaVertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="60dp" />
+
+        <ImageButton
+            android:id="@+id/bt_flow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:background="#00FFFFFF"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:src="@drawable/ic_flow_button"
+            android:onClick="@{()->patientSettingViewModel.onClickFlowButton()}"
+            app:layout_constraintBottom_toTopOf="@+id/glFloatAreaVertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/bt_help"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:background="#00FFFFFF"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:src="@drawable/ic_baseline_help_outline_24_blue"
+            android:onClick="@{()->patientSettingViewModel.onClickHelpButton()}"
+            app:layout_constraintBottom_toTopOf="@+id/glFloatAreaVertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/bt_patient_setting_to_ventilator_setting"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:insetTop="6dp"
+            android:insetBottom="6dp"
+            android:text="@string/next"
+            android:textSize="@dimen/bt_text_size"
+            android:onClick="@{()->patientSettingViewModel.onClickButton()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_patient_code" />
+
+        <TextView
+            android:id="@+id/tv_height_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/fragment_vertical_margin_top"
+            android:text="@{patientSettingViewModel.heightLabel}"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_weight_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@{patientSettingViewModel.weightLabel}"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_height" />
+
+        <EditText
+            android:id="@+id/et_height"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="numberSigned|text"
+            android:text="@={patientSettingViewModel.height}"
+            android:textSize="@dimen/et_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_height_label" />
+
+        <EditText
+            android:id="@+id/et_weight"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="numberSigned|text"
+            android:text="@={patientSettingViewModel.weight}"
+            android:textSize="@dimen/et_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_weight_label" />
+
+        <TextView
+            android:id="@+id/tv_gender_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/gender"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_weight" />
+
+        <Spinner
+            android:id="@+id/sp_gender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:scrollbarSize="@dimen/scrollbar_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_gender_label" />
+
+        <TextView
+            android:id="@+id/tv_patient_code_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/patient_code"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sp_gender" />
+
+        <EditText
+            android:id="@+id/et_patient_code"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="text"
+            android:textSize="@dimen/et_text_size"
+            android:text="@={patientSettingViewModel.patientNumber}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_patient_code_label" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

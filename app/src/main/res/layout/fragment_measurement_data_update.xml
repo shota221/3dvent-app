@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="measurementDataUpdateViewModel"
+            type="jp.microvent.microvent.viewModel.MeasurementDataUpdateViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.ui.VentilatorSettingFragment">
+
+        <TextView
+            android:id="@+id/tv_other"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/other"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_estimated_peep" />
+
+        <TextView
+            android:id="@+id/tv_estimated_peep_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{measurementDataUpdateViewModel.estimatedPeepWithUnit}"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toEndOf="@+id/tv_estimated_peep"
+            app:layout_constraintTop_toTopOf="@+id/tv_estimated_peep" />
+
+        <TextView
+            android:id="@+id/tv_estimated_mv_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{measurementDataUpdateViewModel.estimatedMvWithUnit}"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toEndOf="@+id/tv_estimated_mv"
+            app:layout_constraintTop_toTopOf="@+id/tv_estimated_mv" />
+
+        <TextView
+            android:id="@+id/tv_estimated_vt_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{measurementDataUpdateViewModel.estimatedVtWithUnit}"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toEndOf="@+id/tv_estimated_vt"
+            app:layout_constraintTop_toTopOf="@+id/tv_estimated_vt" />
+
+        <TextView
+            android:id="@+id/tv_rr_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{measurementDataUpdateViewModel.rrWithUnit}"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toEndOf="@+id/tv_rr"
+            app:layout_constraintTop_toTopOf="@+id/tv_rr" />
+
+        <TextView
+            android:id="@+id/tv_fio2_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{measurementDataUpdateViewModel.fio2WithUnit}"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toEndOf="@+id/tv_fio2"
+            app:layout_constraintTop_toTopOf="@+id/tv_fio2" />
+
+        <TextView
+            android:id="@+id/tv_estimated_peep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/estimated_peep_key"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_estimated_mv" />
+
+        <TextView
+            android:id="@+id/tv_estimated_mv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/estimated_mv_key"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_estimated_vt" />
+
+        <TextView
+            android:id="@+id/tv_fio2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/fio2_key"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_calculated_value" />
+
+        <TextView
+            android:id="@+id/tv_estimated_vt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/estimated_vt_key"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_rr" />
+
+        <TextView
+            android:id="@+id/tv_rr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/rr_key"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_fio2" />
+
+        <TextView
+            android:id="@+id/tv_gender_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/gender"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_weight" />
+
+        <TextView
+            android:id="@+id/tv_status_use"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/status_use"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_other" />
+
+        <TextView
+            android:id="@+id/tv_weight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{measurementDataUpdateViewModel.weightLabel}"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_height" />
+
+        <TextView
+            android:id="@+id/tv_status_use_other"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/status_use_other"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sp_status_use" />
+
+        <TextView
+            android:id="@+id/tv_spo2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{measurementDataUpdateViewModel.spo2Label}"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_status_use_other" />
+
+        <TextView
+            android:id="@+id/tv_etco2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{measurementDataUpdateViewModel.etco2Label}"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_spo2" />
+
+        <TextView
+            android:id="@+id/tv_pao2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{measurementDataUpdateViewModel.pao2Label}"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_etco2" />
+
+        <TextView
+            android:id="@+id/tv_paco2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{measurementDataUpdateViewModel.paco2Label}"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_pao2" />
+
+        <Spinner
+            android:id="@+id/sp_gender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:scrollbarSize="@dimen/scrollbar_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_gender_label" />
+
+        <Spinner
+            android:id="@+id/sp_status_use"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:scrollbarSize="@dimen/scrollbar_size"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_status_use" />
+
+        <TextView
+            android:id="@+id/tv_height_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{measurementDataUpdateViewModel.heightLabel}"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_patient_data_at_that_time" />
+
+        <TextView
+            android:id="@+id/tv_measurement_date_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{measurementDataUpdateViewModel.ventilatorValue.registeredAt}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/tv_measurement_date_key"
+            app:layout_constraintTop_toTopOf="@+id/tv_measurement_date_key" />
+
+        <TextView
+            android:id="@+id/tv_measurement_date_key"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/fragment_vertical_margin_top"
+            android:text="@string/measurement_date_key"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/et_o2_flow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="numberSigned|text"
+            android:textSize="@dimen/et_text_size"
+            android:text="@={measurementDataUpdateViewModel.o2Flow}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_o2_flow" />
+
+        <TextView
+            android:id="@+id/tv_o2_flow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{measurementDataUpdateViewModel.o2FlowLabel}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_air_flow" />
+
+        <TextView
+            android:id="@+id/tv_patient_data_at_that_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/patient_data_at_that_time"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_measurement_date_key" />
+
+        <TextView
+            android:id="@+id/tv_ventilator_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/ventilator_setting"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sp_gender" />
+
+        <TextView
+            android:id="@+id/tv_calculated_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/calculated_value"
+            android:textSize="@dimen/tv_text_size_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_o2_flow" />
+
+        <TextView
+            android:id="@+id/tv_airway_pressure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@{measurementDataUpdateViewModel.airwayPressureLabel}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_ventilator_setting" />
+
+        <TextView
+            android:id="@+id/tv_air_flow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{measurementDataUpdateViewModel.airFlowLabel}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_airway_pressure" />
+
+        <EditText
+            android:id="@+id/et_airway_pressure"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="numberSigned|text"
+            android:text="@={measurementDataUpdateViewModel.airwayPressure}"
+            android:textSize="@dimen/et_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_airway_pressure" />
+
+        <EditText
+            android:id="@+id/et_height"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="numberSigned|text"
+            android:text="@={measurementDataUpdateViewModel.height}"
+            android:textSize="@dimen/et_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_height_label" />
+
+        <EditText
+            android:id="@+id/et_weight"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="numberSigned|text"
+            android:text="@={measurementDataUpdateViewModel.weight}"
+            android:textSize="@dimen/et_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_weight" />
+
+        <EditText
+            android:id="@+id/et_spo2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="numberSigned|text"
+            android:text="@={measurementDataUpdateViewModel.spo2}"
+            android:textSize="@dimen/et_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_spo2" />
+
+        <EditText
+            android:id="@+id/et_etco2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="numberSigned|text"
+            android:text="@={measurementDataUpdateViewModel.etco2}"
+            android:textSize="@dimen/et_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_etco2" />
+
+        <EditText
+            android:id="@+id/et_pao2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="numberSigned|text"
+            android:text="@={measurementDataUpdateViewModel.pao2}"
+            android:textSize="@dimen/et_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_pao2" />
+
+        <EditText
+            android:id="@+id/et_status_use_other"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="numberSigned|text"
+            android:text="@={measurementDataUpdateViewModel.statusUseOther}"
+            android:textSize="@dimen/et_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_status_use_other" />
+
+        <EditText
+            android:id="@+id/et_air_flow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="numberSigned|text"
+            android:textSize="@dimen/et_text_size"
+            android:text="@={measurementDataUpdateViewModel.airFlow}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_air_flow" />
+
+        <Button
+            android:id="@+id/bt_save_measuremnt_data"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:onClick="@{()->measurementDataUpdateViewModel.onClickSaveMeasurementDataButton()}"
+            android:text="@string/save"
+            android:textSize="@dimen/bt_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_paco2" />
+
+        <EditText
+            android:id="@+id/et_paco2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="numberSigned|text"
+            android:text="@={measurementDataUpdateViewModel.paco2}"
+            android:textSize="@dimen/et_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_paco2" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

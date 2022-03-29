@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/patient_setting_fragment"
+        android:icon="@drawable/ic_baseline_home_24_black"
+        android:title="@string/home"/>
+    <item
+        android:id="@+id/patient_info_fragment"
+        android:icon="@drawable/ic_baseline_airline_seat_individual_suite_24_black"
+        android:title="@string/patient_data"/>
+    <item
+        android:id="@+id/qr_reading_fragment"
+        android:icon="@drawable/ic_baseline_qr_code_2_24_black"
+        android:title="@string/qr_reading"/>
+    <item
+        android:id="@+id/support_fragment"
+        android:icon="@drawable/ic_baseline_support_agent_24_black"
+        android:title="@string/support"/>
+    <item
+        android:id="@+id/setting_fragment"
+        android:icon="@drawable/ic_baseline_settings_24_black"
+        android:title="@string/setting"/>
+</menu>

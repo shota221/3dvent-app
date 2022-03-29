@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="manualMeasurementViewModel"
+            type="jp.microvent.microvent.viewModel.ManualMeasurementViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.ui.ManualMeasurementFragment">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glFloatAreaVertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="60dp" />
+
+        <ImageButton
+            android:id="@+id/bt_flow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:background="#00FFFFFF"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:src="@drawable/ic_flow_button"
+            android:onClick="@{()->manualMeasurementViewModel.onClickFlowButton()}"
+            app:layout_constraintBottom_toTopOf="@+id/glFloatAreaVertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/bt_help"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:background="#00FFFFFF"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
+            android:src="@drawable/ic_baseline_help_outline_24_blue"
+            android:onClick="@{()->manualMeasurementViewModel.onClickHelpButton()}"
+            app:layout_constraintBottom_toTopOf="@+id/glFloatAreaVertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_exhalation_first"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/fragment_vertical_margin_top"
+            android:text="@{manualMeasurementViewModel.exhalationFirstLabel}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_required5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/required"
+            android:textColor="@color/required"
+            android:textSize="@dimen/tv_text_size_small"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_exhalation_first"
+            app:layout_constraintStart_toEndOf="@+id/tv_exhalation_first" />
+
+        <TextView
+            android:id="@+id/tv_required6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/required"
+            android:textColor="@color/required"
+            android:textSize="@dimen/tv_text_size_small"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_respirations_per_10sec_first"
+            app:layout_constraintStart_toEndOf="@+id/tv_respirations_per_10sec_first" />
+
+        <TextView
+            android:id="@+id/tv_required7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/required"
+            android:textColor="@color/required"
+            android:textSize="@dimen/tv_text_size_small"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_exhalation_second"
+            app:layout_constraintStart_toEndOf="@+id/tv_exhalation_second" />
+
+        <TextView
+            android:id="@+id/tv_required8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/required"
+            android:textColor="@color/required"
+            android:textSize="@dimen/tv_text_size_small"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_respirations_per_10sec_second"
+            app:layout_constraintStart_toEndOf="@+id/tv_respirations_per_10sec_second" />
+
+        <TextView
+            android:id="@+id/tv_respirations_per_10sec_first"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/respirations_per_10sec_first"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_exhalation_first" />
+
+        <TextView
+            android:id="@+id/tv_exhalation_second"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@{manualMeasurementViewModel.exhalationSecondLabel}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_respirations_per_10sec_first" />
+
+        <TextView
+            android:id="@+id/tv_respirations_per_10sec_second"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/respirations_per_10sec_second"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_exhalation_second" />
+
+        <TextView
+            android:id="@+id/tv_average_inhalation_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/average_inhalation_time"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bt_calculate_average_manual" />
+
+        <TextView
+            android:id="@+id/tv_average_inhalation_time_value_manual"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{manualMeasurementViewModel.averageInhalationTimeWithUnit}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/tv_average_inhalation_time"
+            app:layout_constraintTop_toTopOf="@+id/tv_average_inhalation_time" />
+
+        <TextView
+            android:id="@+id/tv_average_exhalation_time_value_manual"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{manualMeasurementViewModel.averageExhalationTimeWithUnit}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/tv_average_exhalation_time"
+            app:layout_constraintTop_toTopOf="@+id/tv_average_exhalation_time" />
+
+        <TextView
+            android:id="@+id/tv_average_exhalation_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/average_exhalation_time"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_average_inhalation_time" />
+
+        <EditText
+            android:id="@+id/et_exhalation_first"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="numberSigned|text"
+            android:textSize="@dimen/et_text_size"
+            android:text="@={manualMeasurementViewModel.exhalationFirst}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_exhalation_first" />
+
+        <EditText
+            android:id="@+id/et_respirations_per_10sec_first"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="numberSigned|text"
+            android:textSize="@dimen/et_text_size"
+            android:text="@={manualMeasurementViewModel.respirationsPer10secFirst}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_respirations_per_10sec_first" />
+
+        <EditText
+            android:id="@+id/et_exhalation_second"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="numberSigned|text"
+            android:textSize="@dimen/et_text_size"
+            android:text="@={manualMeasurementViewModel.exhalationSecond}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_exhalation_second" />
+
+        <EditText
+            android:id="@+id/et_respirations_per_10sec_second"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="numberSigned|text"
+            android:textSize="@dimen/et_text_size"
+            android:text="@={manualMeasurementViewModel.respirationsPer10secSecond}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_respirations_per_10sec_second" />
+
+        <Button
+            android:id="@+id/bt_calculate_average_manual"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/calculate_average"
+            android:textSize="@dimen/bt_text_size"
+            android:onClick="@{()->manualMeasurementViewModel.onClickCalculateAverageButton()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_respirations_per_10sec_second" />
+
+        <Button
+            android:id="@+id/bt_manual_measurement_to_ventilator_result"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/register_to_calculate"
+            android:onClick="@{()->manualMeasurementViewModel.onClickRegisterButton()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_average_exhalation_time" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

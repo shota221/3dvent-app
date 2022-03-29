@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="ventilatorDataDetailViewModel"
+            type="jp.microvent.microvent.viewModel.VentilatorDataDetailViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textView38"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/fragment_vertical_margin_top"
+            android:text="@string/serial_number_key"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_serial_number_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{ventilatorDataDetailViewModel.ventilator.serialNumber}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/textView38"
+            app:layout_constraintTop_toTopOf="@+id/textView38" />
+
+        <TextView
+            android:id="@+id/textView39"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/start_using_at_key"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView38" />
+
+        <TextView
+            android:id="@+id/tv_start_using_at_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{ventilatorDataDetailViewModel.ventilator.startUsingAt}"
+            android:textSize="@dimen/tv_text_size"
+            app:layout_constraintStart_toEndOf="@+id/textView39"
+            app:layout_constraintTop_toTopOf="@+id/textView39" />
+
+        <Button
+            android:id="@+id/bt_edit_ventilator_data"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:onClick="@{()->ventilatorDataDetailViewModel.onClickEditVentilatorDataButton()}"
+            android:text="@string/edit"
+            android:textSize="@dimen/bt_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView39" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
