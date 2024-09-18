@@ -16,9 +16,6 @@ import java.util.*
 //forLocal
 const val MICROVENT_URL = "http://api.microvent.local/"
 const val API_TOKEN = "secret"
-//forDev
-//const val MICROVENT_URL = "https://api.microvent.r102.jp/"
-//const val API_TOKEN = "secret_for_dev"
 
 class MicroventRepository {
     companion object Factory {
